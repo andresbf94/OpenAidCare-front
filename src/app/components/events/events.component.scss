@@ -30,3 +30,20 @@
 td>img {
     margin-right: 5px;
 }
+
+
+.status-ON {
+    background-color: #acfdac;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    color: #008000;
+}
+
+.status-OFF {
+    background-color: #ffd0d0;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #d40000;
+}

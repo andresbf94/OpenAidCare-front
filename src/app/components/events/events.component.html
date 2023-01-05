@@ -10,8 +10,9 @@
             <td>HOUR-MINUTE</td>
             <td>TOOLS</td>
         </tr>
-        <tr>
-            <td>STATUS</td>
+        <tr *ngFor="let event of events">
+            <td *ngIf="event.isActive === true"><div class="status-ON">ON</div></td>
+            <td *ngIf="event.isActive === false"><div class="status-OFF">OFF</div></td>
             <td>SCOPE</td>
             <td>#</td>
             <td>NAME</td>

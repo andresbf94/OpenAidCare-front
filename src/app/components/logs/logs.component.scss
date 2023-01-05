@@ -1,10 +1,12 @@
 .card {
     width: 90%;
     height: 85%;
+    padding-top: 10px;
+    max-height: 75vh;
     border: 3px double rgb(161, 161, 161);
     background: rgba(221, 221, 221, 0.534);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     align-items: center;
     margin: 5%;
     z-index: 1;
@@ -12,13 +14,22 @@
 
 
 .card>table {
-    margin-top: 10px;
+    border-collapse: separate;
+    border-spacing: 0px;
     width: 90%;
 }
 
 .header {
     border-bottom: 1px solid black;
     font-weight: bold;
+}
+
+.header > td{
+    position: sticky;
+    top: 0;
+    background-color: #ededed;
+
+    border-bottom: 1px solid black;
 }
 
 .card>table>tr>td {
@@ -29,4 +40,20 @@
 
 td>img {
     margin-right: 5px;
+}
+
+.status-ON {
+    background-color: #acfdac;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    color: #008000;
+}
+
+.status-OFF {
+    background-color: #ffd0d0;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #d40000;
 }

@@ -15,6 +15,9 @@ export class DataObservables {
     private events = new BehaviorSubject('');
     sharedEvents = this.events.asObservable();
     
+    private logs = new BehaviorSubject('');
+    sharedLogs = this.logs.asObservable();
+
     //SETTERS
     setSensors(data : any){
         console.log(data)
@@ -24,6 +27,11 @@ export class DataObservables {
     setEvents(data : any){
         console.log(data)
         this.events.next(data);
+    }
+
+    setLogs(data : any){
+        console.log(data)
+        this.logs.next(data);
     }
 
 }

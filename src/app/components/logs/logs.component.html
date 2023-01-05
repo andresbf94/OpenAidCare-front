@@ -1,3 +1,7 @@
 <div class="card">
+    <div style="overflow: scroll;" id="divScrollLogs" #scrollMe [scrollTop]="scrollHeight">
+        <p *ngFor="let log of logs">{{log.createdAt}} || {{log.type}} || {{log.msg}}</p>
+    </div>
 </div>
-<img src="../../../assets/images/log-file-format.png" style="position: absolute; top: 40%; left: 50%; right: 50%; width: 15%;">
+<img src="../../../assets/images/log-file-format.png"
+    style="position: absolute; top: 40%; left: 50%; right: 50%; width: 15%;">

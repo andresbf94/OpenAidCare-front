@@ -71,6 +71,9 @@ export class AppComponent {
       case "events":
         this.getEvents();
         break;
+      case "logs":
+        this.getLogs();
+        break;
     }
   }
 
@@ -88,8 +91,25 @@ export class AppComponent {
 
   getEvents() {
     var actualCode = localStorage.getItem("oaidc-houseID")
-    this.httpClient.get(serverRoute + "api/events/" + actualCode).subscribe(res => {
-      console.log(res)
+    this.httpClient.get(serverRoute + "api/events/" + actualCode).subscribe({
+      next: res => {
+        this.dataObservables.setEvents(res);
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
+  }
+
+  getLogs() {
+    var actualCode = localStorage.getItem("oaidc-houseID")
+    this.httpClient.get(serverRoute + "api/logs/" + actualCode).subscribe({
+      next: res => {
+        this.dataObservables.setLogs(res);
+      },
+      error: error => {
+        console.error(error);
+      }
     })
   }
 

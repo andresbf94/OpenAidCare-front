@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DataObservables } from 'src/app/services/dataObservables.service';
 
 @Component({
   selector: 'app-logs',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogsComponent implements OnInit {
 
-  constructor() { }
+  logs = new Array();
+  scrollHeight = 0;
+
+  constructor(private dataObservables : DataObservables) {
+    dataObservables.sharedLogs.subscribe((logs:any) =>{
+      this.logs=logs;
+      this.logs = this.logs.reverse();
+      setTimeout(()=>{
+        this.scrollHeight = Number(document.getElementById("divScrollLogs")?.scrollHeight);
+      },50)
+    })
+  }
 
   ngOnInit(): void {
   }
-
 }

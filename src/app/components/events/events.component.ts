@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataObservables } from 'src/app/services/dataObservables.service';
 
 @Component({
   selector: 'app-events',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventsComponent implements OnInit {
 
-  public static events = new Array();
+  events = new Array();
 
-  constructor() { }
+  constructor(private dataObservables: DataObservables) {
+    dataObservables.sharedEvents.subscribe((events: any) => {
+      this.events = events
+    })
+  }
 
   ngOnInit(): void {
   }
