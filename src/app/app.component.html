@@ -1,4 +1,4 @@
-<body>
+<body style="overflow: hidden;">
   <div id="homeBar" class="homeBar">
     <h1 (mouseenter)="mouseEnterOpenAidLogo()" (mouseleave)="mouseLeaveOpeanAidLogo()">
       <svg width="15mm" height="15mm" viewBox="0 0 55.388374 58.92416" version="1.1" id="svg5" xml:space="preserve"
@@ -20,8 +20,41 @@
       <span class="textToBottom"><b>pen</b>AidCare</span>
     </h1>
   </div>
-  <div class="lateralHomeBar">
-    
-  </div>
+  <div style="display: flex; justify-content: start; width: 100%;">
+    <div class="lateralHomeBar">
+      <h1>Home</h1>
+      <div class="lateralHomeBarDiv">
+        <div class="lateralHomeBarDiv active" (click)="showHouses()">
+          <h2><img src="../assets/images/logo/a2.svg" style="width: 10%; margin-right: 10px;" />Casas</h2>
+        </div>
+        <div id="casasBts" class="noVisible transition">
+          <div class="lateralHomeBarSubDiv" id="bt-sensors" (click)="houseBTClicked('sensors')">
+            <h2><img src="../assets/images/setting.png" style="width: 10%; margin-right: 10px;" />Sensores</h2>
+          </div>
+          <div class="lateralHomeBarSubDiv" id="bt-events" (click)="houseBTClicked('events')">
+            <h2><img src="../assets/images/calendar.png" style="width: 10%; margin-right: 10px;" />Eventos</h2>
+          </div>
+          <div class="lateralHomeBarSubDiv" id="bt-tables" (click)="houseBTClicked('tables')">
+            <h2><img src="../assets/images/table.png" style="width: 10%; margin-right: 10px;" />Tablas</h2>
+          </div>
+          <div class="lateralHomeBarSubDiv" id="bt-graphs" (click)="houseBTClicked('graphs')">
+            <h2><img src="../assets/images/bar-chart.png" style="width: 10%; margin-right: 10px;" />Gráficas</h2>
+          </div>
+          <div class="lateralHomeBarSubDiv" id="bt-logs" (click)="houseBTClicked('logs')">
+            <h2><img src="../assets/images/log-file-format.png" style="width: 10%; margin-right: 10px;" />Logs</h2>
+          </div>
+        </div>
+      </div>
+      <div class="lateralHomeBarDiv">
+        <h2><img src="../assets/images/logo/avatar.svg" style="width: 10%; margin-right: 10px;" />Perfiles</h2>
+      </div>
+    </div>
+    <app-houses style="width: 80%;" id="housesComponent"></app-houses>
+    <app-sensors style="width: 80%;" id="sensors" class="noVisible"></app-sensors>
+    <app-events style="width: 80%;" id="events" class="noVisible"></app-events>
+    <app-tables style="width: 80%;" id="tables" class="noVisible"></app-tables>
+    <app-graphs style="width: 80%;" id="graphs" class="noVisible"></app-graphs>
+    <app-logs style="width: 80%;" id="logs" class="noVisible"></app-logs>
 
+  </div>
 </body>

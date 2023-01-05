@@ -1,0 +1,28 @@
+<div class="card" style="overflow: scroll;">
+    <table>
+        <tr class="header">
+            <td>STATUS</td>
+            <td>FRIENDLY NAME</td>
+            <td>MAC</td>
+            <td>BATTERY</td>
+            <td>MODEL</td>
+            <td>DESCRIPTION</td>
+            <td>TOOLS</td>
+        </tr>
+        <tr *ngFor="let sensor of sensors">
+            <td *ngIf="getStatus(sensor.battery, sensor.batteryLow, sensor.updatedAt, sensor.model) === 'ON'"><div class="status-ON">ON</div></td>
+            <td *ngIf="getStatus(sensor.battery, sensor.batteryLow, sensor.updatedAt, sensor.model) === 'OFF'"><div class="status-OFF">OFF</div></td>
+            <td>{{sensor.friendlyName}}</td>
+            <td>{{sensor.mac}}</td>
+            <td>{{getBattery(sensor.battery, sensor.batteryLow)}}</td>
+            <td>{{sensor.model.model}}</td>
+            <td>{{sensor.model.description}}</td>
+            <td>
+                <img src="../../../assets/images/delete.png" style="width: 20px;"/>
+                <img src="../../../assets/images/bar-chart.png" style="width: 20px;"/>
+                <img src="../../../assets/images/lista.png" style="width: 20px;"/>
+            </td>
+        </tr>
+    </table>
+</div>
+<img src="../../../assets/images/setting.png" style="position: absolute; top: 40%; left: 50%; right: 50%; width: 15%;">

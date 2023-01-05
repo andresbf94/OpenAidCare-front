@@ -6,7 +6,7 @@
     height: 10vh;
 }
 
-.homeBar > h1 {
+.homeBar>h1 {
     color: white;
     margin-left: 10px;
     display: flex;
@@ -17,32 +17,118 @@
     transition: all ease-in-out 0.2s;
 }
 
-.homeBar > h1:hover {
+.homeBar>h1:hover {
     font-size: 2.1rem;
     text-shadow: rgba(255, 255, 255, 0.11) 4px 4px;
 }
 
-.textToBottom{
+.houseInactive {
+    height: 0px;
+    opacity: 0%;
+}
+
+.transition {
+    transition: all ease-in-out 0.2s;
+}
+
+.houseActive {
+    height: 80px;
+    opacity: 100%;
+}
+
+.textToBottom {
     transition: all ease-in-out 0.2s;
     margin-top: auto;
     margin-bottom: 2px;
 }
 
-.textToBottom:hover{
+.textToBottom:hover {
     margin-top: auto;
     margin-bottom: 10px;
 }
 
-.lateralHomeBar{
+.lateralHomeBar {
     height: 90vh;
     width: 20%;
+    background: linear-gradient(to left, #6842ff, #426eff);
+    padding-top: 15px;
 }
 
-svg { 
+.lateralHomeBar>h1 {
+    color: white;
+    display: flex;
+    margin-left: 20px;
+    justify-content: left;
+    align-items: center;
+    font-size: 2rem;
+    transition: all ease-in-out 0.2s;
+}
+
+.lateralHomeBarDiv, .lateralHomeBarSubDiv{
+    width: 90%;
+}
+
+
+
+.lateralHomeBarDiv>h2 {
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    margin-left: 20px;
+    justify-content: left;
+    align-items: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+.lateralHomeBarSubDiv>h2 {
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    display: flex;
+    margin-left: 50px;
+    justify-content: left;
+    align-items: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+.lateralHomeBarDiv>h2:hover {
+    text-shadow: rgba(255, 255, 255, 0.11) 4px 4px;
+    text-decoration: underline;
+    display: flex;
+    margin-left: 20px;
+    justify-content: left;
+    align-items: center;
+    font-size: 1.25rem;
+}
+
+.lateralHomeBarSubDiv>h2:hover {
+    text-shadow: rgba(255, 255, 255, 0.11) 4px 4px;
+    text-decoration: underline;
+    display: flex;
+    margin-left: 55px;
+    justify-content: left;
+    align-items: center;
+    font-size: 1.25rem;
+}
+
+.lateralHomeBarDiv.active {
+    background-color: rgba(196, 196, 196, 0.308);
+    border-radius: 0 10px 10px 0;
+}
+
+.lateralHomeBarSubDiv.active>h2 {
+    background-color: rgba(196, 196, 196, 0.308);
+    border-radius: 10px 10px 10px 10px;
+}
+
+svg {
     transition: all ease-in-out 0.5s;
 }
 
-path { 
+path {
     transition: all ease-in-out 0.5s;
 }
-

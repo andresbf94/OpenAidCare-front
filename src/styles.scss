@@ -12,4 +12,9 @@
     body > * {
         font-family: "quicksand";
     }
+    overflow: hidden;
+}
+
+.noVisible {
+    display: none;
 }
