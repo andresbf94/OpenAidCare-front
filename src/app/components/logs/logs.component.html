@@ -1,6 +1,23 @@
 <div class="card">
-    <div style="overflow: scroll;" id="divScrollLogs" #scrollMe [scrollTop]="scrollHeight">
-        <p *ngFor="let log of logs">{{log.createdAt}} || {{log.type}} || {{log.msg}}</p>
+    <div style="overflow: scroll; " id="divScrollLogs" #scrollMe [scrollTop]="scrollHeight">
+        <div style="display: flex; justify-content: start; align-items: center; border: 1px solid black;">
+            <table>
+                <tr>
+                    <td>VALUE</td>
+                    <td>TYPE</td>
+                    <td>TIME</td>
+                </tr>
+            </table>
+        </div>
+        <div style="display: flex; justify-content: start; align-items: center;" *ngFor="let log of logs">
+            <table>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 <img src="../../../assets/images/log-file-format.png"

@@ -14,7 +14,9 @@ export class LogsComponent implements OnInit {
   constructor(private dataObservables : DataObservables) {
     dataObservables.sharedLogs.subscribe((logs:any) =>{
       this.logs=logs;
-      this.logs = this.logs.reverse();
+      if (logs != "")
+      this.logs = logs.reverse()
+      console.log(this.logs)
       setTimeout(()=>{
         this.scrollHeight = Number(document.getElementById("divScrollLogs")?.scrollHeight);
       },50)

@@ -10,6 +10,8 @@ import { TablesComponent } from './components/tables/tables.component';
 import { GraphsComponent } from './components/graphs/graphs.component';
 import { LogsComponent } from './components/logs/logs.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DaysWeekComponent } from './components/events/days-week/days-week.component';
+import { LogInComponent } from './log-in/log-in.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
     EventsComponent,
     TablesComponent,
     GraphsComponent,
-    LogsComponent
+    LogsComponent,
+    DaysWeekComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule,

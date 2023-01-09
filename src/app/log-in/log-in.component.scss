@@ -1,0 +1,109 @@
+.background {
+    background: url("../../assets/images/loginBackground.png");
+    background-size: 100% 100%;
+    width: 100vw;
+    height: 100vh;
+}
+
+.postBackground {
+    width: 100vw;
+    height: 100vh;
+    background: #1475d785;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.i4lifeLogo {
+    width: 20%;
+}
+
+.loginCard {
+    width: 30%;
+    margin-left: 20%;
+    height: 50vh;
+    background: rgba(0, 0, 0, 0.267);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 10px;
+    // box-shadow: .3rem .3rem .6rem #ffffff71;
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.forgotPass {
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    transition: all ease-in-out 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        color: #ffffff;
+    }
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    background-color: #ededed;
+    border-bottom: 1px solid black;
+}
+
+span {
+    color: white;
+}
+
+input {
+    background: rgba(0, 0, 0, 0.13);
+    background-image: none;
+    width: 70%;
+    border: 1px solid rgba(255, 255, 255, 0.411);
+    color: white;
+    border-radius: 5px;
+    padding-left: 15px;
+    transition: border-color .25s ease, box-shadow .25s ease;
+    // box-shadow: .3rem .3rem .6rem #0c7dee71;
+
+    &:focus {
+        outline: 0;
+        // background: #0c7dee27;
+        border-color: #ffffffec;
+    }
+}
+
+.btn {
+    width: 15rem;
+    height: 4rem;
+    background-color: #1475d750;
+    border-radius: 1rem;
+    box-shadow:
+        .3rem .3rem .6rem #00000034,
+        -.2rem -.2rem .5rem rgba(255, 255, 255, 0.068);
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .3s ease;
+
+    &__secondary {
+        grid-column: 1 / 2;
+        grid-row: 5 / 6;
+        color: #ffffff;
+
+
+        &:active {
+            background-color: #1475d750;
+            color: #ffffff;
+
+            // box-shadow: inset .2rem .2rem .5rem #0000002c;
+            box-shadow: inset
+        .2rem .2rem .5rem #00000034,
+       inset  -.3rem -.3rem .6rem rgba(255, 255, 255, 0.116);
+            border-color: #00000000;
+        }
+    }
+}

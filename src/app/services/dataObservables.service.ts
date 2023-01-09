@@ -18,6 +18,12 @@ export class DataObservables {
     private logs = new BehaviorSubject('');
     sharedLogs = this.logs.asObservable();
 
+    private graphs = new BehaviorSubject('');
+    sharedGraphs = this.graphs.asObservable();
+
+    private token = new BehaviorSubject('');
+    sharedToken = this.token.asObservable();
+
     //SETTERS
     setSensors(data : any){
         console.log(data)
@@ -32,6 +38,14 @@ export class DataObservables {
     setLogs(data : any){
         console.log(data)
         this.logs.next(data);
+    }
+
+    setGraphs(data : any){
+        this.graphs.next(data);
+    }
+
+    setToken(token : any){
+        this.token.next(token);
     }
 
 }

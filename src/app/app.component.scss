@@ -1,9 +1,9 @@
 .homeBar {
-    background: linear-gradient(to left, #6842ff, #426eff);
+    background: linear-gradient(to left, #7baddf, #5698da);
     display: flex;
     justify-content: left;
     align-items: center;
-    height: 10vh;
+    height: 8vh;
 }
 
 .homeBar>h1 {
@@ -48,9 +48,9 @@
 }
 
 .lateralHomeBar {
-    height: 90vh;
+    height: 92vh;
     width: 20%;
-    background: linear-gradient(to left, #6842ff, #426eff);
+    background: #3e454d;
     padding-top: 15px;
 }
 
