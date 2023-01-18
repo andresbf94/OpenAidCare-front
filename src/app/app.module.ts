@@ -12,6 +12,7 @@ import { LogsComponent } from './components/logs/logs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DaysWeekComponent } from './components/events/days-week/days-week.component';
 import { LogInComponent } from './log-in/log-in.component';
+import { GraphsMenuComponent } from './components/graphs-menu/graphs-menu.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LogInComponent } from './log-in/log-in.component';
     GraphsComponent,
     LogsComponent,
     DaysWeekComponent,
-    LogInComponent
+    LogInComponent,
+    GraphsMenuComponent
   ],
   imports: [
     BrowserModule,
