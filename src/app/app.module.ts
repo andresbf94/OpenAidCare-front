@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DaysWeekComponent } from './components/events/days-week/days-week.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { GraphsMenuComponent } from './components/graphs-menu/graphs-menu.component';
+import { Angular2SmartTableModule } from 'angular2-smart-table';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { GraphsMenuComponent } from './components/graphs-menu/graphs-menu.compon
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    Angular2SmartTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { SensorsComponent } from './components/sensors/sensors.component';
 import { DataObservables } from './services/dataObservables.service';
 export const serverRoute = 'https://openaidcare-api.herokuapp.com/';
-
+export const frontRoute = 'localhost:4200';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,6 +23,10 @@ export class AppComponent {
     })
   }
 
+  ngOnInit(): void {  
+    this.getSensors();
+  }
+
   mouseEnterOpenAidLogo() {
     document.getElementById('svg5')?.setAttribute('transform', 'rotate(360)')
     var st = '' + document.getElementById('path365')?.getAttribute('style')
@@ -39,22 +43,6 @@ export class AppComponent {
     document.getElementById('svg5')?.setAttribute('height', '15mm')
   }
 
-  showHouses() {
-    document.getElementById('casasBts')?.setAttribute('class', 'noVisible');
-    document.getElementById('sensors')?.setAttribute('class', 'noVisible');
-    document.getElementById('events')?.setAttribute('class', 'noVisible');
-    document.getElementById('tables')?.setAttribute('class', 'noVisible');
-    document.getElementById('graphs')?.setAttribute('class', 'noVisible');
-    document.getElementById('logs')?.setAttribute('class', 'noVisible');
-    document.getElementById('bt-sensors')?.setAttribute('class', 'lateralHomeBarSubDiv');
-    document.getElementById('bt-events')?.setAttribute('class', 'lateralHomeBarSubDiv');
-    document.getElementById('bt-tables')?.setAttribute('class', 'lateralHomeBarSubDiv');
-    document.getElementById('bt-graphs')?.setAttribute('class', 'lateralHomeBarSubDiv');
-    document.getElementById('bt-logs')?.setAttribute('class', 'lateralHomeBarSubDiv');
-    document.getElementById('housesComponent')?.setAttribute('class', '');
-    var actualCode = localStorage.getItem('oaidc-houseID')
-    document.getElementById('house-' + actualCode)?.setAttribute('class', 'houseTR');
-  }
 
   houseBTClicked(component: string) {
     document.getElementById('housesComponent')?.setAttribute('class', 'noVisible');
@@ -125,5 +113,5 @@ export class AppComponent {
   getGraphs(){
     //En este método es distinto porque no funciona como el resto, aquí unicamente cargo el menú de gráficas
   }
-
+  
 }
