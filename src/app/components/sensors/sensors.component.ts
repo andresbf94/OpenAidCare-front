@@ -141,12 +141,12 @@ export class SensorsComponent implements OnInit {
     ".details-table-button:hover {background: transparent; color:#2EFB12}",
     ".details-table-button:disabled {opacity:.5; pointer-events:none}",
   ],
-  template: '<button (click)="seeGraph()" class="details-table-button" disabled="true">Gráfica</button>',
+  template: '<button (click)="seeDetails()" class="details-table-button" >Gráfica</button>',
 })
 export class CustomButtonComponent extends DefaultEditor implements AfterViewInit {
-  value: any;
+  
   @Input() rowData: any;
-
+ 
   constructor(private router: Router, private http: HttpClient) {
     super();
   }
@@ -155,11 +155,19 @@ export class CustomButtonComponent extends DefaultEditor implements AfterViewIni
     throw new Error('Method not implemented.');
   }
 
-  seeGraph() {
-    // Lógica personalizada al hacer clic en "Details"
-    // console.log('Detalles de la fila:', this.rowData);
-    // Navego al dashboard de usuario en funcion de si es seeder, evaluator o funder tengo unas u otras urls
-    this.router.navigate(["/idea-details"], { queryParams: { id: this.rowData._id } });
+  seeDetails() { console.log("data: ", this.rowData.mac)
+
+    // Navega a la página de detalles del sensor y pasa los parámetros necesarios
+    this.router.navigate(['/sensor-details'], {
+      queryParams: {
+        mac: this.rowData.mac,  // Reemplaza 'mac' con el nombre correcto del campo en tu objeto rowData
+        s_th: 't',  // Ejemplo: mostrar temperatura
+        min_max: 's',  // Ejemplo: mostrar mínimos y máximos
+        f_ini: '2023-10-01',
+        f: '2023-10-19',  // Reemplaza con la fecha final que necesites
+      }
+    });
   }
 }
+
 

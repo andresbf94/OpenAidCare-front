@@ -14,7 +14,16 @@ import { DaysWeekComponent } from './components/events/days-week/days-week.compo
 import { LogInComponent } from './log-in/log-in.component';
 import { GraphsMenuComponent } from './components/graphs-menu/graphs-menu.component';
 import { Angular2SmartTableModule } from 'angular2-smart-table';
+import { SensorDetailsComponent } from './components/sensor-details/sensor-details.component';
+import { RouterModule, Routes } from '@angular/router';
 
+
+
+
+const routes: Routes = [
+  // Otras rutas de tu aplicación...
+  { path: 'sensor-details', component: SensorDetailsComponent },
+];
 
 @NgModule({
   declarations: [
@@ -27,7 +36,8 @@ import { Angular2SmartTableModule } from 'angular2-smart-table';
     LogsComponent,
     DaysWeekComponent,
     LogInComponent,
-    GraphsMenuComponent
+    GraphsMenuComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -35,7 +45,10 @@ import { Angular2SmartTableModule } from 'angular2-smart-table';
     AppRoutingModule,
     NgbModule,
     Angular2SmartTableModule,
+    RouterModule.forRoot(routes)
+
   ],
+  exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })
