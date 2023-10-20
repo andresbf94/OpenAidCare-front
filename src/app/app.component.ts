@@ -45,16 +45,10 @@ export class AppComponent {
 
 
   houseBTClicked(component: string) {
-    document.getElementById('housesComponent')?.setAttribute('class', 'noVisible');
+    document.getElementById('home')?.setAttribute('class', 'noVisible');
     document.getElementById('sensors')?.setAttribute('class', 'noVisible');
-    document.getElementById('events')?.setAttribute('class', 'noVisible');
-    document.getElementById('tables')?.setAttribute('class', 'noVisible');
-    document.getElementById('graphs')?.setAttribute('class', 'noVisible');
     document.getElementById('logs')?.setAttribute('class', 'noVisible');
     document.getElementById('bt-sensors')?.setAttribute('class', 'lateralHomeBarSubDiv');
-    document.getElementById('bt-events')?.setAttribute('class', 'lateralHomeBarSubDiv');
-    document.getElementById('bt-tables')?.setAttribute('class', 'lateralHomeBarSubDiv');
-    document.getElementById('bt-graphs')?.setAttribute('class', 'lateralHomeBarSubDiv');
     document.getElementById('bt-logs')?.setAttribute('class', 'lateralHomeBarSubDiv');
     document.getElementById('bt-' + component)?.setAttribute('class', 'lateralHomeBarSubDiv active');
     document.getElementById(component)?.setAttribute('class', '');
@@ -63,14 +57,9 @@ export class AppComponent {
       case 'sensors':
         this.getSensors();
         break;
-      case 'events':
-        this.getEvents();
-        break;
       case 'logs':
         this.getLogs();
         break;
-      case 'graphs':
-        this.getGraphs();
     }
   }
 
@@ -79,18 +68,6 @@ export class AppComponent {
     this.httpClient.get(serverRoute + 'api/front/sensors/' + actualCode).subscribe({
       next: res => {
         this.dataObservables.setSensors(res);
-      },
-      error: error => {
-        console.error(error);
-      }
-    })
-  }
-
-  getEvents() {
-    var actualCode = localStorage.getItem('oaidc-houseID')
-    this.httpClient.get(serverRoute + 'api/events/' + actualCode).subscribe({
-      next: res => {
-        this.dataObservables.setEvents(res);
       },
       error: error => {
         console.error(error);
@@ -110,8 +87,4 @@ export class AppComponent {
     })
   }
 
-  getGraphs(){
-    //En este método es distinto porque no funciona como el resto, aquí unicamente cargo el menú de gráficas
-  }
-  
 }

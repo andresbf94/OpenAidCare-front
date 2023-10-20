@@ -24,6 +24,9 @@ export class DataObservables {
     private token = new BehaviorSubject('');
     sharedToken = this.token.asObservable();
 
+    private sensorsData = new BehaviorSubject('');
+    sharedSensorsData = this.sensorsData.asObservable();
+
     //SETTERS
     setSensors(data : any){
         console.log(data)
@@ -46,6 +49,10 @@ export class DataObservables {
 
     setToken(token : any){
         this.token.next(token);
+    }
+
+    setSensorsData(sensorsData : any){
+        this.sensorsData.next(sensorsData);
     }
 
 }

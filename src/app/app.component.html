@@ -25,24 +25,16 @@
     </div>
     <div style="display: flex; justify-content: start; width: 100%;">
       <div class="lateralHomeBar">
-        <h2>Home</h2>
+        <h2 class="lateralHomeBarDiv" (click)="houseBTClicked('home')">Home</h2>
 
-        
-          <div class="lateralHomeBarDiv active" (click)="houseBTClicked('sensors')">
+          <div class="lateralHomeBarDiv" (click)="houseBTClicked('sensors')">
             <h2><img src="../assets/images/logo/a2.svg" style="width: 10%; margin-right: 10px;" />Sensores</h2>
           </div>
-        
-        <div class="lateralHomeBarDiv">
-          <h2><img src="../assets/images/logo/avatar.svg" style="width: 10%; margin-right: 10px;" />Perfiles</h2>
-        </div>
-      </div>
-      <app-houses style="width: 80%;" id="housesComponent" class="noVisible"></app-houses>
-      <app-sensors style="width: 80%;" id="sensors"></app-sensors>
-      <app-events style="width: 80%;" id="events" class="noVisible"></app-events>
-      <app-tables style="width: 80%;" id="tables" class="noVisible"></app-tables>
-      <app-graphs-menu style="width: 80%;" id="graphs" class="noVisible"></app-graphs-menu>
-      <app-logs style="width: 80%;" id="logs" class="noVisible"></app-logs>
 
+      </div>
+      <app-home style="width: 80%;" id="home"></app-home>
+      <app-sensors style="width: 80%;" id="sensors" class="noVisible"></app-sensors>
+      <app-logs style="width: 80%;" id="logs" class="noVisible"></app-logs>
     </div>
   </div>
 </body>
