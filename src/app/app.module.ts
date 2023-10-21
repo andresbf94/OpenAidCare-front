@@ -8,15 +8,13 @@ import { LogsComponent } from './components/logs/logs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LogInComponent } from './log-in/log-in.component';
 import { Angular2SmartTableModule } from 'angular2-smart-table';
-import { SensorDetailsComponent } from './components/sensor-details/sensor-details.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 
 
 
 const routes: Routes = [
-  // Otras rutas de tu aplicación...
-  { path: 'sensor-details', component: SensorDetailsComponent },
+  
 ];
 
 @NgModule({
@@ -25,7 +23,6 @@ const routes: Routes = [
     SensorsComponent,
     LogsComponent,
     LogInComponent,
-    SensorDetailsComponent,
     HomeComponent
 
   ],

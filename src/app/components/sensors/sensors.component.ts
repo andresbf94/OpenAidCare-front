@@ -23,6 +23,7 @@ export class SensorsComponent implements OnInit {
   constructor(private dataObservables: DataObservables) {
     dataObservables.sharedSensors.subscribe((sensors: any) => {
       this.sensors = sensors
+     
       dataObservables.setSensorsData(sensors)
 
       console.log("listado", this.sensors);
@@ -92,6 +93,9 @@ export class SensorsComponent implements OnInit {
 
     edit: {
       editButtonContent: 'Editar'
+    },
+    pager:{
+      perPage: 8
     }
   };
 
@@ -147,8 +151,8 @@ export class SensorsComponent implements OnInit {
 
   selector: 'app-custom-button',
   styles: [
-    ".details-table-button {background:#2EFB12; color:black; border:2px solid #2EFB12; border-radius:5px; padding:5px; transition: all ease-in-out .2s; font-weight: bold}",
-    ".details-table-button:hover {background: transparent; color:#2EFB12}",
+    ".details-table-button {background:#5698da; color:black; border:2px solid #5698da; border-radius:5px; padding:5px; transition: all ease-in-out .2s; font-weight: bold}",
+    ".details-table-button:hover {background: transparent; color:#5698da}",
     ".details-table-button:disabled {opacity:.5; pointer-events:none}",
   ],
   template: '<button (click)="seeDetails()" class="details-table-button">Gráfica</button>',
@@ -174,12 +178,11 @@ export class CustomButtonComponent extends DefaultEditor  {
     const macAddresses = new Array();
     macAddresses.push(this.sensorData.mac) 
     const showTemperature = 't';
-    const showHumidity = 'h';
     const showMinMax =  's';
     const startDate = '2023-10-01';
-    const endDate = '2023-10-19';
+    
 
-    this.sensorDataService.getSensorData(macAddresses, showTemperature, showMinMax, startDate, endDate);
+    this.sensorDataService.getSensorData(macAddresses, showTemperature, showMinMax, startDate);
     
   }
 }
