@@ -29,12 +29,13 @@ export class SensorsComponent implements OnInit {
       console.log("listado", this.sensors);
 
       this.sensors.forEach(sensor=>{
+        /*if (sensor.mac==( "0x00158d0008984738" || "0z00124b002503776b" || "0z00124b0024cd1b52" || "0z00124b0024ce2b1f" || "0z00124b002502bd80" || "0z00124b0025033b99" ||"0z00124b00246ccb6e" || "0z00124b00246c6b74" || "0z00124b002502e233" || "0z00124b00251c554a" || "0z00124b00288fd901" || "0z00124b002450f476" ) ){ */
         if (sensor.model.description=="Sensor de temperatura y humedad"){
          this.data.push({
           estado: this.getStatus(sensor.battery, sensor.batteryLow, sensor.updatedAt, sensor.model),
           friendlyName: sensor.friendlyName,
           battery: this.getBattery(sensor.battery, sensor.batteryLow),
-          model: sensor.model.model,
+          mac: sensor.mac,
           description: sensor.model.description,  
           button: 'Grafica' 
         })    
@@ -54,7 +55,6 @@ export class SensorsComponent implements OnInit {
 
       friendlyName: {
         title: 'Friendly Name', 
-        type: 'html',
         isEditable: true, 
       },
 
@@ -63,10 +63,9 @@ export class SensorsComponent implements OnInit {
         isEditable:false,
         
       },
-      model: {
-        title: 'Modelo',
+      mac: {
+        title: 'Mac',
         isEditable:false,
-        type: 'html',
         
       },
       description: {
@@ -75,8 +74,9 @@ export class SensorsComponent implements OnInit {
 
       },
       button: {
-        title: 'Button',
+        title: '',
         type: 'custom',
+        isEditable:false,
         renderComponent: CustomButtonComponent,
         componentInitFunction: (instance) => {
           this.buttonIndex++;
@@ -95,8 +95,9 @@ export class SensorsComponent implements OnInit {
       editButtonContent: 'Editar'
     },
     pager:{
-      perPage: 8
-    }
+      perPage: 10
+    },
+    hideSubHeader: true,
   };
 
   ngOnInit(): void {
