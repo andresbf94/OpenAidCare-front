@@ -29,7 +29,6 @@ export class SensorsComponent implements OnInit {
       console.log("listado", this.sensors);
 
       this.sensors.forEach(sensor=>{
-        console.log("macs: ", sensor.mac)
         /*if (sensor.mac==( "0x00158d0008984738" || "0z00124b002503776b" || "0z00124b0024cd1b52" || "0z00124b0024ce2b1f" || "0z00124b002502bd80" || "0z00124b0025033b99" ||"0z00124b00246ccb6e" || "0z00124b00246c6b74" || "0z00124b002502e233" || "0z00124b00251c554a" || "0z00124b00288fd901" || "0z00124b002450f476" ) ){ */
         if (sensor.model.description=="Sensor de temperatura y humedad"){
          this.data.push({
@@ -41,7 +40,6 @@ export class SensorsComponent implements OnInit {
           button: 'Grafica' 
         })    
         }
-           
       })
     })
   }
@@ -175,13 +173,13 @@ export class CustomButtonComponent extends DefaultEditor  {
   seeDetails() { 
 
     this.sensorData=this.sensorsData[this.index]
-    console.log(this.sensorData)
+    console.log("boton:", this.sensorData)
     
     const macAddresses = new Array();
     macAddresses.push(this.sensorData.mac) 
     const showTemperature = 't';
     const showMinMax =  's';
-    const startDate = '2023-10-01';
+    const startDate = '2023-01-01';
     
 
     this.sensorDataService.getSensorData(macAddresses, showTemperature, showMinMax, startDate);
