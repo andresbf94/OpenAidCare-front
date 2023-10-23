@@ -30,7 +30,7 @@ export class SensorsComponent implements OnInit {
       console.log('listado', this.sensors);
 
       this.sensors.forEach((sensor) => {
-        /*if (sensor.mac==( "0x00158d0008984738" || "0z00124b002503776b" || "0z00124b0024cd1b52" || "0z00124b0024ce2b1f" || "0z00124b002502bd80" || "0z00124b0025033b99" ||"0z00124b00246ccb6e" || "0z00124b00246c6b74" || "0z00124b002502e233" || "0z00124b00251c554a" || "0z00124b00288fd901" || "0z00124b002450f476" ) ){ */
+        
         switch (sensor.mac.trim()) {
           case '0x00158d0008984738':
           case '0x00124b002503776b':
@@ -106,9 +106,11 @@ export class SensorsComponent implements OnInit {
     edit: {
       editButtonContent: 'Editar',
     },
+
     pager: {
-      perPage: 10,
+      perPage: 12,
     },
+
     hideSubHeader: true,
   };
 
@@ -169,6 +171,9 @@ export class SensorsComponent implements OnInit {
   }
 }
 
+
+// COMPONENTE BOTON GRAFICA
+
 @Component({
   selector: 'app-custom-button',
   styles: [
@@ -179,6 +184,7 @@ export class SensorsComponent implements OnInit {
   template:
     '<button (click)="seeDetails()" class="details-table-button">Gráfica</button>',
 })
+
 export class CustomButtonComponent extends DefaultEditor {
   private sensorsData: any;
   private sensorData: any;
@@ -191,9 +197,7 @@ export class CustomButtonComponent extends DefaultEditor {
     private sensorDataService: SensorDataService
   ) {
     super();
-    // observable.sharedSensorsData.subscribe(
-    //   (sensorsData) => (this.sensorsData = sensorsData)
-    // );
+    
   }
 
   seeDetails() {
