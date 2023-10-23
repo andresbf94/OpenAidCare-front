@@ -59,7 +59,6 @@ export class SensorsComponent implements OnInit {
             });
             break;
           default:
-            console.log('Sesnor: ', sensor.mac);
         }
       });
     });
@@ -198,10 +197,6 @@ export class CustomButtonComponent extends DefaultEditor {
   }
 
   seeDetails() {
-    // console.log('DATA: ');
-    // this.sensorData = this.sensorsData[this.index];
-    // console.log('boton:', this.sensorData);
-
     const macAddresses = new Array();
     macAddresses.push(this.row.mac);
     const showTemperature = 't';
@@ -218,9 +213,5 @@ export class CustomButtonComponent extends DefaultEditor {
 
   static componentInit(instance: CustomButtonComponent, cell: Cell) {
     instance.row = cell.getRow().getData();
-    console.log('NAME: ', cell.getRow());
-    // instance.save.subscribe((_: string) => {
-    //   alert(`${name} saved!`);
-    // });
   }
 }
