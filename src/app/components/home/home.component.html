@@ -1,5 +1,13 @@
-<table>
-    <tr *ngFor="let objetoMedida of measuresArray ">
-       
-    </tr>
-</table>
+<div *ngIf="primeraActivacion">
+    <h2>Primera Activación:</h2>
+    <p>Fecha: {{ formatearFechaHora(primeraActivacion.date) }}</p>
+  </div>
+  
+  <div *ngIf="ultimaActivacion">
+    <h2>Última Activación:</h2>
+    <p>Fecha: {{ formatearFechaHora(ultimaActivacion.date) }}</p>  
+  </div>
+  
+  <div *ngIf="!primeraActivacion && !ultimaActivacion">
+    <p>No hay activaciones para el día actual.</p>
+  </div>

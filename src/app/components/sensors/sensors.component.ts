@@ -1,12 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Cell, DefaultEditor } from 'angular2-smart-table';
+import { Cell, DefaultEditor, EditConfirmEvent } from 'angular2-smart-table';
 import { Settings } from 'angular2-smart-table/lib/lib/settings';
 import { DataObservables } from 'src/app/services/dataObservables.service';
-import { frontRoute } from 'src/app/app.component';
-import { AddButtonComponent } from 'angular2-smart-table/lib/components/thead/cells/add-button.component';
 import { SensorDataService } from '../../services/sensor-data.service';
 
 @Component({
@@ -18,8 +15,9 @@ export class SensorsComponent implements OnInit {
   sensors = new Array();
   prueba: string = '';
   data: any = [];
+  
 
-  constructor(private dataObservables: DataObservables) {
+  constructor(private dataObservables: DataObservables, private sensorDataService: SensorDataService, ) {
     dataObservables.sharedSensors.subscribe((sensors: any) => {
       this.sensors = sensors;
 
@@ -41,15 +39,16 @@ export class SensorsComponent implements OnInit {
           case '0x00124b00246ccb6e':
           case '0x00124b00246c6b74':
           case '0x00124b002502e233':
-          case '0x00124b00251c554a':
-          case '0x00124b00288fd901':
-          case '0x00124b002450f476':
+          //case '0x00124b00251c554a':
+          //case '0x00124b00288fd901':
+          //case '0x00124b002450f476':
+
             this.data.push({
               estado: this.getStatus(
-                sensor.battery,
-                sensor.batteryLow,
-                sensor.updatedAt,
-                sensor.model
+              sensor.battery,
+              sensor.batteryLow,
+              sensor.updatedAt,
+              sensor.model
               ),
               friendlyName: sensor.friendlyName,
               battery: this.getBattery(sensor.battery, sensor.batteryLow),
@@ -63,8 +62,9 @@ export class SensorsComponent implements OnInit {
       });
     });
   }
-  buttonIndex: number = 0;
+   
   settings: Settings = {
+   
     columns: {
       estado: {
         title: 'Estado',
@@ -80,10 +80,12 @@ export class SensorsComponent implements OnInit {
         title: 'Bateria',
         isEditable: false,
       },
+
       mac: {
         title: 'Mac',
         isEditable: false,
       },
+
       description: {
         title: 'Descripcion',
         isEditable: false,
@@ -97,22 +99,26 @@ export class SensorsComponent implements OnInit {
       },
     },
 
+    mode: 'inline',
+
+    edit: {
+      confirmSave:true,
+      editButtonContent: 'Editar'
+    },
+
     actions: {
       columnTitle: '',
       add: false,
       delete: false,
     },
 
-    edit: {
-      editButtonContent: 'Editar',
-    },
-
     pager: {
-      perPage: 12,
+      perPage: 10,
     },
 
     hideSubHeader: true,
   };
+  
 
   ngOnInit(): void {}
 
@@ -169,8 +175,30 @@ export class SensorsComponent implements OnInit {
       return battery + '%';
     }
   }
-}
 
+  updateFriendlyName(event:EditConfirmEvent){
+    this.sensorDataService.putFriendlyName(event.newData.friendlyName, event.data.mac).subscribe({
+      next:response=> {console.log(response)},
+      error:error=>{console.log(error)}
+    });
+
+    return event.confirm.resolve(event.newData);
+   }
+
+  allSensorsGraphs(){
+    const macAddresses = new Array();
+    macAddresses.push('0x00158d0008984738','0x00124b002503776b','0x00124b0024cd1b52','0x00124b0024ce2b1f','0x00124b002502bd80','0x00124b0025033b99','0x00124b00246ccb6e','0x00124b00246c6b74','0x00124b002502e233');
+    const showTemperature = 't';
+    const showMinMax = 's';
+    const startDate = '2023-09-01';
+    this.sensorDataService.getSensorData(
+      macAddresses,
+      showTemperature,
+      showMinMax,
+      startDate
+    );
+  }
+}
 
 // COMPONENTE BOTON GRAFICA
 
@@ -179,28 +207,21 @@ export class SensorsComponent implements OnInit {
   styles: [
     '.details-table-button {background:#5698da; color:black; border:2px solid #5698da; border-radius:5px; padding:5px; transition: all ease-in-out .2s; font-weight: bold}',
     '.details-table-button:hover {background: transparent; color:#5698da}',
-    '.details-table-button:disabled {opacity:.5; pointer-events:none}',
+    '.details-table-button:disabled {opacity:.5; pointer-events:none}'
   ],
   template:
-    '<button (click)="seeDetails()" class="details-table-button">Gráfica</button>',
+    '<button (click)="sensorGraph()" class="details-table-button">Gráfica</button>',
 })
 
 export class CustomButtonComponent extends DefaultEditor {
-  private sensorsData: any;
-  private sensorData: any;
+  
   public row: any;
 
-  constructor(
-    private router: Router,
-    private http: HttpClient,
-    private observable: DataObservables,
-    private sensorDataService: SensorDataService
-  ) {
+  constructor(private sensorDataService: SensorDataService) {
     super();
-    
   }
 
-  seeDetails() {
+  sensorGraph() {
     const macAddresses = new Array();
     macAddresses.push(this.row.mac);
     const showTemperature = 't';

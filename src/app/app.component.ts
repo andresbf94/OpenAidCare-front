@@ -4,7 +4,7 @@ import { NavigationStart, Router } from '@angular/router';
 import { SensorsComponent } from './components/sensors/sensors.component';
 import { DataObservables } from './services/dataObservables.service';
 export const serverRoute = 'https://openaidcare-api.herokuapp.com/';
-export const frontRoute = 'localhost:4200';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

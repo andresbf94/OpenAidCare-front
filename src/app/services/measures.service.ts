@@ -14,4 +14,6 @@ export class MeasuresService {
   getMeasures(friendlyName: string): Observable<any> {
     return this.http.get(this.url + friendlyName);
   }
+
+ 
 }

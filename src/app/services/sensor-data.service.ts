@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { serverRoute } from '../app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class SensorDataService {
 
   private apiUrl = 'https://openaidcare-python.herokuapp.com/oac?h_id=6389e818a89acd31a7aed425&';
-
+  url = serverRoute + 'api/sensor/friendlyName/';
   constructor(private http: HttpClient) { }
 
   getSensorData(macAddresses: string[], showTemperature: string, showMinMax: string, startDate: string){
@@ -19,5 +20,8 @@ export class SensorDataService {
     } 
   }
   
-
+  putFriendlyName(friendlyName: string, mac:string) {
+    return this.http.put(this.url + mac, {friendlyName:friendlyName} );
+  }
+  
 }

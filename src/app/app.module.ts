@@ -10,6 +10,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import { Angular2SmartTableModule } from 'angular2-smart-table';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { TablaPresenciaComponent } from './components/tabla-presencia/tabla-presencia.component';
 
 
 
@@ -23,7 +24,8 @@ const routes: Routes = [
     SensorsComponent,
     LogsComponent,
     LogInComponent,
-    HomeComponent
+    HomeComponent,
+    TablaPresenciaComponent
 
   ],
   imports: [

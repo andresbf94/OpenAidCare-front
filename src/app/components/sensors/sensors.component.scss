@@ -60,3 +60,20 @@ td>img {
     font-weight: bold;
     color: #d40000;
 }
+.btn-custom{
+    background:#5698da; 
+    color:black; 
+    border:2px solid #5698da; 
+    border-radius:5px; padding:5px; 
+    transition: all ease-in-out .2s; 
+    font-weight: bold
+}
+.btn-custom:hover{
+    background: transparent; 
+    color:#5698da;
+    
+}
+.details-table-button:disabled {
+    opacity:.5; 
+    pointer-events:none
+}
