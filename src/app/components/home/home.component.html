@@ -1,13 +1,26 @@
-<div *ngIf="primeraActivacion">
-    <h2>Primera Activación:</h2>
-    <p>Fecha: {{ formatearFechaHora(primeraActivacion.date) }}</p>
-  </div>
-  
-  <div *ngIf="ultimaActivacion">
-    <h2>Última Activación:</h2>
-    <p>Fecha: {{ formatearFechaHora(ultimaActivacion.date) }}</p>  
-  </div>
-  
-  <div *ngIf="!primeraActivacion && !ultimaActivacion">
-    <p>No hay activaciones para el día actual.</p>
-  </div>
+<table>
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Medidas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let item of medidasPorFecha">
+      <tr *ngIf="item.medidas.length > 0">
+        <td>{{ formatearFecha(item.fecha) }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let medida of item.medidas">
+              {{ formatearHora(medida.date) }}
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr *ngIf="item.medidas.length === 0">
+        <td>{{ item.fecha }}</td>
+        <td>No hay medidas para este día</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

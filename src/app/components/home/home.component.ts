@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MeasuresService } from '../../services/measures.service';
-import { eachDayOfInterval, endOfWeek, format, startOfWeek } from 'date-fns';
+import { eachDayOfInterval, endOfDay, format, startOfDay, subDays } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 @Component({
@@ -9,37 +9,41 @@ import { es } from 'date-fns/locale';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  measures: object = {}; // contendra 'measures' y 'sensor', el primero lo almacenaremos en 'measuresArray'
-  measuresArray = new Array(); // contendra un array de objetos cada objeto es una toma de medida
+  measures: object = {};
+  measuresArray = new Array();
   primeraActivacion: any;
   ultimaActivacion: any;
-  
+  diasSemanaFecha: string[] = [];
+  medidasPorFecha: { fecha: string; medidas: any[] }[] = [];
+  // Objeto para almacenar medidas por fecha
+
   constructor(private measuresService: MeasuresService) {}
 
   ngOnInit(): void {
-    this.obtenerMedidas('2023', '04', '05', 'M0');
-    const fechaActual = new Date;
-    const fechaInicioSemana = startOfWeek(fechaActual);
-    const fechaFinSemana = endOfWeek(fechaActual);
-    const diasDeLaSemana = eachDayOfInterval({ start: fechaInicioSemana, end: fechaFinSemana });
-    console.log("ini:", fechaFinSemana);
-    console.log("fin:", fechaInicioSemana);
-    console.log("dias:", diasDeLaSemana);
+    const fechaActual = new Date();
+    const fechaInicio = startOfDay(subDays(fechaActual, 6));
+    const fechaFin = endOfDay(fechaActual);
+
+    const diasSemanaFyH = eachDayOfInterval({ start: fechaInicio, end: fechaFin });
+
+    this.diasSemanaFecha = diasSemanaFyH.map(date => format(date, 'yyyy-MM-dd', { locale: es }));
+
+    // Itera sobre los días y obtiene las medidas para cada día
+    this.diasSemanaFecha.forEach((fecha: string) => {
+      this.obtenerMedicionesDia(fecha, 'M0');
+      console.log('Medidas del día:', this.medidasPorFecha);
+    });
   }
 
-  obtenerMedidas(año:string, mes:string, dia:string, Friendlyname:string) {
-
-    const fechaFiltro = new Date(`${año}-${mes}-${dia}T00:00:00.000Z`); // Define la fecha de filtro
-
+  obtenerMedicionesDia(fecha: string, Friendlyname: string) {
+    const fechaFiltro = new Date(`${fecha}T00:00:00.000Z`);
+  
     this.measuresService.getMeasures(Friendlyname).subscribe((data) => {
       this.measures = data;
-  
       this.measuresArray = data.measures;
-      
-      // Filtra los elementos por fecha
+  
       const activacionesDelDia = this.measuresArray.filter((element) => {
         const fechaElemento = new Date(element.date);
-        // Compara si la fecha del elemento coincide con la fecha de filtro
         return (
           fechaElemento.getUTCFullYear() === fechaFiltro.getUTCFullYear() &&
           fechaElemento.getUTCMonth() === fechaFiltro.getUTCMonth() &&
@@ -47,25 +51,26 @@ export class HomeComponent {
         );
       });
   
-      // Ahora activacionesDelDia contiene los elementos del día específico
-      console.log('Activaciones del día:', activacionesDelDia);
-
-      if (activacionesDelDia.length > 0) {   //Si ha registros coge el primero y el ultimo
+      if (activacionesDelDia.length > 0) {
         this.primeraActivacion = activacionesDelDia[0];
         this.ultimaActivacion = activacionesDelDia[activacionesDelDia.length - 1];
-        console.log("primera activacion", this.primeraActivacion);
-        console.log("ultima activacion" , this.ultimaActivacion);
+        // Obtén las medidas del campo 'data' de 'primeraActivacion'
+        this.medidasPorFecha.push({fecha: fecha, medidas: [(activacionesDelDia[0]),(activacionesDelDia[activacionesDelDia.length - 1])]})
 
       } else {
-        this.primeraActivacion = null;
-        this.ultimaActivacion = null;
-      } 
+        // Si no hay activaciones, almacena un objeto vacío en el arreglo de objetos por fecha
+        this.medidasPorFecha.push({ fecha: fecha, medidas: [] });
+      }
 
     });
   }
-  
-  formatearFechaHora(fecha: string): string {
+
+  formatearHora(fecha: string): string {
+    const horaFormateada = new Date(fecha);
+    return format(horaFormateada, 'HH:mm:ss', { locale: es });
+  }
+  formatearFecha(fecha: string): string {
     const fechaFormateada = new Date(fecha);
-    return format(fechaFormateada, 'dd/MM/yyyy HH:mm:ss', { locale: es });
+    return format(fechaFormateada, 'dd-MM-yyyy', { locale: es });
   }
 }
