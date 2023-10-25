@@ -1,26 +1,3 @@
-<table>
-  <thead>
-    <tr>
-      <th>Fecha</th>
-      <th>Medidas</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngFor="let item of medidasPorFecha">
-      <tr *ngIf="item.medidas.length > 0">
-        <td>{{ formatearFecha(item.fecha) }}</td>
-        <td>
-          <ul>
-            <li *ngFor="let medida of item.medidas">
-              {{ formatearHora(medida.date) }}
-            </li>
-          </ul>
-        </td>
-      </tr>
-      <tr *ngIf="item.medidas.length === 0">
-        <td>{{ item.fecha }}</td>
-        <td>No hay medidas para este día</td>
-      </tr>
-    </ng-container>
-  </tbody>
-</table>
+Planta baja<app-tabla-presencia [sensor]="'M0'"></app-tabla-presencia>
+Primera planta<app-tabla-presencia [sensor]="'M1'"></app-tabla-presencia>
+Segunda planta<app-tabla-presencia [sensor]="'M2'"></app-tabla-presencia>
