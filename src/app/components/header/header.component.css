@@ -3,11 +3,10 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    height: 9vh;
-   
+    height: 90px;
 }
 
-.homeBar>h1 {
+.homeBar h1 {
     color: white;
     margin-left: 10px;
     display: flex;
@@ -18,10 +17,9 @@
     transition: all ease-in-out 0.2s;
 }
 
-.homeBar>h1:hover {
+.homeBar h1:hover {
     font-size: 2.1rem;
 }
-
 .textToBottom {
     transition: all ease-in-out 0.2s;
     margin-top: auto;
@@ -31,4 +29,11 @@
 .textToBottom:hover {
     margin-top: auto;
     margin-bottom: 10px;
+}
+svg {
+    transition: all ease-in-out 0.5s;
+}
+
+path {
+    transition: all ease-in-out 0.5s;
 }

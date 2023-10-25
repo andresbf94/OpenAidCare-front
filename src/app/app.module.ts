@@ -15,7 +15,6 @@ import { NavComponent } from './components/nav/nav.component';
 import { HeaderComponent } from './components/header/header.component';
 
 
-
 const routes: Routes = [
   
 ];
@@ -29,7 +28,7 @@ const routes: Routes = [
     HomeComponent,
     TablaPresenciaComponent,
     NavComponent,
-    HeaderComponent
+    HeaderComponent,
 
   ],
   imports: [

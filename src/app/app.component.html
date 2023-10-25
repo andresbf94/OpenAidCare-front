@@ -1,22 +1,20 @@
 <body >
-  <div class="container-fluid">
-<app-log-in *ngIf="token === '' || token === undefined || token === null || token === 'null' || token === 'undefined'"></app-log-in>
-  <div *ngIf="token != '' && token != null && token != undefined && token != 'null' && token != 'undefined'">
+<!--<app-log-in *ngIf="token === '' || token === undefined || token === null || token === 'null' || token === 'undefined'"></app-log-in> 
+  <div *ngIf="token != '' && token != null && token != undefined && token != 'null' && token != 'undefined'">-->
 
-    <div class="row"></div>
-      <app-header class="header"></app-header>
+    <div class="header"></div>
+      <app-header></app-header>
 
-    <div class="row">
-      <div class="col-2">
-        <app-nav class="col-2 nav"></app-nav>
-      </div>
-      <div class="col-10">
-        <router-outlet></router-outlet>
-      </div>
+    <div class="nav">
+      <app-nav></app-nav>
+    </div>
+
+    <div class="content">
+       <router-outlet></router-outlet>
     </div>
   
-  </div>
-</div>
+  <!--</div>-->
+
 </body>
 <!--
 

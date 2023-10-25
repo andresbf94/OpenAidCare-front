@@ -1,18 +1,29 @@
-body {
-    margin: 0; /* Elimina los márgenes predeterminados del cuerpo */
-    padding: 0; /* Elimina el relleno predeterminado del cuerpo */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 90px;
+    width: 100%;
+    color: #fff; /* Color de texto de tu elección */
+    /* Otros estilos de header */
   }
 
-  .container-fluid {
-    padding: 0; /* Elimina el relleno del contenedor principal */
-  }
-  
-  /* Si es necesario, puedes también eliminar los márgenes y el relleno de .row y .col-2 */
-  .row, .col-2 {
-    margin: 0;
-    padding: 0;
+
+.nav {
+    position: fixed;
+    top: 90px; /* Altura del header en píxeles más margen si es necesario */
+    left: 0;
+    width: 200px; /* Ancho del nav, ajusta según tus necesidades */
+    height: calc(100vh - 90px); /* Altura que ocupa el espacio restante */
+    background-color: rgba(0, 0, 0, 0.3);/* Estilo de fondo de tu elección */
+    color: black; /* Color de texto de tu elección */
+    /* Otros estilos de nav */
   }
 
+.content{
+    top: 90px;
+    margin-left: 250px;   
+}
 /*
 .homeBar {
     background: linear-gradient(to left, #7baddf, #5698da);
