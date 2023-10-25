@@ -64,7 +64,8 @@ export class AppComponent {
   }
 
   getSensors() {
-    var actualCode = localStorage.getItem('oaidc-houseID')
+    //var actualCode = localStorage.getItem('oaidc-houseID')
+    const actualCode = "6389e818a89acd31a7aed425"
     this.httpClient.get(serverRoute + 'api/front/sensors/' + actualCode).subscribe({
       next: res => {
         this.dataObservables.setSensors(res);
@@ -76,7 +77,8 @@ export class AppComponent {
   }
 
   getLogs() {
-    var actualCode = localStorage.getItem('oaidc-houseID')
+    //var actualCode = localStorage.getItem('oaidc-houseID')
+    const actualCode = "6389e818a89acd31a7aed425"
     this.httpClient.get(serverRoute + 'api/logs/' + actualCode).subscribe({
       next: res => {
         this.dataObservables.setLogs(res);
