@@ -11,6 +11,24 @@ export const serverRoute = 'https://openaidcare-api.herokuapp.com/';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  title = 'OpenAidCare-front';
+  token = ''
+
+  constructor(private httpClient: HttpClient, private dataObservables: DataObservables, private router : Router) {
+    dataObservables.setToken(localStorage.getItem('oaidc-userToken'));
+
+    dataObservables.sharedToken.subscribe(token=>{
+      console.log(token)
+      this.token = token;
+    })
+  }
+}
+
+
+
+/*
+
   title = 'OpenAidCare-front';
   token = ''
 
@@ -64,8 +82,7 @@ export class AppComponent {
   }
 
   getSensors() {
-    //var actualCode = localStorage.getItem('oaidc-houseID')
-    const actualCode = "6389e818a89acd31a7aed425"
+    var actualCode = localStorage.getItem('oaidc-houseID')
     this.httpClient.get(serverRoute + 'api/front/sensors/' + actualCode).subscribe({
       next: res => {
         this.dataObservables.setSensors(res);
@@ -77,8 +94,7 @@ export class AppComponent {
   }
 
   getLogs() {
-    //var actualCode = localStorage.getItem('oaidc-houseID')
-    const actualCode = "6389e818a89acd31a7aed425"
+    var actualCode = localStorage.getItem('oaidc-houseID')
     this.httpClient.get(serverRoute + 'api/logs/' + actualCode).subscribe({
       next: res => {
         this.dataObservables.setLogs(res);
@@ -89,4 +105,4 @@ export class AppComponent {
     })
   }
 
-}
+*/

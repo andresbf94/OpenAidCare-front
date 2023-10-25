@@ -1,3 +1,19 @@
+body {
+    margin: 0; /* Elimina los márgenes predeterminados del cuerpo */
+    padding: 0; /* Elimina el relleno predeterminado del cuerpo */
+  }
+
+  .container-fluid {
+    padding: 0; /* Elimina el relleno del contenedor principal */
+  }
+  
+  /* Si es necesario, puedes también eliminar los márgenes y el relleno de .row y .col-2 */
+  .row, .col-2 {
+    margin: 0;
+    padding: 0;
+  }
+
+/*
 .homeBar {
     background: linear-gradient(to left, #7baddf, #5698da);
     display: flex;
@@ -129,3 +145,5 @@ svg {
 path {
     transition: all ease-in-out 0.5s;
 }
+
+*/

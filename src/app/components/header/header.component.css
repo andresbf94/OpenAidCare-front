@@ -1,0 +1,34 @@
+.homeBar {
+    background: linear-gradient(to left, #7baddf, #5698da);
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 9vh;
+   
+}
+
+.homeBar>h1 {
+    color: white;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all ease-in-out 0.2s;
+}
+
+.homeBar>h1:hover {
+    font-size: 2.1rem;
+}
+
+.textToBottom {
+    transition: all ease-in-out 0.2s;
+    margin-top: auto;
+    margin-bottom: 2px;
+}
+
+.textToBottom:hover {
+    margin-top: auto;
+    margin-bottom: 10px;
+}
