@@ -1,34 +1,85 @@
 a {
-    text-decoration: none; /* Quita el subrayado */
+    text-decoration: none;
     color: inherit; 
 }
+.active {
+    background-color: #818080; 
+    width: 200px;
+}
 
-a:hover {
-    color: inherit; 
-  }
-img {
+/* Para el Panel Principal */
+
+.rowPrin{
+    height: 120px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: left;   
+}
+.tituloPrin{
+    font-size: 30px;
+    margin-left: 20px;
+    transition: all ease-in-out 0.3s
+}
+.imgPrin{  
     height: 35px;
     width: auto;
+    margin-right: 7px;
+}
+.word2{
+    margin-left: 8px;
+}
+.tituloPrin:hover{
+    zoom: 1.05;
+    text-decoration: underline 2px; 
+    text-underline-offset: 5px;  
+}
+
+
+/*Para los paneles secundarios*/
+
+.rowSec{
+    height: 60px;
+    width: 200px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;  
 }
 .imgSub{
     height: 20px;
     width: auto;
-} 
-.active {
-    background-color: #6e6e6e; 
-    width: 200px;
-    margin-left: -12px;   
+    margin-right: 10px;
+    margin-bottom: 2px;
 }
+.tituloSec{
+    font-size: 20px;
+    margin-left: 20px;
+}
+.tituloSec:hover{
+    zoom: 1.05;
+    text-decoration: underline 2px;   
+    text-underline-offset: 3px;  
+}
+
+/*
 .navBar{
     height: 73px;
 }
 .navBar:hover{
     font-size: 30px;
-    transition: all ease-in-out 0.3s
+    transition: all ease-in-out 0.3s,
+    
 }
-.word:hover{
-    text-decoration: underline 3px;
-}
+
 img{
     margin-right: 8px;
 }
+
+.subNabBar:hover{
+    height: 50px; 
+    transition: all ease-in-out 0.2s;
+    font-size: 25px;
+    text-decoration: underline;
+}
+*/

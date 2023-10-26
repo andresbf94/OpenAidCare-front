@@ -4,20 +4,17 @@
     left: 0;
     height: 90px;
     width: 100%;
-    color: #fff; /* Color de texto de tu elección */
-    /* Otros estilos de header */
+    color: #fff; 
   }
-
 
 .nav {
     position: fixed;
-    top: 90px; /* Altura del header en píxeles más margen si es necesario */
+    top: 90px; 
     left: 0;
-    width: 200px; /* Ancho del nav, ajusta según tus necesidades */
-    height: calc(100vh - 90px); /* Altura que ocupa el espacio restante */
-    background-color: rgba(0, 0, 0, 0.3);/* Estilo de fondo de tu elección */
-    color: black; /* Color de texto de tu elección */
-    /* Otros estilos de nav */
+    width: 200px; 
+    height: calc(100vh - 90px); 
+    background-color: rgba(0, 0, 0, 0.3);
+    color: black; 
   }
 
 .content{

@@ -7,12 +7,17 @@ import { serverRoute } from '../app.component';
   providedIn: 'root',
 })
 export class MeasuresService {
-  url = serverRoute + 'api/measures/friendlyname/';
-
+  urlMeasures = serverRoute + 'api/measures/friendlyname/';
+ 
   constructor(private http: HttpClient) {}
+  
 
   getMeasures(friendlyName: string): Observable<any> {
-    return this.http.get(this.url + friendlyName);
+    const sept= new Date()
+    sept.setMonth(8);
+    sept.setDate(1);
+    sept.setFullYear(2023);
+    return this.http.get(this.urlMeasures + friendlyName + '/'+ sept.toISOString());
   }
 
  

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataObservables } from '../services/dataObservables.service';
+
 
 @Component({
   selector: 'app-log-in',
@@ -8,14 +8,13 @@ import { DataObservables } from '../services/dataObservables.service';
 })
 export class LogInComponent implements OnInit {
 
-  constructor(private dataObservables : DataObservables) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   login(){
-    console.log("¿")
-    this.dataObservables.setToken("token");
+   
   }
 
 }

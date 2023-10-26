@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SensorsComponent } from './components/sensors/sensors.component';
-import { LogsComponent } from './components/logs/logs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LogInComponent } from './log-in/log-in.component';
 import { Angular2SmartTableModule } from 'angular2-smart-table';
@@ -23,7 +22,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     SensorsComponent,
-    LogsComponent,
     LogInComponent,
     HomeComponent,
     TablaPresenciaComponent,

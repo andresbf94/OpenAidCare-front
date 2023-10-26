@@ -1,7 +1,24 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MeasuresService } from '../../services/measures.service';
-import { eachDayOfInterval, endOfDay, format, startOfDay, subDays } from 'date-fns';
+import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+
+interface Measure {
+  data: string[];
+  date: string;
+}
+
+interface MeasuresData {
+  date: string | number | Date;
+  sensor: any;
+  measures: Measure[];
+}
+
+interface ProcessedData {
+  fecha: string;
+  primeraHoraTrue: string;
+  ultimaHoraFalse: string;
+}
 
 @Component({
   selector: 'app-tabla-presencia',
@@ -9,6 +26,63 @@ import { es } from 'date-fns/locale';
   styleUrls: ['./tabla-presencia.component.css']
 })
 
+export class TablaPresenciaComponent implements OnInit {
+  measures: MeasuresData[] = [];
+
+  constructor(private measuresService: MeasuresService) {}
+
+  ngOnInit(): void {
+    this.measuresService.getMeasures('M1').subscribe(data => {
+      this.measures = data;
+      console.log(this.measures);
+      const processedData: ProcessedData[] = this.procesarDatos(this.measures);
+      console.log(processedData);
+    });
+  }
+
+  // Método para procesar los datos
+  private procesarDatos(measuresData: MeasuresData[]): ProcessedData[] {
+    const processedData: ProcessedData[] = [];
+  
+    measuresData.forEach((data) => {
+      const { measures } = data;
+      const fecha = format(new Date(data.date), 'yyyy-MM-dd', { locale: es });
+  
+      let primeraHoraTrue: string = '';
+      let ultimaHoraFalse: string = '';
+  
+      for (let i = 0; i < measures.length; i++) {
+        const measure = measures[i];
+  
+        if (measure.data.includes('true')) {
+          primeraHoraTrue = format(new Date(measure.date), 'HH:mm:ss', { locale: es });
+          break;
+        }
+      }
+  
+      for (let i = measures.length - 1; i >= 0; i--) {
+        const measure = measures[i];
+  
+        if (measure.data.includes('false')) {
+          ultimaHoraFalse = format(new Date(measure.date), 'HH:mm:ss', { locale: es });
+          break;
+        }
+      }
+  
+      if (primeraHoraTrue !== '' && ultimaHoraFalse !== '') {
+        processedData.push({
+          fecha,
+          primeraHoraTrue,
+          ultimaHoraFalse,
+        });
+      }
+    });
+  
+    return processedData;
+  }
+
+}
+/*
 export class TablaPresenciaComponent {
 
   @Input() sensor: any;
@@ -77,3 +151,4 @@ export class TablaPresenciaComponent {
     return format(fechaFormateada, 'dd-MM-yyyy', { locale: es });
   }
 }
+*/

@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cell, DefaultEditor, EditConfirmEvent } from 'angular2-smart-table';
 import { Settings } from 'angular2-smart-table/lib/lib/settings';
-import { DataObservables } from 'src/app/services/dataObservables.service';
-import { SensorDataService } from '../../services/sensor-data.service';
+import { SensorDataService } from '../../services/sensors.service';
+import { GraphsService } from 'src/app/services/graphs.service';
+import { MeasuresService } from 'src/app/services/measures.service';
 
 @Component({
   selector: 'app-sensors',
@@ -17,13 +18,13 @@ export class SensorsComponent implements OnInit {
   data: any = [];
   
 
-  constructor(private dataObservables: DataObservables, private sensorDataService: SensorDataService, ) {
-    dataObservables.sharedSensors.subscribe((sensors: any) => {
+  constructor(private medidasService: SensorDataService, private sensorDataService: GraphsService ) {
+    this.medidasService.getSensors().subscribe((sensors: any) => {
       this.sensors = sensors;
 
       this.data = new Array();
 
-      dataObservables.setSensorsData(sensors);
+      
 
       console.log('listado', this.sensors);
 
@@ -191,7 +192,7 @@ export class SensorsComponent implements OnInit {
     const showTemperature = 't';
     const showMinMax = 's';
     const startDate = '2023-09-01';
-    this.sensorDataService.getSensorData(
+    this.sensorDataService.getGraph(
       macAddresses,
       showTemperature,
       showMinMax,
@@ -217,7 +218,7 @@ export class CustomButtonComponent extends DefaultEditor {
   
   public row: any;
 
-  constructor(private sensorDataService: SensorDataService) {
+  constructor(private graph: GraphsService) {
     super();
   }
 
@@ -228,7 +229,7 @@ export class CustomButtonComponent extends DefaultEditor {
     const showMinMax = 's';
     const startDate = '2023-01-01';
 
-    this.sensorDataService.getSensorData(
+    this.graph.getGraph(
       macAddresses,
       showTemperature,
       showMinMax,
