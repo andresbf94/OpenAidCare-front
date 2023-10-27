@@ -21,8 +21,8 @@
               <tr *ngFor="let dato of datosM0">
                 <td>{{ getDayWithDate(dato.fecha) }}</td>
                 <td>{{ formatDate(dato.fecha) }}</td>
-                <td>{{ dato.primeraHora }}</td>
-                <td>{{ dato.ultimaHora }}</td>
+                <td>{{ sumarHoras(dato.primeraHora) }}</td>
+                <td>{{ sumarHoras(dato.ultimaHora) }}</td>
               </tr>
             </tbody>
           </table>
@@ -47,8 +47,8 @@
               <tr *ngFor="let dato of datosM1">
                 <td>{{ getDayWithDate(dato.fecha) }}</td>
                 <td>{{ formatDate(dato.fecha) }}</td>
-                <td>{{ dato.primeraHora }}</td>
-                <td>{{ dato.ultimaHora }}</td>
+                <td>{{ sumarHoras(dato.primeraHora) }}</td>
+                <td>{{ sumarHoras(dato.ultimaHora) }}</td>
               </tr>
             </tbody>
           </table>

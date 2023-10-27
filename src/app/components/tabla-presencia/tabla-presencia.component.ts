@@ -117,6 +117,17 @@ export class TablaPresenciaComponent implements OnInit {
     const parsedDate = new Date(date);
     return format(parsedDate, 'dd/MM/yyyy', { locale: es });
   }
+  
+  sumarHoras(hora: string): string {
+    const [horas, minutos] = hora.split(':').map(Number);
+    let nuevaHora = horas + 2;
+  
+    if (nuevaHora >= 24) {
+      nuevaHora -= 24; // Restar 24 horas si la suma supera las 24 horas
+    }
+  
+    return `${nuevaHora.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;
+  }
 }
 /*
 export class TablaPresenciaComponent {
