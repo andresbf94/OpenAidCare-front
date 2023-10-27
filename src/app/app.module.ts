@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { TablaPresenciaComponent } from './components/tabla-presencia/tabla-presencia.component';
 import { NavComponent } from './components/nav/nav.component';
 import { HeaderComponent } from './components/header/header.component';
+import { TempHumedadActualComponent } from './components/temp-humedad-actual/temp-humedad-actual.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
     TablaPresenciaComponent,
     NavComponent,
     HeaderComponent,
+    TempHumedadActualComponent,
 
   ],
   imports: [

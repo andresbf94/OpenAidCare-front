@@ -24,8 +24,6 @@ export class SensorsComponent implements OnInit {
 
       this.data = new Array();
 
-      
-
       console.log('listado', this.sensors);
 
       this.sensors.forEach((sensor) => {
@@ -227,7 +225,7 @@ export class CustomButtonComponent extends DefaultEditor {
     macAddresses.push(this.row.mac);
     const showTemperature = 't';
     const showMinMax = 's';
-    const startDate = '2023-01-01';
+    const startDate = '2023-09-01';
 
     this.graph.getGraph(
       macAddresses,
