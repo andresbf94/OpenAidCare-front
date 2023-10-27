@@ -1,26 +1,92 @@
-<!--<table>
-    <thead>
-      <tr>
-        <th>Fecha</th>
-        <th>Medidas</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let i tem of medidasPorFecha">
-        <tr *ngIf="item.medidas.length > 0">
-          <td>{{ formatearFecha(item.fecha) }}</td>
-          <td>
-            <ul>
-              <li *ngFor="let medida of item.medidas">
-                {{ formatearHora(medida.date) }}
-              </li>
-            </ul>
-          </td>
-        </tr>
-        <tr *ngIf="item.medidas.length === 0">
-          <td>{{ item.fecha }}</td>
-          <td>No hay medidas para este día</td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>-->
+<div class="container-fluid">
+
+  <div class="row  mt-5">
+
+    <h2 class="text-center encabezado">Sesores de Presencia</h2>
+    
+    <div class="card card1">
+      <div class="plantaBaja">
+        <div *ngIf="datosM0.length > 0">
+          <h4 class="encabezadoCard">Planta Baja</h4>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Día</th>
+                <th>Fecha</th>
+                <th>Primera Hora</th>
+                <th>Última Hora</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dato of datosM0">
+                <td>{{ getDayWithDate(dato.fecha) }}</td>
+                <td>{{ formatDate(dato.fecha) }}</td>
+                <td>{{ dato.primeraHora }}</td>
+                <td>{{ dato.ultimaHora }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card card2">
+      <div class="primeraPlanta">
+        <div *ngIf="datosM1.length > 0">
+          <h4 class="encabezadoCard">Primera Planta</h4>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Día</th>
+                <th>Fecha</th>
+                <th>Primera Hora</th>
+                <th>Última Hora</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dato of datosM1">
+                <td>{{ getDayWithDate(dato.fecha) }}</td>
+                <td>{{ formatDate(dato.fecha) }}</td>
+                <td>{{ dato.primeraHora }}</td>
+                <td>{{ dato.ultimaHora }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card3">
+      <!--
+        <div *ngIf="datosM2.length > 0">
+          <h2>Planta Baja</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Día</th>
+                <th>Fecha</th>
+                <th>Primera Hora</th>
+                <th>Última Hora</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dato of datosM2">
+                <td>{{ getDayWithDate(dato.fecha) }}</td>
+                <td>{{ formatDate(dato.fecha) }}</td>
+                <td>{{ dato.primeraHora }}</td>
+                <td>{{ dato.ultimaHora }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      -->
+    </div>
+
+  </div> <!--row-->
+
+</div><!--container-->
+
+
+
+
+

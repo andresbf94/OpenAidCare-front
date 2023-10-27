@@ -3,21 +3,20 @@ import { MeasuresService } from '../../services/measures.service';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-interface Measure {
-  data: string[];
-  date: string;
-}
-
-interface MeasuresData {
-  date: string | number | Date;
-  sensor: any;
-  measures: Measure[];
+interface SensorData {
+  sensor: {
+    // propiedades del sensor
+  };
+  measures: {
+    data: string[];
+    date: string;
+  }[];
 }
 
 interface ProcessedData {
   fecha: string;
-  primeraHoraTrue: string;
-  ultimaHoraFalse: string;
+  primeraHora: string | null;
+  ultimaHora: string | null;
 }
 
 @Component({
@@ -27,60 +26,97 @@ interface ProcessedData {
 })
 
 export class TablaPresenciaComponent implements OnInit {
-  measures: MeasuresData[] = [];
+  measures:any  = [];
+ 
+  datosM0:any= [];
+  datosM1:any=[];
+  datosM2:any= [];
 
   constructor(private measuresService: MeasuresService) {}
 
   ngOnInit(): void {
-    this.measuresService.getMeasures('M1').subscribe(data => {
-      this.measures = data;
-      console.log(this.measures);
-      const processedData: ProcessedData[] = this.procesarDatos(this.measures);
-      console.log(processedData);
+
+    this.measuresService.getMeasuresLastWeek('M0').subscribe(data => {
+      if (Array.isArray(data.measures)) {
+        this.measures = data.measures;
+        console.log('datos intro funcion', this.measures);
+        this.datosM0 = this.procesarDatos(this.measures);
+        console.log('processedData', this.datosM0);
+      } else {
+        console.error('Los datos recibidos no son un array válido.');
+      }
     });
+
+    this.measuresService.getMeasuresLastWeek('M1').subscribe(data => {
+      if (Array.isArray(data.measures)) {
+        this.measures = data.measures;
+        console.log('datos intro funcion', this.measures);
+        this.datosM1 = this.procesarDatos(this.measures);
+        console.log('processedData', this.datosM1);
+      } else {
+        console.error('Los datos recibidos no son un array válido.');
+      }
+    });
+
+    this.measuresService.getMeasuresLastWeek('M2').subscribe(data => {
+      if (Array.isArray(data.measures)) {
+        this.measures = data.measures;
+        console.log('datos intro funcion', this.measures);
+        this.datosM2 = this.procesarDatos(this.measures);
+        console.log('processedData', this.datosM2);
+      } else {
+        console.error('Los datos recibidos no son un array válido.');
+      }
+    });
+
+
   }
 
-  // Método para procesar los datos
-  private procesarDatos(measuresData: MeasuresData[]): ProcessedData[] {
+  //Extrae un array con la fecha, la primera y la ultima vez que la puerta se abrió.
+
+  private procesarDatos(data: any) {
     const processedData: ProcessedData[] = [];
+    const measures = data;
   
-    measuresData.forEach((data) => {
-      const { measures } = data;
-      const fecha = format(new Date(data.date), 'yyyy-MM-dd', { locale: es });
+    const dateMap: { [key: string]: { primeraHora: string | null, ultimaHora: string | null } } = {};
   
-      let primeraHoraTrue: string = '';
-      let ultimaHoraFalse: string = '';
+    measures.forEach((measure: any) => {
+      const { data, date } = measure;
+      const currentDate = date.split('T')[0];
+      const currentHour = date.split('T')[1].split('.')[0];
   
-      for (let i = 0; i < measures.length; i++) {
-        const measure = measures[i];
-  
-        if (measure.data.includes('true')) {
-          primeraHoraTrue = format(new Date(measure.date), 'HH:mm:ss', { locale: es });
-          break;
+      if (data.includes('true')) {
+        if (!(currentDate in dateMap)) {
+          dateMap[currentDate] = { primeraHora: currentHour, ultimaHora: null };
         }
       }
   
-      for (let i = measures.length - 1; i >= 0; i--) {
-        const measure = measures[i];
-  
-        if (measure.data.includes('false')) {
-          ultimaHoraFalse = format(new Date(measure.date), 'HH:mm:ss', { locale: es });
-          break;
+      if (data.includes('false')) {
+        if (currentDate in dateMap) {
+          dateMap[currentDate].ultimaHora = currentHour;
         }
-      }
-  
-      if (primeraHoraTrue !== '' && ultimaHoraFalse !== '') {
-        processedData.push({
-          fecha,
-          primeraHoraTrue,
-          ultimaHoraFalse,
-        });
       }
     });
+  
+    // Convertir el objeto de mapa en un array de objetos
+    for (const date in dateMap) {
+      const { primeraHora, ultimaHora } = dateMap[date];
+      processedData.push({ fecha: date, primeraHora, ultimaHora });
+    }
   
     return processedData;
   }
+  
+  getDayWithDate(date: string): string {
+    const parsedDate = new Date(date);
+    return format(parsedDate, 'EEEE', { locale: es });
+  }
 
+  // Función para formatear la fecha
+  formatDate(date: string): string {
+    const parsedDate = new Date(date);
+    return format(parsedDate, 'dd/MM/yyyy', { locale: es });
+  }
 }
 /*
 export class TablaPresenciaComponent {
