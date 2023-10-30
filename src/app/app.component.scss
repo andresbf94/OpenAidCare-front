@@ -1,157 +1,25 @@
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 90px;
-    width: 100%;
-    color: #fff; 
-  }
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 90px;
+  width: 100%;
+  color: #fff; 
+  background-color: #333; /* Agrega un color de fondo al encabezado si lo deseas */
+  z-index: 100; /* Asegura que el encabezado esté por encima de otros elementos */
+}
 
 .nav {
-    position: fixed;
-    top: 90px; 
-    left: 0;
-    width: 200px; 
-    height: calc(100vh - 90px); 
-    background-color: rgba(192, 188, 188, 0.3);
-    color: black; 
-  }
-
-.content{
-    top: 90px;
-    margin-left: 200px;   
-}
-/*
-.homeBar {
-    background: linear-gradient(to left, #7baddf, #5698da);
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    height: 8vh;
+  position: fixed;
+  top: 90px; 
+  left: 0;
+  width: 200px; 
+  height: calc(100vh - 90px); 
+  background-color: rgba(192, 188, 188, 0.3);
+  color: black; 
 }
 
-.homeBar>h1 {
-    color: white;
-    margin-left: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: all ease-in-out 0.2s;
+.content {
+   /* Agrega un margen superior para compensar el espacio ocupado por el encabezado */
+  margin-left: 200px;   
 }
-
-.homeBar>h1:hover {
-    font-size: 2.1rem;
-}
-
-.houseInactive {
-    height: 0px;
-    opacity: 0%;
-}
-
-.transition {
-    transition: all ease-in-out 0.2s;
-}
-
-.houseActive {
-    height: 80px;
-    opacity: 100%;
-}
-
-.textToBottom {
-    transition: all ease-in-out 0.2s;
-    margin-top: auto;
-    margin-bottom: 2px;
-}
-
-.textToBottom:hover {
-    margin-top: auto;
-    margin-bottom: 10px;
-}
-
-.lateralHomeBar {
-    height: 92vh;
-    width: 13%;
-    background: #3e454d;
-    padding-top: 15px;
-}
-
-.lateralHomeBar>h2 {
-    color: white;
-    display: flex;
-    margin-left: 20px;
-    justify-content: left;
-    align-items: center;
-    font-size: 2rem;
-    transition: all ease-in-out 0.2s;
-}
-
-.lateralHomeBarDiv, .lateralHomeBarSubDiv{
-    width: 90%;
-}
-
-
-
-.lateralHomeBarDiv>h2 {
-    color: white;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    display: flex;
-    margin-left: 20px;
-    justify-content: left;
-    align-items: center;
-    font-size: 1.25rem;
-    cursor: pointer;
-}
-
-.lateralHomeBarSubDiv>h2 {
-    color: white;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    display: flex;
-    margin-left: 50px;
-    justify-content: left;
-    align-items: center;
-    font-size: 1.25rem;
-    cursor: pointer;
-}
-
-.lateralHomeBarDiv>h2:hover {
-    text-decoration: underline;
-    display: flex;
-    margin-left: 20px;
-    justify-content: left;
-    align-items: center;
-    font-size: 1.25rem;
-}
-
-.lateralHomeBarSubDiv>h2:hover {
-    text-decoration: underline;
-    display: flex;
-    margin-left: 55px;
-    justify-content: left;
-    align-items: center;
-    font-size: 1.25rem;
-}
-
-.lateralHomeBarDiv.active {
-    background-color: rgba(196, 196, 196, 0.308);
-    border-radius: 0 10px 10px 0;
-}
-
-.lateralHomeBarSubDiv.active>h2 {
-    background-color: rgba(196, 196, 196, 0.308);
-    border-radius: 10px 10px 10px 10px;
-}
-
-svg {
-    transition: all ease-in-out 0.5s;
-}
-
-path {
-    transition: all ease-in-out 0.5s;
-}
-
-*/

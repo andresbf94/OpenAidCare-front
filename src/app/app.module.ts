@@ -13,6 +13,7 @@ import { TablaPresenciaComponent } from './components/tabla-presencia/tabla-pres
 import { NavComponent } from './components/nav/nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TempHumedadActualComponent } from './components/temp-humedad-actual/temp-humedad-actual.component';
+import { PanelPrincipalComponent } from './views/panel-principal/panel-principal.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
     NavComponent,
     HeaderComponent,
     TempHumedadActualComponent,
+    PanelPrincipalComponent,
 
   ],
   imports: [

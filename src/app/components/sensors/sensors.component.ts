@@ -38,7 +38,8 @@ export class SensorsComponent implements OnInit {
           case '0x00124b00246ccb6e':
           case '0x00124b00246c6b74':
           case '0x00124b002502e233':
-          //case '0x00124b00251c554a':
+            //sensores presencia
+          //case '0x00124b00251c554a': 
           //case '0x00124b00288fd901':
           //case '0x00124b002450f476':
 
