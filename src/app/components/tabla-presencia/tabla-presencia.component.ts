@@ -120,12 +120,16 @@ export class TablaPresenciaComponent implements OnInit {
 
   sumarHoras(hora: string): string {
     const [horas, minutos, segundos] = hora.split(':').map(Number);
-    let nuevaHora = horas + 2;
+    const fechaActual = new Date(); // Obtiene la fecha y hora actual en la zona horaria del cliente
   
-    if (nuevaHora >= 24) {
-      nuevaHora -= 24; // Restar 24 horas si la suma supera las 24 horas
-    }
+    // Establece la hora obtenida del parámetro
+    fechaActual.setHours(horas, minutos, segundos);
   
-    return `${nuevaHora.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+    // Establece la zona horaria a España
+    const options: Intl.DateTimeFormatOptions = { timeZone: 'Europe/Madrid', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    
+    // Obtiene la hora localizada en España
+    const horaEspaña = fechaActual.toLocaleTimeString('es-ES', options);
+    return horaEspaña;
   }
 }

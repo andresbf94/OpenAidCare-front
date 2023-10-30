@@ -1,42 +1,43 @@
 <div class="container">
-  <div class="card mt-4">
+  <div class="card mt-4 border-0">
+
     <div class="card-header text-center m-3 card-header-bg">
       <h3>Sensores de Presencia</h3>
     </div>
-  <div class="row card-body">
-    <!-- Card para datos de M0 -->
-    <div class="col-sm-12 col-md-6 col-xxl-4 mt-3">
-      <div class="card">
-        <h5 class="card-header text-center mb-4 plantaBaja ">Planta Baja</h5>
-          <div class="card-body">
-          <div *ngIf="datosM0.length > 0">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Día</th>
-                  <th>Fecha</th>
-                  <th>Entrada</th>
-                  <th>Salida</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let dato of datosM0">
-                  <td>{{ getDayWithDate(dato.fecha) }}</td>
-                  <td>{{ formatDate(dato.fecha) }}</td>
-                  <td>{{ sumarHoras(dato.primeraHora) }}</td>
-                  <td>{{ sumarHoras(dato.ultimaHora) }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+  
+    <div class="row card-body">
+      <div class="col-sm-12 col-md-6 col-xxl-4 mt-3">
+        <div class="card mb-4">
+          <h5 class="card-header text-center  plantaBaja ">Planta Baja</h5>
+            <div class="card-body">
+              <div *ngIf="datosM0.length > 0">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Día</th>
+                      <th>Fecha</th>
+                      <th>Entrada</th>
+                      <th>Salida</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let dato of datosM0">
+                      <td>{{ getDayWithDate(dato.fecha) }}</td>
+                      <td>{{ formatDate(dato.fecha) }}</td>
+                      <td>{{ sumarHoras(dato.primeraHora) }}</td>
+                      <td>{{ sumarHoras(dato.ultimaHora) }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
         </div>
       </div>
-    </div>
 
     <!-- Card para datos de M1 -->
     <div class="col-sm-12 col-md-6 col-xxl-4 mt-3">
-      <div class="card">
-        <h5 class="card-header text-center mb-4 primeraPlanta">Primera Planta</h5>
+      <div class="card mb-4 ">
+        <h5 class="card-header text-center primeraPlanta">Primera Planta</h5>
         <div class="card-body">
          
           <div *ngIf="datosM1.length > 0">
@@ -65,8 +66,8 @@
 
     <!-- Card para datos de M2 -->
     <div class="col-sm-12 col-md-6 col-xxl-4 mt-3">
-      <div class="card">
-        <h5 class="card-header text-center mb-4 segundaPlanta">Segunda Planta</h5>
+      <div class="card mb-4">
+        <h5 class="card-header text-center  segundaPlanta">Segunda Planta</h5>
         <div class="card-body">
           <div *ngIf="datosM2.length > 0">
             <table class="table table-striped">

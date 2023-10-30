@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
-import { SensorsComponent } from './components/sensors/sensors.component';
+import { SensorsComponent } from './views/sensors/sensors.component';
 
 export const serverRoute = 'https://openaidcare-api.herokuapp.com/';
 

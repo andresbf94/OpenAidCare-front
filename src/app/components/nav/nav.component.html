@@ -1,27 +1,24 @@
 <div class="">
-
-  <div class=" rowPrin" [class.active]="rowPrinActive" (click)="toggleActive('rowPrin')"> 
-    <h3 class="tituloPrin">
-      <a class="" routerLink="/">
-        <img class="imgPrin" src="../assets/images/house-gear.svg"/> 
-        <span class="word">
-          <span class="word1">Panel</span>
-          <br>
-          <span class="word2">Principal</span>
-        </span>
-      </a>
-    </h3>
-  </div>
-
-  <div class="rowSec" [class.active]="rowSecActive" (click)="toggleActive('rowSec')">  
-    <h5 class="tituloSec">
-      <a routerLink="/sensors">
-        <img class="imgSub"  src="../assets/images/lista.png" />
-        <span class="word3">Sensores</span>
-      </a>
-    </h5>    
-  </div>
-
+  <a class="" routerLink="/">
+    <div class=" rowPrin" [class.active]="rowPrinActive" (click)="toggleActive('rowPrin')"> 
+      <h3 class="tituloPrin">
+          <img class="imgPrin" src="../assets/images/house-gear.svg"/> 
+          <span class="word">
+            <span class="word1">Panel</span>
+            <br>
+            <span class="word2">Principal</span>
+          </span>
+      </h3>
+    </div>
+  </a>
+  <a routerLink="/sensors">
+    <div class="rowSec" [class.active]="rowSecActive" (click)="toggleActive('rowSec')">  
+      <h5 class="tituloSec">  
+          <img class="imgSub"  src="../assets/images/lista.png" />
+          <span class="word3">Sensores</span>      
+      </h5>    
+    </div>
+  </a>
 </div>
 
 
