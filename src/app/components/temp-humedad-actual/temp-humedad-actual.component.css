@@ -4,3 +4,6 @@
 img{
     height: 20px;
 }
+.card-header{
+    background-color: rgba(86, 152, 218, 0.3);
+  }

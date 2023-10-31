@@ -9,10 +9,9 @@ export class ApiElectService {
  
   constructor(private http: HttpClient) { }
 
-  getPreciosDia() {
-    return  this.http.get('https://api.preciodelaluz.org/v1/prices/all?zone=PCB')
-  }
   
+    
 }
+
 
 

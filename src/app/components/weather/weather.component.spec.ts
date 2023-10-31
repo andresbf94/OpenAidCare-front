@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApiElectComponent } from './api-elect.component';
+import { WeatherComponent } from './weather.component';
 
-describe('ApiElectComponent', () => {
-  let component: ApiElectComponent;
-  let fixture: ComponentFixture<ApiElectComponent>;
+describe('WeatherComponent', () => {
+  let component: WeatherComponent;
+  let fixture: ComponentFixture<WeatherComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ApiElectComponent]
+      declarations: [WeatherComponent]
     });
-    fixture = TestBed.createComponent(ApiElectComponent);
+    fixture = TestBed.createComponent(WeatherComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

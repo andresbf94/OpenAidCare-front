@@ -13,7 +13,8 @@ import { TablaPresenciaComponent } from './components/tabla-presencia/tabla-pres
 import { NavComponent } from './components/nav/nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TempHumedadActualComponent } from './components/temp-humedad-actual/temp-humedad-actual.component';
-import { ApiElectComponent } from './components/api-elect/api-elect.component';
+import { WeatherComponent } from './components/weather/weather.component';
+
 
 const routes: Routes = [
   
@@ -29,7 +30,8 @@ const routes: Routes = [
     NavComponent,
     HeaderComponent,
     TempHumedadActualComponent,
-    ApiElectComponent,
+    WeatherComponent,
+
     
 
   ],
