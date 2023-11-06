@@ -1,21 +1,48 @@
-<div class="container">
-    <div class="row">
-        <h4 >Gijón</h4>
-    </div>
-    
-    <div class="row">
-        <div class="col-4">
-            <img>
-        </div>
-        <div class="col-4">
+<div class="container-fluid">
+  <table class="tabla">
+    <thead>
+      <tr class="text-center">
+        <th *ngFor="let dia of tiempoSemana">{{ obtenerDiaSemana(dia.fecha) }}</th>
+      </tr>
+    </thead>
+    <tbody>
 
-        </div>
-        <div class="col-4">
+        <tr>
+          <td *ngFor="let dia of tiempoSemana"> 
+            <ng-container *ngIf="dia.estadosCielo && dia.estadosCielo.length > 0">
+              <span *ngIf="estadoCieloImagenes[dia.estadosCielo[0]?.descripcion]">
+                <img class="iconoClima" [src]="estadoCieloImagenes[dia.estadosCielo[0]?.descripcion]" alt="Estado del cielo">
+              </span>
+              <span *ngIf="!estadoCieloImagenes[dia.estadosCielo[0]?.descripcion]">
+                {{ dia.estadosCielo[0]?.descripcion }}
+              </span>
+              </ng-container>
+              <ng-container *ngIf="!dia.estadosCielo || dia.estadosCielo.length === 0">
+                -
+              </ng-container>
+          </td>
+        </tr>
 
-        </div>
-        <div class="col-4">
-            
-        </div>
-        
-    </div>
+        <tr>
+          <td *ngFor="let dia of tiempoSemana">
+            <div class="text-start d-inline mx-2 ">
+              <b>{{ dia.temperaturas?.maxima || '-' }}ºC</b>
+            </div>
+            <div class=" d-inline mx-2">
+              {{ dia.temperaturas?.minima || '-' }}ºC
+            </div>         
+          </td>        
+        </tr>
+
+        <tr>
+          <td *ngFor="let dia of tiempoSemana"> 
+            <img class="iconoViento" src="../../../assets/images/wind.svg">    
+            <span *ngFor="let viento of dia.vientos">  {{ viento.velocidad }} </span>
+            <span *ngFor="let viento of dia.vientos">{{ viento.direccion }} </span>         
+          </td>
+        </tr>
+
+    </tbody>
+  </table>
 </div>
+

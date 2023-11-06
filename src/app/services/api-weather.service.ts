@@ -10,9 +10,9 @@ export class ApiWeatherService {
   private datosSubjectDias = new BehaviorSubject<any>(null);
   private datosSubjectHoras = new BehaviorSubject<any>(null);
 
-  datosDias$: Observable<any> = this.datosSubjectDias.asObservable();
-  datosHoras$: Observable<any> = this.datosSubjectHoras.asObservable();
-
+  datosDias: Observable<any> = this.datosSubjectDias.asObservable();
+  datosHoras: Observable<any> = this.datosSubjectHoras.asObservable();
+  
   constructor(private http: HttpClient){}
 
   prediccionDiaria() {
@@ -64,4 +64,9 @@ export class ApiWeatherService {
       console.error('Error en la solicitud principal:', error);
     });
   }
+
+  
+  
 }
+
+

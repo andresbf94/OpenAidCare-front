@@ -1,0 +1,23 @@
+.tabla-presencia{
+    display: inline-block;
+    width: 65%;
+    margin-left: 2%;
+}
+.tabla-tempHum{
+    display: inline-block;
+    width: 31%;
+    margin-right: 2%;
+}
+
+@media(width < 1200px){
+    .tabla-presencia{
+        display: flex;
+        display: flex;
+        width: 100%;
+    }
+    .tabla-tempHum{
+        display: flex;
+        display: flex;
+        width: 100%;
+    }
+}
