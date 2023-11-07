@@ -40,25 +40,25 @@ export class TablaPresenciaComponent implements OnInit {
     this.measuresService.getMeasuresLastWeek('M0').subscribe(data => {
       if (Array.isArray(data.measures)) {
         this.measures = data.measures;
-        this.datosM0 = this.procesarDatos(this.measures);
+        this.datosM0 = this.procesarDatos(this.measures).reverse();
       } else {
         console.error('Los datos recibidos no son un array válido.');
       }
     });
-
+  
     this.measuresService.getMeasuresLastWeek('M1').subscribe(data => {
       if (Array.isArray(data.measures)) {
         this.measures = data.measures;
-        this.datosM1 = this.procesarDatos(this.measures);
+        this.datosM1 = this.procesarDatos(this.measures).reverse();
       } else {
         console.error('Los datos recibidos no son un array válido.');
       }
     });
-
+  
     this.measuresService.getMeasuresLastWeek('M2').subscribe(data => {
       if (Array.isArray(data.measures)) {
         this.measures = data.measures;
-        this.datosM2 = this.procesarDatos(this.measures);   
+        this.datosM2 = this.procesarDatos(this.measures).reverse();
       } else {
         console.error('Los datos recibidos no son un array válido.');
       }
@@ -109,6 +109,16 @@ export class TablaPresenciaComponent implements OnInit {
   
   getDayWithDate(date: string): string {
     const parsedDate = new Date(date);
+    const currentDate = new Date();
+  
+    if (
+      parsedDate.getDate() === currentDate.getDate() &&
+      parsedDate.getMonth() === currentDate.getMonth() &&
+      parsedDate.getFullYear() === currentDate.getFullYear()
+    ) {
+      return 'hoy';
+    }
+  
     return format(parsedDate, 'EEEE', { locale: es });
   }
 

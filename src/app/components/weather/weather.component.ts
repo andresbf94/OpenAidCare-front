@@ -100,7 +100,7 @@ export class WeatherComponent implements OnInit {
   extraerDatos() {
     // Filtra los datos por día y por periodo '00-24'
     let precipitaciones = this.precipitaciones.filter((item: { periodo: string | undefined; }) => item.periodo === undefined || item.periodo === '00-24');
-    let estadosCielo = this.estadosCielo.filter((item: { periodo: string | undefined; }) => item.periodo === undefined || item.periodo === '00-24');
+    let estadosCielo = this.estadosCielo.filter((item: { periodo: string | undefined, descripcion: string | undefined}) => (item.periodo === undefined || item.periodo === '00-24' || item.periodo === '12-24') && item.descripcion !== '');
     let vientos = this.vientos.filter((item: { periodo: string | undefined; }) => item.periodo === undefined || item.periodo === '00-24');
   
     // Agrupa los datos por día
@@ -132,11 +132,12 @@ export class WeatherComponent implements OnInit {
     '': '../../../assets/iconosTiempo/chubasco_de_aguanieve.png',
     '': '../../../assets/iconosTiempo/chubasco_de_nieve_con_tormenta.png',
     '': '../../../assets/iconosTiempo/chubasco_de_nieve.png',
-    'Muy nuboso con tormenta': '../../../assets/iconosTiempo/chubasco.png',
+    'Intervalos nubosos con lluvia': '../../../assets/iconosTiempo/chubasco.png',
     '': '../../../assets/iconosTiempo/cielo_despejado.png',
     'Cubierto': '../../../assets/iconosTiempo/cubierto.png',
-    '': '../../../assets/iconosTiempo/intervalos_nubosos.png',
+    'Intervalos nubosos': '../../../assets/iconosTiempo/intervalos_nubosos.png',
     'Muy nuboso con lluvia': '../../../assets/iconosTiempo/lluvia.png',
+    'Nuboso con lluvia': '../../../assets/iconosTiempo/lluvia.png',
     'Cubierto con lluvia': '../../../assets/iconosTiempo/muy_nuboso_con_lluvia_escasa.png',
     '': '../../../assets/iconosTiempo/muy_nuboso.png',
     '': '../../../assets/iconosTiempo/neblina.png',
@@ -147,15 +148,25 @@ export class WeatherComponent implements OnInit {
     '': '../../../assets/iconosTiempo/nubes_altas.png',
     '': '../../../assets/iconosTiempo/nuboso_con_lluvia_intermitente.png',
     '': '../../../assets/iconosTiempo/nuboso.png',
-    'Intervalos nubosos con lluvia': '../../../assets/iconosTiempo/parcialmente_nuboso_con_lluvia_intermitente.png',
+    'Intervalos nubosos con lluvia escasa': '../../../assets/iconosTiempo/parcialmente_nuboso_con_lluvia_intermitente.png',
     '': '../../../assets/iconosTiempo/tormenta_con_granizo.png',
-    '': '../../../assets/iconosTiempo/tormenta.png',
+    'Muy nuboso con tormenta': '../../../assets/iconosTiempo/tormenta.png',
     
   };
   obtenerDiaSemana(fecha: string): string {
     const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const fechaDate = new Date(fecha);
     const diaSemana = fechaDate.getDay();
-    return diasSemana[diaSemana];
+    
+    const fechaActual = new Date();
+    if (
+      fechaDate.getDate() === fechaActual.getDate() &&
+      fechaDate.getMonth() === fechaActual.getMonth() &&
+      fechaDate.getFullYear() === fechaActual.getFullYear()
+    ) {
+      return 'Hoy';
+    } else {
+      return diasSemana[diaSemana];
+    }
   }
 }

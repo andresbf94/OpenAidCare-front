@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid text-center">
   <table class="tabla">
     <thead>
       <tr class="text-center">
@@ -6,7 +6,7 @@
       </tr>
     </thead>
     <tbody>
-
+      
         <tr>
           <td *ngFor="let dia of tiempoSemana"> 
             <ng-container *ngIf="dia.estadosCielo && dia.estadosCielo.length > 0">
@@ -33,7 +33,7 @@
             </div>         
           </td>        
         </tr>
-
+        <!--  VIENTO
         <tr>
           <td *ngFor="let dia of tiempoSemana"> 
             <img class="iconoViento" src="../../../assets/images/wind.svg">    
@@ -41,7 +41,7 @@
             <span *ngFor="let viento of dia.vientos">{{ viento.direccion }} </span>         
           </td>
         </tr>
-
+        -->
     </tbody>
   </table>
 </div>

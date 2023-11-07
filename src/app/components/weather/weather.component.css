@@ -1,13 +1,13 @@
 .tabla{
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-
+justify-content: center;
+margin-right: auto;
+margin-left: auto;
+width: 70%;
+   
 }
 .container-fluid{
     padding: 1%;
-
+    width: 100%;
 }
 .iconoClima{
     height: 3em;
