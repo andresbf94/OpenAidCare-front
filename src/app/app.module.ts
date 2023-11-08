@@ -15,7 +15,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { TempHumedadActualComponent } from './components/temp-humedad-actual/temp-humedad-actual.component';
 import { WeatherComponent } from './components/weather/weather.component';
 
-
 const routes: Routes = [
   
 ];
@@ -31,9 +30,6 @@ const routes: Routes = [
     HeaderComponent,
     TempHumedadActualComponent,
     WeatherComponent,
-
-    
-
   ],
   imports: [
     BrowserModule,

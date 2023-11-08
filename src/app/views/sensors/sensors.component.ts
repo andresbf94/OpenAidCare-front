@@ -16,6 +16,7 @@ export class SensorsComponent implements OnInit {
   sensors = new Array();
   prueba: string = '';
   data: any = [];
+  graphUrl = '';
   
 
   constructor(private medidasService: SensorDataService, private sensorDataService: GraphsService ) {
@@ -29,6 +30,7 @@ export class SensorsComponent implements OnInit {
       this.sensors.forEach((sensor) => {
         
         switch (sensor.mac.trim()) {
+          // Sensores temperatura y humedad
           case '0x00158d0008984738':
           case '0x00124b002503776b':
           case '0x00124b0024cd1b52':
@@ -38,10 +40,10 @@ export class SensorsComponent implements OnInit {
           case '0x00124b00246ccb6e':
           case '0x00124b00246c6b74':
           case '0x00124b002502e233':
-            //sensores presencia
-          //case '0x00124b00251c554a': 
-          //case '0x00124b00288fd901':
-          //case '0x00124b002450f476':
+          // Sensores presencia
+          case '0x00124b00251c554a': 
+          case '0x00124b00288fd901':
+          case '0x00124b002450f476':
 
             this.data.push({
               estado: this.getStatus(
@@ -104,7 +106,10 @@ export class SensorsComponent implements OnInit {
 
     edit: {
       confirmSave:true,
-      editButtonContent: 'Editar'
+      editButtonContent: 'Editar',
+      saveButtonContent: 'Guardar',
+      cancelButtonContent: 'Cancelar'
+
     },
 
     actions: {
@@ -227,7 +232,7 @@ export class CustomButtonComponent extends DefaultEditor {
     macAddresses.push(this.row.mac);
     const showTemperature = 't';
     const showMinMax = 's';
-    const startDate = '2023-09-01';
+    const startDate = '2023-10-01';
 
     this.graph.getGraph(
       macAddresses,
