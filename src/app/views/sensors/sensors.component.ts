@@ -96,6 +96,7 @@ export class SensorsComponent implements OnInit {
         isEditable: false,
         renderComponent: CustomButtonComponent,
         componentInitFunction: CustomButtonComponent.componentInit,
+        
       },
     },
 

@@ -15,7 +15,6 @@ export class WeatherComponent implements OnInit {
   vientos: any = [];
 
   tiempoSemana: any = [];
-
   fechaActual = new Date;
 
   constructor(private apiWeatherService: ApiWeatherService) {}
@@ -98,7 +97,7 @@ export class WeatherComponent implements OnInit {
   }
 
   extraerDatos() {
-    // Filtra los datos por día y por periodo '00-24'
+    // Filtra los datos por día y por periodo '00-24', en el caso de estados cielo en el dia actual cuando pasa de las 12 ponen un string vacio asique tomo los valores de '12-24'
     let precipitaciones = this.precipitaciones.filter((item: { periodo: string | undefined; }) => item.periodo === undefined || item.periodo === '00-24');
     let estadosCielo = this.estadosCielo.filter((item: { periodo: string | undefined, descripcion: string | undefined}) => (item.periodo === undefined || item.periodo === '00-24' || item.periodo === '12-24') && item.descripcion !== '');
     let vientos = this.vientos.filter((item: { periodo: string | undefined; }) => item.periodo === undefined || item.periodo === '00-24');
@@ -139,6 +138,7 @@ export class WeatherComponent implements OnInit {
     'Muy nuboso con lluvia': '../../../assets/iconosTiempo/lluvia.png',
     'Nuboso con lluvia': '../../../assets/iconosTiempo/lluvia.png',
     'Cubierto con lluvia': '../../../assets/iconosTiempo/muy_nuboso_con_lluvia_escasa.png',
+    'Muy nuboso con lluvia escasa': '../../../assets/iconosTiempo/muy_nuboso_con_lluvia_escasa.png',
     '': '../../../assets/iconosTiempo/muy_nuboso.png',
     '': '../../../assets/iconosTiempo/neblina.png',
     '': '../../../assets/iconosTiempo/niebla.png',
@@ -153,6 +153,7 @@ export class WeatherComponent implements OnInit {
     'Muy nuboso con tormenta': '../../../assets/iconosTiempo/tormenta.png',
     
   };
+  
   obtenerDiaSemana(fecha: string): string {
     const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const fechaDate = new Date(fecha);
