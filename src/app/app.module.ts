@@ -14,7 +14,8 @@ import { NavComponent } from './components/nav/nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TempHumedadActualComponent } from './components/temp-humedad-actual/temp-humedad-actual.component';
 import { WeatherComponent } from './components/weather/weather.component';
-
+import { CustomButtonComponent } from '../app/views/sensors/sensors.component';
+import { ConsumosHorasBombasComponent } from './components/consumos-horas-bombas/consumos-horas-bombas.component';
 const routes: Routes = [
   
 ];
@@ -30,6 +31,8 @@ const routes: Routes = [
     HeaderComponent,
     TempHumedadActualComponent,
     WeatherComponent,
+    CustomButtonComponent,
+    ConsumosHorasBombasComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,7 @@ const routes: Routes = [
 
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [CustomButtonComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

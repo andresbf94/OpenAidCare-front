@@ -147,7 +147,7 @@ export class WeatherComponent implements OnInit {
     '': '../../../assets/iconosTiempo/nieve.png',
     '': '../../../assets/iconosTiempo/nubes_altas.png',
     '': '../../../assets/iconosTiempo/nuboso_con_lluvia_intermitente.png',
-    '': '../../../assets/iconosTiempo/nuboso.png',
+    'Nuboso': '../../../assets/iconosTiempo/nuboso.png',
     'Intervalos nubosos con lluvia escasa': '../../../assets/iconosTiempo/parcialmente_nuboso_con_lluvia_intermitente.png',
     '': '../../../assets/iconosTiempo/tormenta_con_granizo.png',
     'Muy nuboso con tormenta': '../../../assets/iconosTiempo/tormenta.png',

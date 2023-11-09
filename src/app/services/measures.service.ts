@@ -37,5 +37,4 @@ export class MeasuresService {
     return this.http.get(this.urlMeasures + friendlyName + '/' + formattedDate);
   }
   
-
 }

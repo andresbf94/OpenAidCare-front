@@ -1,6 +1,7 @@
 <div class="">
+
   <a class="" routerLink="/">
-    <div class=" rowPrin" [class.active]="rowPrinActive" (click)="toggleActive('rowPrin')"> 
+    <div class="rowPrin" [class.active]="activeElement === 'rowPrin'" (click)="toggleActive('rowPrin')"> 
       <h3 class="tituloPrin">
           <img class="imgPrin" src="../assets/images/house-gear.svg"/> 
           <span class="word">
@@ -11,14 +12,25 @@
       </h3>
     </div>
   </a>
+
   <a routerLink="/sensors">
-    <div class="rowSec" [class.active]="rowSecActive" (click)="toggleActive('rowSec')">  
+    <div class="rowSec" [class.active]="activeElement === 'rowSec1'" (click)="toggleActive('rowSec1')">    
       <h5 class="tituloSec">  
           <img class="imgSub"  src="../assets/images/lista.png" />
           <span class="word3">Sensores</span>      
       </h5>    
     </div>
   </a>
+
+  <a routerLink="/consumos">
+    <div class="rowSec" [class.active]="activeElement === 'rowSec2'" (click)="toggleActive('rowSec2')"> 
+      <h5 class="tituloSec">  
+          <img class="imgSub"  src="" />
+          <span class="word3">Consumos</span>      
+      </h5>    
+    </div>
+  </a>
+
 </div>
 
 
