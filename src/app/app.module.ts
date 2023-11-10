@@ -16,6 +16,8 @@ import { TempHumedadActualComponent } from './components/temp-humedad-actual/tem
 import { WeatherComponent } from './components/weather/weather.component';
 import { CustomButtonComponent } from '../app/views/sensors/sensors.component';
 import { ConsumosHorasBombasComponent } from './components/consumos-horas-bombas/consumos-horas-bombas.component';
+import { FormsModule } from '@angular/forms';
+
 const routes: Routes = [
   
 ];
@@ -40,7 +42,8 @@ const routes: Routes = [
     AppRoutingModule,
     NgbModule,
     Angular2SmartTableModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule,
 
   ],
   exports: [RouterModule],

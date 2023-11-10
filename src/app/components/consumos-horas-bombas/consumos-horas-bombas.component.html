@@ -1,1 +1,53 @@
-<p>consumos-horas-bombas works!</p>
+<form #myForm="ngForm" (ngSubmit)="recalcularConsumosCostos()">
+    <div>
+      <label for="horasMostrar">Selecciona las horas a mostrar:</label>
+      <select id="horasMostrar" name="horasMostrar" [(ngModel)]="horasMostrar">
+        <option value="todas">Todas</option>
+        <option value="valle">Valle</option>
+        <option value="llano">Llano</option>
+        <option value="punta">Punta</option>
+      </select>
+    </div>
+  
+    <div>
+      <label for="numBombasPequenas">Número de Bombas Pequeñas:</label>
+      <input type="number" id="numBombasPequenas" name="numBombasPequenas" [(ngModel)]="numBombasPequenas">
+    </div>
+  
+    <div>
+      <label for="numBombasGrandes">Número de Bombas Grandes:</label>
+      <input type="number" id="numBombasGrandes" name="numBombasGrandes" [(ngModel)]="numBombasGrandes">
+    </div>
+  
+    <button type="submit">Recalcular Consumos y Costos</button>
+</form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Hora del día</th>
+        <th>Núm. Bombas Pequeñas</th>
+        <th>Núm. Bombas Grandes</th>
+        <th>Consumo Estimado Pequeñas</th>
+        <th>Consumo Estimado Grandes</th>
+        <th>Consumo Estimado Total</th>
+        <th>Costo Estimado Pequeñas</th>
+        <th>Costo Estimado Grandes</th>
+        <th>Costo Estimado Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consumo of consumosCostos">
+        <td>{{ consumo.hora }}</td>
+        <td>{{ consumo.numBombasPequenas }}</td>
+        <td>{{ consumo.numBombasGrandes }}</td>
+        <td>{{ consumo.consumoEstimadoPequenas }}</td>
+        <td>{{ consumo.consumoEstimadoGrandes }}</td>
+        <td>{{ consumo.consumoEstimadoTotal }}</td>
+        <td>{{ consumo.costeEstimadoPequenas }}</td>
+        <td>{{ consumo.costeEstimadoGrandes }}</td>
+        <td>{{ consumo.costeEstimadoTotal }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
