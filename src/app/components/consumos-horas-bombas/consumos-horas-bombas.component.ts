@@ -14,7 +14,10 @@ export class ConsumosHorasBombasComponent implements OnInit {
   
   // Consumos y costos
   consumosCostos:any = [];
-  horasMostrar: any ='';        // Contiene la opcion seleccionada en el input de la vista
+  consumosCostosTotales:any = [];
+  horasMostrar: any = [];         // Contiene la opcion seleccionada en el input de la vista
+  horasSeleccionadas: any = [];
+  horasCostos:any= [];
 
   // Coste kwh por tramo (Actualizado 9-11-2023)
   p1 = 0.186825;
@@ -45,42 +48,49 @@ export class ConsumosHorasBombasComponent implements OnInit {
   
   ngOnInit(): void{
 
-    console.log('valle', this.obtenerHorasValle());
-    console.log('punta', this.obtenerHorasPunta());
-    console.log('llano', this.obtenerHorasLlano());
-    console.log('obtenertramosHoras', this.filtrarHorasTramos())
-    console.log(' horas tramos', this.obtenerHorasTramos() );
-    this.recalcularConsumosCostos();
-    console.log('consumosCostos', this.consumosCostos)
+  
   }
 
   // 1. Obtiene los tramos por hora en funcion del mes actual
-  filtrarHorasTramos() {
-    let horasCostos:any= [];
+  filtrarHorasTramos(opcion: string) {
   
-    if (this.horasMostrar === 'todas') {
-      horasCostos = this.obtenerTodasLasHoras();
-    } else if (this.horasMostrar === 'valle') {
-      horasCostos = this.obtenerHorasValle();
-    } else if (this.horasMostrar === 'llano') {
-      horasCostos = this.obtenerHorasLlano();
-    } else if (this.horasMostrar === 'punta') {
-      horasCostos = this.obtenerHorasPunta();
+    if (opcion === 'todas') {
+      this.horasCostos = this.obtenerTodasLasHoras();
+    } else if (opcion === 'valle') {
+      this.horasCostos = this.obtenerHorasValle();
+    } else if (opcion === 'llano') {
+      this.horasCostos  = this.obtenerHorasLlano();
+    } else if (opcion === 'punta') {
+      this.horasCostos  = this.obtenerHorasPunta();
+    } else if (opcion === 'seleccionadas') {
+      this.horasCostos  = this.obtenerHorasSeleccionadas();
     }
-    return horasCostos;
+  
   }
   // Da todas la horas
   obtenerTodasLasHoras() {
     const horasTramos = this.obtenerHorasTramos();
     return horasTramos;
   }
+  // Devuelve las horas seleccionadas
+  obtenerHorasSeleccionadas() {
+    const horasTramos = this.obtenerHorasTramos();
+    const horasSeleccionadas: any[] = [];
+    const horasSeleccionadasArray = this.horasSeleccionadas;
 
+    horasTramos.forEach(element => {
+        if (horasSeleccionadasArray.includes(element.hora)) {
+            horasSeleccionadas.push(element);
+        }
+    });
+    return horasSeleccionadas;
+  }
   // Filtra las horas en el tramo Valle
   obtenerHorasValle() {
     const horasTramos = this.obtenerHorasTramos();
     const horasValle: any = [];  
     const horasValleArray = ['00-01', '01-02', '02-03', '03-04', '04-05', '05-06', '06-07', '07-08'];
-  
+   
     horasTramos.forEach(element => {
       if (horasValleArray.includes(element.hora)) {
         horasValle.push(element);
@@ -88,7 +98,6 @@ export class ConsumosHorasBombasComponent implements OnInit {
     });
     return horasValle;
   }
-
   // Filtrar las horas en el tramo Llano
   obtenerHorasLlano() { 
     const horasTramos = this.obtenerHorasTramos();
@@ -102,7 +111,6 @@ export class ConsumosHorasBombasComponent implements OnInit {
     });
     return horasLlano;
   }
-
   // Filtrar las horas en el tramo Punta
   obtenerHorasPunta() {
     const horasTramos = this.obtenerHorasTramos();
@@ -152,13 +160,43 @@ export class ConsumosHorasBombasComponent implements OnInit {
     return horasTramos;
   }
 
+  sumarConsumosCostos(consumosCostos: any[]) {
+    this.consumosCostosTotales = [];
+    // Inicializamos las variables de suma
+    let sumaConsumoEstimadoPequenas = 0;
+    let sumaConsumoEstimadoGrandes = 0;
+    let sumaConsumoEstimadoTotal = 0;
+    let sumaCosteEstimadoPequenas = 0;
+    let sumaCosteEstimadoGrandes = 0;
+    let sumaCosteEstimadoTotal = 0;
+
+    // Iteramos sobre los consumos y costos y sumamos los valores
+    for (const consumo of consumosCostos) {
+      sumaConsumoEstimadoPequenas += consumo.consumoEstimadoPequenas;
+      sumaConsumoEstimadoGrandes += consumo.consumoEstimadoGrandes;
+      sumaConsumoEstimadoTotal += consumo.consumoEstimadoTotal;
+      sumaCosteEstimadoPequenas += consumo.costeEstimadoPequenas;
+      sumaCosteEstimadoGrandes += consumo.costeEstimadoGrandes;
+      sumaCosteEstimadoTotal += consumo.costeEstimadoTotal;
+    }
+    this.consumosCostosTotales.push({
+      sumaConsumoEstimadoPequenas: sumaConsumoEstimadoPequenas,
+      sumaConsumoEstimadoGrandes: sumaConsumoEstimadoGrandes,
+      sumaConsumoEstimadoTotal: sumaConsumoEstimadoTotal,
+      sumaCosteEstimadoPequenas: sumaCosteEstimadoPequenas,
+      sumaCosteEstimadoGrandes: sumaCosteEstimadoPequenas,
+      sumaCosteEstimadoTotal: sumaCosteEstimadoTotal,
+    })
+    console.log('consumoscostosTotales', this.consumosCostosTotales);
+   
+  }
+
   recalcularConsumosCostos() {
-    const horasCostos = this.filtrarHorasTramos();
     this.consumosCostos = [];
 
-    for (let i = 0; i < horasCostos.length; i++) {
-      const hora = horasCostos[i].hora;
-      const costoHora = horasCostos[i].tramo;
+    for (let i = 0; i < this.horasCostos.length; i++) {
+      const hora = this.horasCostos[i].hora;
+      const costoHora = this.horasCostos[i].tramo;
 
       const consumoPequenas = this.consumoPequenaKWh * this.numBombasPequenas;
       const consumoGrandes = this.consumoGrandeKWh * this.numBombasGrandes;
@@ -180,7 +218,43 @@ export class ConsumosHorasBombasComponent implements OnInit {
         costeEstimadoTotal: costoTotal
       });
     }
+    
+    console.log('consumoscostos', this.consumosCostos);
+
+    // Llamada a la función para obtener la suma de consumos y costos
+    const resultadosSuma = this.sumarConsumosCostos(this.consumosCostos);
   }
+
+  obtenerHorasDia() {
+    const horasDia = [];
+    for (let i = 0; i < 24; i++) {
+      const horaInicio = i < 10 ? `0${i}` : `${i}`;
+      const horaFin = i + 1 < 10 ? `0${i + 1}` : `${i + 1}`;
+      horasDia.push(`${horaInicio}-${horaFin}`);
+    }
+    return horasDia;
+  }
+  onButtonChange(hora: string): void {
+    const index = this.horasSeleccionadas.indexOf(hora);
   
+    if (index !== -1) {
+      // Si la hora ya está en el array, quítala
+      this.horasSeleccionadas.splice(index, 1);
+    } else {
+      // Si la hora no está en el array, agrégala
+      this.horasSeleccionadas.push(hora);
+    }
   
+    console.log('Horas seleccionadas:', this.horasSeleccionadas);
+  
+    // Mueve la llamada a filtrarHorasTramos('seleccionadas') aquí
+    // para asegurarte de que las horas seleccionadas se actualizan
+    this.filtrarHorasTramos('seleccionadas');
+    this.recalcularConsumosCostos();
+  }
+  desplegado= false;
+  desplegar() {
+    this.desplegado = !this.desplegado;
+  }
+
 }

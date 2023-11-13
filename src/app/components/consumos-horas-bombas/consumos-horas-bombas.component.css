@@ -1,0 +1,73 @@
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap; /* Permitir que los botones se envuelvan en varias líneas */
+
+    margin-top: 2%;
+}
+.buttons-container button {
+    display: inline-block; /* Cambiado de 'inline' a 'inline-block' */
+    width: 5em;
+    height: 2.5em;
+    margin-right: 0.5em; /* Añadido margen para separar los botones */
+    margin-top: 0.3em;
+    border-radius: 2.5em;
+    
+    border: 2px solid black;
+    background-color: rgb(219, 185, 166);
+}
+
+.buttons-container button.selected {
+    background-color: #943600;
+    color: white;
+}
+
+.inputBombas{
+    width: 2em;
+    margin-left: 1em;
+}
+.buttonPrin{
+    margin: 0.5em;
+    width: 5em;
+}
+.labelSeleccion{
+   font-size: 1.2em;
+
+}
+.tramos{
+    width:300px ;
+    padding: 1em;
+    text-align: center;
+    
+}
+
+.p1{
+    color: white;
+    border-radius: 0.5em;
+    background-color: #79e07e;
+}
+.p2{
+    color: white;
+    border-radius: 0.5em;
+    background-color: #6ec573;
+}
+.p3{
+    color: white;
+    border-radius: 0.5em;
+    background-color: #54a53d;
+}
+.p4{
+    color: white;
+    border-radius: 0.5em;
+    background-color: #27802e;
+}
+.p5{
+    color: white;
+    border-radius: 0.5em;
+    background-color: #013b0b;
+   
+}
+.p6{
+    color: white;
+    border-radius: 0.5em;
+    background-color: #002004;
+}
