@@ -1,115 +1,113 @@
-<div class="container-fluid">
+<div class="container-fluid p-4">
 
-  <div class="title">
-    <h2>Calculadora de Consumos</h2>
-  </div>
-  
   <div class="row">
+    <div class="title text-center">
+      <h1>Calculadora de Consumos</h1>
+    </div>
+  </div>
+   
+  <div class="row contenido">
     <div class="col-6">
-      <label class="labelSeleccion">Seleccionar el numero de bombas</label>
-      <div>
-        <label  for="numBombasPequenas">Pequeñas:</label>
-        <input class="inputBombas" type="number" id="numBombasPequenas" name="numBombasPequenas" [(ngModel)]="numBombasPequenas">
-      </div>
-    
-      <div>
-        <label  for="numBombasGrandes">Grandes:</label>
-        <input class="inputBombas" type="number" id="numBombasGrandes" name="numBombasGrandes" [(ngModel)]="numBombasGrandes">
+
+      <div class="row marginRows">
+        <label class="labelSeleccion">Seleccionar el numero de bombas</label>
+        <div>
+          <label for="numBombasPequenas">Pequeñas:</label>
+          <input class="inputBombas" type="number" id="numBombasPequenas" name="numBombasPequenas" [(ngModel)]="numBombasPequenas">
+        </div>
+        <div>
+          <label  for="numBombasGrandes">Grandes:</label>
+          <input class="inputBombas" type="number" id="numBombasGrandes" name="numBombasGrandes" [(ngModel)]="numBombasGrandes">
+        </div>
       </div>
 
-
-      <form #myForm="ngForm" (ngSubmit)="recalcularConsumosCostos()">
-        <div>
-          <label class="labelSeleccion">Selecciona las horas a mostrar</label><br>
-          <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('todas'); recalcularConsumosCostos()">Todas</button>
-          <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('valle'); recalcularConsumosCostos()">Valle</button>
-          <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('llano'); recalcularConsumosCostos()">Llano</button>
-          <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('punta'); recalcularConsumosCostos()">Punta</button>
-          <button type="button" class="buttonPrin" (click)="desplegar()">Seleccionar horas</button>
-        </div>
-      
-        <div>
-          
-        </div>
-       
+      <div class="row rowsSeleccion marginRows"> 
+        <form #myForm="ngForm" (ngSubmit)="recalcularConsumosCostos()">
+          <div class="divHoras">
+            <label class="labelSeleccion ">Selecciona las horas a mostrar</label><br>
+            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('todas'); recalcularConsumosCostos(); plegar()"><b>Todas</b></button>
+            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('valle'); recalcularConsumosCostos(); plegar()"><b>Valle</b></button>
+            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('llano'); recalcularConsumosCostos(); plegar()"><b>Llano</b></button>
+            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('punta'); recalcularConsumosCostos(); plegar()"><b>Punta</b></button>
+            <button type="button" class="buttonPrin" (click)="desplegar()"><b>Seleccionar</b></button>
+          </div>      
           <div *ngIf="desplegado === true">
             <div class="buttons-container">
-              <div  *ngFor="let hora of obtenerHorasDia()">
-                <button type="button" (click)="onButtonChange(hora)" [class.selected]="horasSeleccionadas.includes(hora)">
+              <div *ngFor="let hora of obtenerHorasDia()">
+                <button
+                  type="button"
+                  (click)="onButtonChange(hora)"
+                  [ngClass]="{ 'selected': isHoraSeleccionada(hora) }"
+                >
                   {{ hora }}
                 </button>
               </div>
             </div>
-            
-        </div>
-        
-      
-      
-      
-      </form>
-    </div>
-    <div class="col-6">
-      <div class="card tramos">
-        <h4 class="mb-4">Precio del Kw/h por tramo</h4>
-        <div class="row" >
-          <div class="col-6">
-            <p class="p1">P1: {{ p1 }} €</p>
-            <p class="p2">P2: {{ p2 }} €</p>
-            <p class="p3">P3: {{ p3 }} €</p>
           </div>
-          <div class="col-6">
-            <p class="p4">P4: {{ p4 }} €</p>
-            <p class="p5">P5: {{ p5 }} €</p>
-            <p class="p6">P6: {{ p6 }} €</p>
-          </div>
-        </div>
-        
-       
+        </form>
       </div>
-      
-    </div>
-  </div>
-  
-  <div *ngIf="consumosCostos.length > 0">
-    <table>
-      <thead>
-        <tr>
-          <th>Hora del día</th>
-          <th>Núm. Bombas Pequeñas</th>
-          <th>Núm. Bombas Grandes</th>
-          <th>Consumo Estimado Pequeñas</th>
-          <th>Consumo Estimado Grandes</th>
-          <th>Consumo Estimado Total</th>
-          <th>Costo Estimado Pequeñas</th>
-          <th>Costo Estimado Grandes</th>
-          <th>Costo Estimado Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let consumo of consumosCostos">
-          <td>{{ consumo.hora }}</td>
-          <td>{{ consumo.numBombasPequenas }} kW/h</td>
-          <td>{{ consumo.numBombasGrandes }} kW/h</td>
-          <td>{{ consumo.consumoEstimadoPequenas }} kW</td>
-          <td>{{ consumo.consumoEstimadoGrandes }} kW</td>
-          <td>{{ consumo.consumoEstimadoTotal }} kW</td>
-          <td>{{ consumo.costeEstimadoPequenas }} €</td>
-          <td>{{ consumo.costeEstimadoGrandes }} €</td>
-          <td>{{ consumo.costeEstimadoTotal }} €</td>
-        </tr>
-        <!-- Fila de totales -->
-        <tr>
-          <th>Total</th>
-          <td></td>
-          <td></td>
-          <td>{{ consumosCostosTotales[0]?.sumaConsumoEstimadoPequenas }} kW</td>
-          <td>{{ consumosCostosTotales[0]?.sumaConsumoEstimadoGrandes }} kW</td>
-          <td>{{ consumosCostosTotales[0]?.sumaConsumoEstimadoTotal }} kW</td>
-          <td>{{ consumosCostosTotales[0]?.sumaCosteEstimadoPequenas }} €</td>
-          <td>{{ consumosCostosTotales[0]?.sumaCosteEstimadoGrandes }} €</td>
-          <td>{{ consumosCostosTotales[0]?.sumaCosteEstimadoTotal }} €</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+
+      <div class="row marginRows">
+        <div class="card tramosCard">
+          <h4 class="mb-4 labelSeleccion"><b>Precio del Kw/h por tramo</b></h4>
+          <div class="row" >
+            <div class="col-6">
+              <p class="p1">P1: {{ p1 }} €</p>
+              <p class="p2">P2: {{ p2 }} €</p>
+              <p class="p3">P3: {{ p3 }} €</p>
+            </div>
+            <div class="col-6">
+              <p class="p4">P4: {{ p4 }} €</p>
+              <p class="p5">P5: {{ p5 }} €</p>
+              <p class="p6">P6: {{ p6 }} €</p>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </div> <!-- cierre col-6 -->
+    
+    <div class="col-6">
+      <div class="row">
+        <div *ngIf="consumosCostos.length > 0">
+          <table class="tabla text-center">
+            <thead>
+              <tr>
+                <th>Hora</th>         
+                <th>Consumo Pequeñas</th>
+                <th>Consumo Grandes</th>
+                <th>Consumo Total</th>
+                <th>Costo Pequeñas</th>
+                <th>Costo Grandes</th>
+                <th>Costo Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let consumo of consumosCostos" [ngClass]="getClasePorTramo(obtenerTramoPorHora(consumo.hora))">
+                <td>{{ consumo.hora }}</td> 
+                <td>{{ consumo.consumoEstimadoPequenas | number: '1.2-2' }} kW</td>
+                <td>{{ consumo.consumoEstimadoGrandes | number: '1.2-2' }} kW</td>
+                <td>{{ consumo.consumoEstimadoTotal | number: '1.2-2' }} kW</td>
+                <td>{{ consumo.costeEstimadoPequenas | number: '1.2-2' }} €</td>
+                <td>{{ consumo.costeEstimadoGrandes | number: '1.2-2' }} €</td>
+                <td>{{ consumo.costeEstimadoTotal | number: '1.2-2' }} €</td>
+              </tr>
+              <!-- Fila de totales -->
+              <tr class="totalesRow">
+                <th>Total</th>
+                <td>{{ consumosCostosTotales[0]?.sumaConsumoEstimadoPequenas | number: '1.2-2'}} kW</td>
+                <td>{{ consumosCostosTotales[0]?.sumaConsumoEstimadoGrandes | number: '1.2-2' }} kW</td>
+                <td>{{ consumosCostosTotales[0]?.sumaConsumoEstimadoTotal  | number: '1.2-2'  }} kW</td>
+                <td>{{ consumosCostosTotales[0]?.sumaCosteEstimadoPequenas  | number: '1.2-2' }} €</td>
+                <td>{{ consumosCostosTotales[0]?.sumaCosteEstimadoGrandes  | number: '1.2-2'  }} €</td>
+                <td>{{ consumosCostosTotales[0]?.sumaCosteEstimadoTotal  | number: '1.2-2'  }} €</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+           
+    </div> <!-- cierre col-6 -->
+  </div> <!--cierro primera row-->
+
 </div>

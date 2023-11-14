@@ -21,7 +21,7 @@ export class SensorsComponent implements OnInit {
   
   // En el constructorr cargo los datos de los sensores
 
-  constructor(private medidasService: SensorDataService, private sensorDataService: GraphsService, private sanitizer: DomSanitizer, private modalService: NgbModal, private customButtonComponent:CustomButtonComponent ) {
+  constructor(private medidasService: SensorDataService, private graphService: GraphsService, private sanitizer: DomSanitizer, private modalService: NgbModal, private customButtonComponent:CustomButtonComponent ) {
     this.medidasService.getSensors().subscribe((sensors: any) => {
       this.sensors = sensors;
 
@@ -131,11 +131,11 @@ export class SensorsComponent implements OnInit {
     this.modalService.open(content, { centered: true, size: 'xl' });
   }
   ngOnInit(): void {
-  this.sensorDataService.graphUrl$.subscribe(url => {
+  this.graphService.graphUrl$.subscribe(url => {
     const safeUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.graphUrl = safeUrl;
   });
-  this.sensorDataService.graphButtonClicked.subscribe((sensorData: any) => {
+  this.graphService.graphButtonClicked.subscribe((sensorData: any) => {
     // Abre el modal cuando se hace clic en el botón de la gráfica
     this.openVerticallyCentered(this.content);
     // Aquí puedes usar sensorData para cargar la gráfica correspondiente
@@ -198,7 +198,7 @@ export class SensorsComponent implements OnInit {
   }
   // Modifica el friendly name en la BD
   updateFriendlyName(event:EditConfirmEvent){
-    this.sensorDataService.putFriendlyName(event.newData.friendlyName, event.data.mac).subscribe({
+    this.graphService.putFriendlyName(event.newData.friendlyName, event.data.mac).subscribe({
       next:response=> {console.log(response)},
       error:error=>{console.log(error)}
     });
@@ -206,18 +206,26 @@ export class SensorsComponent implements OnInit {
     return event.confirm.resolve(event.newData);
   }
   // Envia al servicio los datos necesarios para la url que muestra las graficas
-  allSensorsGraphs(){
+  allSensorsGraphs() {
     const macAddresses = new Array();
-    macAddresses.push('0x00158d0008984738','0x00124b002503776b','0x00124b0024cd1b52','0x00124b0024ce2b1f','0x00124b002502bd80','0x00124b0025033b99','0x00124b00246ccb6e','0x00124b00246c6b74','0x00124b002502e233');
+    macAddresses.push(
+      '0x00158d0008984738',
+      '0x00124b002503776b',
+      '0x00124b0024cd1b52',
+      '0x00124b0024ce2b1f',
+      '0x00124b002502bd80',
+      '0x00124b0025033b99',
+      '0x00124b00246ccb6e',
+      '0x00124b00246c6b74',
+      '0x00124b002502e233'
+    );
     const showTemperature = 't';
     const showMinMax = 's';
     const startDate = '2023-09-01';
-    this.sensorDataService.getGraph(
-      macAddresses,
-      showTemperature,
-      showMinMax,
-      startDate
-    );
+  
+    // Get the graph data
+    this.graphService.getGraph(macAddresses, showTemperature, showMinMax, startDate);
+    this.graphService.graphButtonClicked.emit(this);
   }
   
 }

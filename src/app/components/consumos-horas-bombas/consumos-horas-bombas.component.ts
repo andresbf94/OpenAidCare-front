@@ -47,11 +47,9 @@ export class ConsumosHorasBombasComponent implements OnInit {
   festivoSyD = this.p6;
   
   ngOnInit(): void{
-
-  
   }
 
-  // 1. Obtiene los tramos por hora en funcion del mes actual
+  //Obtiene los tramos por hora en funcion del mes actual
   filtrarHorasTramos(opcion: string) {
   
     if (opcion === 'todas') {
@@ -76,13 +74,14 @@ export class ConsumosHorasBombasComponent implements OnInit {
   obtenerHorasSeleccionadas() {
     const horasTramos = this.obtenerHorasTramos();
     const horasSeleccionadas: any[] = [];
-    const horasSeleccionadasArray = this.horasSeleccionadas;
-
+    const horasSeleccionadasArray = this.horasSeleccionadas.map((element: { hora: string, tramo: number }) => element.hora);
+  
     horasTramos.forEach(element => {
-        if (horasSeleccionadasArray.includes(element.hora)) {
-            horasSeleccionadas.push(element);
-        }
+      if (horasSeleccionadasArray.includes(element.hora)) {
+        horasSeleccionadas.push(element);
+      }
     });
+  
     return horasSeleccionadas;
   }
   // Filtra las horas en el tramo Valle
@@ -155,7 +154,7 @@ export class ConsumosHorasBombasComponent implements OnInit {
       { hora: '20-21', tramo: this.tramosMeses[numeroMes][2] },
       { hora: '21-22', tramo: this.tramosMeses[numeroMes][2] },
       { hora: '22-23', tramo: this.tramosMeses[numeroMes][1] }, // Tramo Llano
-      { hora: '23-00', tramo: this.tramosMeses[numeroMes][1] },
+      { hora: '23-24', tramo: this.tramosMeses[numeroMes][1] },
     ];
     return horasTramos;
   }
@@ -235,26 +234,61 @@ export class ConsumosHorasBombasComponent implements OnInit {
     return horasDia;
   }
   onButtonChange(hora: string): void {
-    const index = this.horasSeleccionadas.indexOf(hora);
-  
-    if (index !== -1) {
-      // Si la hora ya está en el array, quítala
-      this.horasSeleccionadas.splice(index, 1);
-    } else {
-      // Si la hora no está en el array, agrégala
-      this.horasSeleccionadas.push(hora);
-    }
-  
-    console.log('Horas seleccionadas:', this.horasSeleccionadas);
-  
-    // Mueve la llamada a filtrarHorasTramos('seleccionadas') aquí
-    // para asegurarte de que las horas seleccionadas se actualizan
-    this.filtrarHorasTramos('seleccionadas');
-    this.recalcularConsumosCostos();
-  }
-  desplegado= false;
-  desplegar() {
-    this.desplegado = !this.desplegado;
+  const index = this.horasSeleccionadas.findIndex((element: { hora: string; }) => element.hora === hora);
+
+  if (index !== -1) {
+    // Si la hora ya está en el array, quítala
+    this.horasSeleccionadas.splice(index, 1);
+  } else {
+    // Si la hora no está en el array, agrégala con su tramo
+    const tramo = this.obtenerTramoPorHora(hora);
+    this.horasSeleccionadas.push({ hora, tramo });
   }
 
+  console.log('Horas seleccionadas:', this.horasSeleccionadas);
+
+  // Mueve la llamada a filtrarHorasTramos('seleccionadas') aquí
+  // para asegurarte de que las horas seleccionadas se actualizan
+  this.filtrarHorasTramos('seleccionadas');
+  this.recalcularConsumosCostos();
+}
+  
+  obtenerTramoPorHora(hora: string): number {
+    // Busca el tramo correspondiente a la hora
+    const horaEnTramos = this.obtenerHorasTramos().find((element) => element.hora === hora);
+  
+    // Retorna el tramo si se encuentra, de lo contrario, retorna 0 (puede ajustarse según la lógica deseada)
+    return horaEnTramos ? horaEnTramos.tramo : 0;
+  }
+  desplegado= false;
+  plegar(){
+    this.desplegado = false;
+    this.horasSeleccionadas=[];
+  }
+  desplegar() {
+    this.desplegado = !this.desplegado;
+    this.horasSeleccionadas=[];
+  }
+  getClasePorTramo(tramo: number): string {
+    // Implementa la lógica para asignar la clase según el tramo
+    if (tramo === this.p1) {
+      return 'p1';
+    } else if (tramo === this.p2) {
+      return 'p2';
+    } else if (tramo === this.p3) {
+      return 'p3';
+    } else if (tramo === this.p4) {
+      return 'p4';
+    } else if (tramo === this.p5) {
+      return 'p5';
+    } else if (tramo === this.p6) {
+      return 'p6';
+    } else {
+      // Si no coincide con ningún tramo conocido, puedes manejarlo de otra manera o devolver una clase predeterminada
+      return 'clase-predeterminada';
+    }
+  }
+  isHoraSeleccionada(hora: string): boolean {
+    return this.horasSeleccionadas.some((h: { hora: string; }) => h.hora === hora);
+  }
 }

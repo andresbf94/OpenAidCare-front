@@ -1,23 +1,47 @@
+
+/*margenes para el contenido, sin contar titulo*/
+.contenido{               
+    margin-top: 3em;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.divHoras{
+    margin-bottom: 1em;
+    width: 100%;
+}
+.tabla{
+    margin-top: 1.5em;
+}
+.rowsSeleccion{
+    width: 90%;
+    border-bottom: 1px solid #829484; 
+    border-top: 1px solid #829484; 
+}
+
+.marginRows{ 
+    margin-bottom: 2em;
+}
+
 .buttons-container {
     display: flex;
     flex-wrap: wrap; /* Permitir que los botones se envuelvan en varias líneas */
-
-    margin-top: 2%;
+    margin-top: 1em;
+    margin-bottom: 2em;
 }
+
 .buttons-container button {
     display: inline-block; /* Cambiado de 'inline' a 'inline-block' */
-    width: 5em;
-    height: 2.5em;
+    width: 3.8em;
+    height: 1.9em;
     margin-right: 0.5em; /* Añadido margen para separar los botones */
     margin-top: 0.3em;
-    border-radius: 2.5em;
-    
-    border: 2px solid black;
-    background-color: rgb(219, 185, 166);
+    border-radius: 2.5em;  
+    border: 2px solid  rgb(65, 129, 23);
 }
 
-.buttons-container button.selected {
-    background-color: #943600;
+.selected {
+    background-color:#002004;
     color: white;
 }
 
@@ -25,48 +49,64 @@
     width: 2em;
     margin-left: 1em;
 }
+
 .buttonPrin{
     margin: 0.5em;
-    width: 5em;
+    width: 7em;
+    height: 2.5em;
+    border: 2px solid #002004;
+    border-radius: 0.5em;    
 }
+.buttonPrin.selected{
+    background-color:#002004;
+    color: white;
+}
+
 .labelSeleccion{
-   font-size: 1.2em;
+   font-size: 1.5em;
+   font-weight: bold;
+   margin-bottom: 0.8em;
+   margin-top: 1em;
+   color:black;
 
 }
-.tramos{
+.tramosCard{
     width:300px ;
     padding: 1em;
     text-align: center;
-    
+    border: 2px solid black;
+}
+.totalesRow{
+    font-weight: bold;
 }
 
-.p1{
-    color: white;
+.p6{
+    color: black;
     border-radius: 0.5em;
     background-color: #79e07e;
 }
-.p2{
-    color: white;
+.p5{
+    color: black;
     border-radius: 0.5em;
     background-color: #6ec573;
+}
+.p4{
+    color: black;
+    border-radius: 0.5em;
+    background-color: #64ad50;
 }
 .p3{
     color: white;
     border-radius: 0.5em;
-    background-color: #54a53d;
+    background-color: #2e8135;
 }
-.p4{
-    color: white;
-    border-radius: 0.5em;
-    background-color: #27802e;
-}
-.p5{
+.p2{
     color: white;
     border-radius: 0.5em;
     background-color: #013b0b;
    
 }
-.p6{
+.p1{
     color: white;
     border-radius: 0.5em;
     background-color: #002004;
