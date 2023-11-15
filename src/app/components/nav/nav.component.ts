@@ -9,15 +9,19 @@ import { NavService } from 'src/app/services/nav-service.service';
 export class NavComponent {
   menuBtn: any;
   sideMenu: any;
-  
-  constructor(private navService: NavService) {}
-  
   menuExpanded = false;
+  isDesplegado: boolean = false;
 
-  toggleMenu() {
+  constructor(private navService: NavService) {}
+
+  toggleDesplegar() {
+    // Lo desplegamos en la vista
     this.menuExpanded = !this.menuExpanded;
-
-    this.navService.contentExpanded=false;
+    // Lo desplegamos tambien en el servicio para asi poder modificar el resto de componentes en consecuencia
+    this.isDesplegado = !this.isDesplegado;
+    this.navService.toggleDesplegado(this.isDesplegado);
+    
   }
+
 
 }

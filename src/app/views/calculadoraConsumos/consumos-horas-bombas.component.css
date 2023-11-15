@@ -2,8 +2,8 @@
 /*margenes para el contenido, sin contar titulo*/
 .contenido{               
     margin-top: 1em;
-    margin-left: 2em;
-    margin-right: 2em;
+    margin-left: 6em;
+    margin-right: 6em;
 }
 .rowCards{
     margin-top: 2em;
