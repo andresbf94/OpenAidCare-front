@@ -1,33 +1,35 @@
 
 /*margenes para el contenido, sin contar titulo*/
 .contenido{               
-    margin-top: 3em;
+    margin-top: 1em;
     margin-left: 2em;
     margin-right: 2em;
 }
-
+.rowCards{
+    margin-top: 2em;
+}
 .divHoras{
     margin-bottom: 1em;
     width: 100%;
 }
 .tabla{
-    margin-top: 1.5em;
+    margin: 1em;
 }
-.rowsSeleccion{
+.tabla tr{
+    height: 3em;
+    border-bottom: 1px solid #829484;
+}
+.divHoras{
+    width: 90%;
+}
+.marginRows{   
     width: 90%;
     border-bottom: 1px solid #829484; 
-    border-top: 1px solid #829484; 
-}
-
-.marginRows{ 
-    margin-bottom: 2em;
 }
 
 .buttons-container {
     display: flex;
     flex-wrap: wrap; /* Permitir que los botones se envuelvan en varias líneas */
-    margin-top: 1em;
-    margin-bottom: 2em;
 }
 
 .buttons-container button {
@@ -51,30 +53,32 @@
 }
 
 .buttonPrin{
-    margin: 0.5em;
+    margin-right: 3em;
     width: 7em;
     height: 2.5em;
     border: 2px solid #002004;
-    border-radius: 0.5em;    
+    border-radius: 0.5em; 
+    margin-bottom: 1em;   
 }
-.buttonPrin.selected{
-    background-color:#002004;
-    color: white;
+.titulo{
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
 .labelSeleccion{
    font-size: 1.5em;
    font-weight: bold;
-   margin-bottom: 0.8em;
+   margin-bottom: 1em;
    margin-top: 1em;
    color:black;
-
 }
+
 .tramosCard{
     width:300px ;
     padding: 1em;
     text-align: center;
     border: 2px solid black;
+    margin-bottom: 2em;
 }
 .totalesRow{
     font-weight: bold;

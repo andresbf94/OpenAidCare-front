@@ -1,3 +1,76 @@
+
+<div class="navBar">
+  <div #sideMenu id="sidemenu" [ngClass]="{'menu-collapsed': !menuExpanded, 'menu-expanded': menuExpanded}">
+    <div id="header">
+      <div id="title"><span></span></div>
+      <div id="menu-btn" (click)="toggleMenu();">
+        <div class="btn-hamburguer"></div>
+        <div class="btn-hamburguer"></div>
+        <div class="btn-hamburguer"></div>
+      </div>
+    </div>
+
+  <div id="menu-items">
+    <div class="item">
+      <a routerLink="">
+        <div class="icon"><img src="../../../assets/images/pagina-principal.png"></div>
+        <div class="title"><span>Panel Principal</span></div>
+      </a>
+    </div>
+
+    <div class="item separator">
+
+    </div>
+
+    <div class="item">
+      <a routerLink="/sensors">
+        <div class="icon"><img src="../../../assets/images/barra-apilada.png"></div>
+        <div class="title"><span>Sensores</span></div>
+      </a>
+    </div>
+
+    <div class="item">
+      <a href="/consumos">
+        <div class="icon"><img src="../../../assets/images/calculadora (1).png"></div>
+        <div class="title"><span>Calculadora</span></div>
+      </a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
 <div class="">
 
   <a class="" routerLink="/">
@@ -25,13 +98,13 @@
   <a routerLink="/consumos">
     <div class="rowSec" [class.active]="activeElement === 'rowSec2'" (click)="toggleActive('rowSec2')"> 
       <h5 class="tituloSec">  
-          <img class="imgSub"  src="" />
+          <img class="imgSub"  src="../../../assets/images/tabla.png" />
           <span class="word3">Consumos</span>      
       </h5>    
     </div>
   </a>
 
-</div>
+</div>-->
 
 
 

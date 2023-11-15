@@ -1,3 +1,171 @@
+.navBar{
+    --width: 200px;
+    --padding: 10px;
+    --bgcolor: rgb(52,52,52);
+    --hovercolor: rgb(23,23,23);
+    --width-collapsed:55px;
+    background-color: #032c55;
+    height: 100%;
+}
+
+.body-expanded{
+    margin-left: var(--width);
+}
+
+#main-container{
+    color: white;
+
+}
+
+#side-menu{
+    background-color: var(--bgcolor);
+    color:white;
+    position: fixed;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+#sidemenu a{
+    color: white;
+    text-decoration: none;
+}
+
+/* HEADER*/
+
+#sidemenu #header {
+    box-sizing: border-box;
+    border-bottom: solid 1px var (--hovercolor);
+}
+
+#sidemenu #header #title{
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#sidemenu #header #title, #side-menu #header #menu-btn{
+    vertical-align: middle;
+}
+
+#sidemenu #header #menu-btn{
+    display: inline-block;
+}
+
+#sidemenu #header #menu-btn{
+    cursor: pointer;
+    padding: 10px;
+    width: var(--width-collapsed);
+    box-sizing: border-box;
+}
+
+#sidemenu #header #menu-btn:hoover {
+    background-color: var(--hovercolor);
+}
+
+#sidemenu #header #menu-btn .btn-hamburguer{
+    background-color: #fff;
+    width: 100%;
+    height: 2px;
+    margin: 5px 0;
+}
+
+#sidemenu #menu-items{
+    overflow: hidden;
+}
+
+#sidemenu #menu-items .item{
+    width: var(--width);
+}
+#sidemenu #menu-items .item .icon{
+    display: inline-block;
+}
+
+#sidemenu #menu-items .item .icon,
+#sidemenu #menu-items .item .title {
+    font-size: 14px;
+    vertical-align: middle;
+    overflow: hidden;
+    display: inline-block;
+}
+
+#sidemenu #menu-items .item a{
+    display: block;
+}
+
+#sidemenu #menu-items .item a:hover{
+    background-color: var(--hovercolor);
+}
+
+#sidemenu #menu-items .item .icon{
+    box-sizing: border-box;
+    padding: var(--padding);
+    width: var(--width-collapsed);
+}
+
+#sidemenu #menu-items .item .icon img{
+    width: 100%;  
+}
+
+#sidemenu #menu-items .item .title{
+    padding: var(--padding) 0;
+}
+
+#sidemenu #menu-items .item.separator{
+    height: 1px;
+    border-bottom: solid 1px var(--hovercolor);
+    margin: 15px 0;
+}
+
+.menu-expanded {
+    width: var(--width);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+
+.menu-collapsed{
+    width: var(--width-collapsed);
+}
+
+.menu-collapsed #title{
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-collapsed #profile #name{
+    display: none;
+}
+
+.menu-collapsed .item{
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 a {
     text-decoration: none;
     color: inherit; 
@@ -7,7 +175,7 @@ a {
     width: 200px;
 }
 
-/* Para el Panel Principal */
+Para el Panel Principal 
 
 .rowPrin{
     height: 120px;
@@ -36,7 +204,7 @@ a {
 }
 
 
-/*Para los paneles secundarios*/
+Para los paneles secundarios
 
 .rowSec{
     height: 60px;
@@ -62,24 +230,6 @@ a {
     text-underline-offset: 3px;  
 }
 
-/*
-.navBar{
-    height: 73px;
-}
-.navBar:hover{
-    font-size: 30px;
-    transition: all ease-in-out 0.3s,
-    
-}
 
-img{
-    margin-right: 8px;
-}
 
-.subNabBar:hover{
-    height: 50px; 
-    transition: all ease-in-out 0.2s;
-    font-size: 25px;
-    text-decoration: underline;
-}
 */

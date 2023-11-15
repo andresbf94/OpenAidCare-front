@@ -41,6 +41,7 @@ export class TablaPresenciaComponent implements OnInit {
       if (Array.isArray(data.measures)) {
         this.measures = data.measures;
         this.datosM0 = this.procesarDatos(this.measures).reverse();
+        console.log('medidas m0', this.datosM0)
       } else {
         console.error('Los datos recibidos no son un array válido.');
       }
@@ -75,71 +76,42 @@ export class TablaPresenciaComponent implements OnInit {
 
     procesarDatos(data: any) {
 
-    const processedData: ProcessedData[] = [];
-    const measures = data;
-  
-    const dateMap: { [key: string]: { primeraHora: string | null, ultimaHora: string | null } } = {};
-  
-    measures.forEach((measure: any) => {
-      const { data, date } = measure;
-      const currentDate = date.split('T')[0];
-      const currentHour = date.split('T')[1].split('.')[0];
-  
-      if (data.includes('true')) {
-        if (!(currentDate in dateMap)) {
-          dateMap[currentDate] = { primeraHora: currentHour, ultimaHora: null };
-        }
-      }
-  
-      if (data.includes('false')) {
-        if (currentDate in dateMap) {
-          dateMap[currentDate].ultimaHora = currentHour;
-        }
-      }
-    });
-  
-    // Convertir el objeto de mapa en un array de objetos
-    for (const date in dateMap) {
-      const { primeraHora, ultimaHora } = dateMap[date];
-      processedData.push({ fecha: date, primeraHora, ultimaHora });
-    }
-  
-    return processedData;
-  }
-  
-  getDayWithDate(date: string): string {
-    const parsedDate = new Date(date);
-    const currentDate = new Date();
-  
-    if (
-      parsedDate.getDate() === currentDate.getDate() &&
-      parsedDate.getMonth() === currentDate.getMonth() &&
-      parsedDate.getFullYear() === currentDate.getFullYear()
-    ) {
-      return 'hoy';
-    }
-  
-    return format(parsedDate, 'EEEE', { locale: es });
-  }
-
-  // Función para formatear la fecha
-  formatDate(date: string): string {
-    const parsedDate = new Date(date);
-    return format(parsedDate, 'dd/MM/yyyy', { locale: es });
-  }
-
-  sumarHoras(hora: string): string {
-    const [horas, minutos, segundos] = hora.split(':').map(Number);
-    const fechaActual = new Date(); // Obtiene la fecha y hora actual en la zona horaria del cliente
-  
-    // Establece la hora obtenida del parámetro
-    fechaActual.setHours(horas, minutos, segundos);
-  
-    // Establece la zona horaria a España
-    const options: Intl.DateTimeFormatOptions = { timeZone: 'Europe/Madrid', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      const processedData: ProcessedData[] = [];
+      const measures = data;
     
-    // Obtiene la hora localizada en España
-    const horaEspaña = fechaActual.toLocaleTimeString('es-ES', options);
-    return horaEspaña;
-  }
+      const dateMap: { [key: string]: { primeraHora: string | null, ultimaHora: string | null } } = {};
+    
+      measures.forEach((measure: any) => {
+        const { data, date } = measure;
+        const dateTime = new Date(date);
+    
+        // Convertir la fecha y hora al formato local
+        const currentDate = dateTime.toLocaleDateString();
+        const currentHour = dateTime.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'});
+       
+
+    
+        if (data.includes('true')) {
+          if (!(currentDate in dateMap)) {
+            dateMap[currentDate] = { primeraHora: currentHour, ultimaHora: null };
+          }
+        }
+    
+        if (data.includes('false')) {
+          if (currentDate in dateMap) {
+            dateMap[currentDate].ultimaHora = currentHour;
+          }
+        }
+      });
+      console.log('dateMap', dateMap)
+      // Convertir el objeto de mapa en un array de objetos
+      for (const date in dateMap) {
+        const { primeraHora, ultimaHora } = dateMap[date];
+        processedData.push({ fecha: date, primeraHora, ultimaHora });
+      }
+    
+      return processedData;
+    }
+  
+ 
 }

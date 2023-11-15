@@ -47,6 +47,7 @@ export class ConsumosHorasBombasComponent implements OnInit {
   festivoSyD = this.p6;
   
   ngOnInit(): void{
+    
   }
 
   //Obtiene los tramos por hora en funcion del mes actual
@@ -65,11 +66,13 @@ export class ConsumosHorasBombasComponent implements OnInit {
     }
   
   }
+
   // Da todas la horas
   obtenerTodasLasHoras() {
     const horasTramos = this.obtenerHorasTramos();
     return horasTramos;
   }
+
   // Devuelve las horas seleccionadas
   obtenerHorasSeleccionadas() {
     const horasTramos = this.obtenerHorasTramos();
@@ -84,6 +87,7 @@ export class ConsumosHorasBombasComponent implements OnInit {
   
     return horasSeleccionadas;
   }
+
   // Filtra las horas en el tramo Valle
   obtenerHorasValle() {
     const horasTramos = this.obtenerHorasTramos();
@@ -97,11 +101,12 @@ export class ConsumosHorasBombasComponent implements OnInit {
     });
     return horasValle;
   }
+
   // Filtrar las horas en el tramo Llano
   obtenerHorasLlano() { 
     const horasTramos = this.obtenerHorasTramos();
     const horasLlano: any = [];
-    const horasLlanoArray = ['08-09', '09-10', '14-15', '15-16', '16-17', '17-18', '22-23', '23-00'];
+    const horasLlanoArray = ['08-09', '09-10', '14-15', '15-16', '16-17', '17-18', '22-23', '23-24'];
   
     horasTramos.forEach(element => {
       if (horasLlanoArray.includes(element.hora)) {
@@ -110,6 +115,7 @@ export class ConsumosHorasBombasComponent implements OnInit {
     });
     return horasLlano;
   }
+
   // Filtrar las horas en el tramo Punta
   obtenerHorasPunta() {
     const horasTramos = this.obtenerHorasTramos();
@@ -233,6 +239,7 @@ export class ConsumosHorasBombasComponent implements OnInit {
     }
     return horasDia;
   }
+
   onButtonChange(hora: string): void {
   const index = this.horasSeleccionadas.findIndex((element: { hora: string; }) => element.hora === hora);
 
@@ -251,7 +258,7 @@ export class ConsumosHorasBombasComponent implements OnInit {
   // para asegurarte de que las horas seleccionadas se actualizan
   this.filtrarHorasTramos('seleccionadas');
   this.recalcularConsumosCostos();
-}
+  }
   
   obtenerTramoPorHora(hora: string): number {
     // Busca el tramo correspondiente a la hora
@@ -261,14 +268,17 @@ export class ConsumosHorasBombasComponent implements OnInit {
     return horaEnTramos ? horaEnTramos.tramo : 0;
   }
   desplegado= false;
+
   plegar(){
     this.desplegado = false;
     this.horasSeleccionadas=[];
   }
+
   desplegar() {
     this.desplegado = !this.desplegado;
     this.horasSeleccionadas=[];
   }
+
   getClasePorTramo(tramo: number): string {
     // Implementa la lógica para asignar la clase según el tramo
     if (tramo === this.p1) {
@@ -288,7 +298,10 @@ export class ConsumosHorasBombasComponent implements OnInit {
       return 'clase-predeterminada';
     }
   }
+
   isHoraSeleccionada(hora: string): boolean {
     return this.horasSeleccionadas.some((h: { hora: string; }) => h.hora === hora);
   }
+  
+ 
 }

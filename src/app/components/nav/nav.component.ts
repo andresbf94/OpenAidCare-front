@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { NavService } from 'src/app/services/nav-service.service';
 
 @Component({
   selector: 'app-nav',
@@ -6,9 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
-  activeElement: string ='rowPrin'; // Inicialmente, no hay ningún elemento activo
+  menuBtn: any;
+  sideMenu: any;
+  
+  constructor(private navService: NavService) {}
+  
+  menuExpanded = false;
 
-  toggleActive(elemento: string) {
-    this.activeElement = elemento;
+  toggleMenu() {
+    this.menuExpanded = !this.menuExpanded;
+
+    this.navService.contentExpanded=false;
   }
+
 }
