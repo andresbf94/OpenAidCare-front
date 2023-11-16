@@ -5,14 +5,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './consumos-horas-bombas.component.html',
   styleUrls: ['./consumos-horas-bombas.component.css']
 })
-export class ConsumosHorasBombasComponent implements OnInit {
-
+export class ConsumosHorasBombasComponent {
+  // Constantes
   numBombasPequenas:number = 2;
   numBombasGrandes:number = 1;
   consumoPequenaKWh:number = 2.5;
   consumoGrandeKWh:number = 5;
   
-  // Consumos y costos
+  // Variables
   consumosCostos:any = [];
   consumosCostosTotales:any = [];
   horasSeleccionadas: any = [];
@@ -25,7 +25,16 @@ export class ConsumosHorasBombasComponent implements OnInit {
   p4 = 0.152751;
   p5 = 0.147035;
   p6 = 0.138419;
-  
+
+  // Objeto que contiene los estados de los botones
+  estadosBotones:any= {
+    todas: false,
+    valle: false,
+    punta: false,
+    llano: false,
+    seleccionadas: false
+  }
+    
   // En cada mes en la posicion 0 se guarda la tarifa valle(la mas baja), en la 1 la llano (media) y en la 2 la punta (alta)
   tramosMeses = [ 
     [this.p6, this.p2, this.p1],    // enero
@@ -42,16 +51,8 @@ export class ConsumosHorasBombasComponent implements OnInit {
     [this.p6, this.p2, this.p1],    // diciembre  
   ]
 
-  // Los festivos, y fines de semana siempre es p6
-  festivoSyD = this.p6;
-  
-  ngOnInit(): void{
-   
-  }
-
   //Obtiene los tramos por hora en funcion del mes actual
   filtrarHorasTramos(opcion: string) {
-  
     if (opcion === 'todas') {
       this.horasCostos = this.obtenerTodasLasHoras();
     } else if (opcion === 'valle') {
@@ -63,7 +64,6 @@ export class ConsumosHorasBombasComponent implements OnInit {
     } else if (opcion === 'seleccionadas') {
       this.horasCostos  = this.obtenerHorasSeleccionadas();
     }
-  
   }
 
   // Da todas la horas
@@ -82,8 +82,7 @@ export class ConsumosHorasBombasComponent implements OnInit {
       if (horasSeleccionadasArray.includes(element.hora)) {
         horasSeleccionadas.push(element);
       }
-    });
-  
+    }); 
     return horasSeleccionadas;
   }
 
@@ -320,10 +319,21 @@ export class ConsumosHorasBombasComponent implements OnInit {
     return nombreMes;
   }
 
-  tramoSeleccion = '';
+  // Funcion para cambiar que boton esta seleccionado
+  seleccionarBoton(boton:any){
+    
+  // Deselecciona todos los botones
+  Object.keys(this.estadosBotones).forEach(key => {
+    this.estadosBotones[key] = false;
+  });
 
-  seleccion(tramo: string){
-    this.tramoSeleccion=tramo;
+  // Selecciona el botón clicado
+  this.estadosBotones[boton] = true;
+
+  // Llama a las funciones que necesitas al cambiar de estado
+  this.filtrarHorasTramos(boton);
+  this.recalcularConsumosCostos();
+ 
   }
-
+  
 }

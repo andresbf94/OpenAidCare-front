@@ -50,11 +50,11 @@
         <form #myForm="ngForm" (ngSubmit)="recalcularConsumosCostos()">
           <div class="divHoras">
             <label class="titulo">Seleccionar las horas a mostrar</label><br>
-            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('todas'); recalcularConsumosCostos(); plegar(); seleccion('Todas')" [ngClass]="{ 'selected': tramoSeleccion}"><b>Todas</b></button>
-            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('valle'); recalcularConsumosCostos(); plegar(); seleccion('Valle')" [ngClass]="{ 'selected': tramoSeleccion}"><b>Valle</b></button>
-            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('llano'); recalcularConsumosCostos(); plegar(); seleccion('Llano')" [ngClass]="{ 'selected': tramoSeleccion}"><b>Llano</b></button>
-            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('punta'); recalcularConsumosCostos(); plegar(); seleccion('Punta')" [ngClass]="{ 'selected': tramoSeleccion}"><b>Punta</b></button>
-            <button type="button" class="buttonPrin" (click)="desplegar()" style="border-right: none;" [ngClass]="{ 'selected': desplegado }"><b>Horas</b></button>
+            <button type="button" class="buttonPrin" (click)="seleccionarBoton('todas'); plegar()" [ngClass]="{ 'selected': estadosBotones.todas}"><b>Todas</b></button>
+            <button type="button" class="buttonPrin" (click)="seleccionarBoton('valle'); plegar()" [ngClass]="{ 'selected': estadosBotones.valle}"><b>Valle</b></button>
+            <button type="button" class="buttonPrin" (click)="seleccionarBoton('llano'); plegar()" [ngClass]="{ 'selected': estadosBotones.llano}"><b>Llano</b></button>
+            <button type="button" class="buttonPrin" (click)="seleccionarBoton('punta'); plegar()" [ngClass]="{ 'selected': estadosBotones.punta}"><b>Punta</b></button>
+            <button type="button" class="buttonPrin" (click)="seleccionarBoton('seleccionadas'); desplegar();" style="border-right: none;" [ngClass]="{ 'selected': estadosBotones.seleccionadas }"><b>Horas</b></button>
           </div>      
           <div *ngIf="desplegado === true">
             <div class="buttons-container">

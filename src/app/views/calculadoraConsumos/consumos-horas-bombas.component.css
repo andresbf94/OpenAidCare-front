@@ -36,15 +36,16 @@
 
 .buttons-container {
     display: flex;
-    flex-wrap: wrap; /* Permitir que los botones se envuelvan en varias líneas */
+    flex-wrap: wrap; 
     width: 90%;
 }
 
+/*Botones de la horas*/
 .buttons-container button {
-    display: inline-block; /* Cambiado de 'inline' a 'inline-block' */
+    display: inline-block; 
     width: 3.8em;
     height: 1.9em;
-    margin-right: 0.5em; /* Añadido margen para separar los botones */
+    margin-right: 0.5em; 
     margin-top: 0.3em;
     border-radius: 2.5em;  
     border: 2px solid  rgb(65, 129, 23);
@@ -62,7 +63,8 @@
     width: 6em;
     border-bottom: 2px solid #002004;
     border-right: 2px solid #002004 ;  
-    margin-bottom: 1em;   
+    margin-bottom: 2em;
+    margin-top: 1em;   
 }
 
 .tramosCard{
@@ -77,7 +79,7 @@
     font-weight: bold;
 }
 
-.selected {
+.selected{
     background-color:#002004;
     color: white;
 }
@@ -115,10 +117,9 @@
 .p1{
     color: white;
     border-radius: 0.5em;
-    background-color: #002004;
-    
+    background-color: #002004;    
 }
 
-.p {
+.p{
     margin-bottom: 1em;
 }
