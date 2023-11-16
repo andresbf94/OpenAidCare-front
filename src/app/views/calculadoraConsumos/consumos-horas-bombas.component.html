@@ -1,33 +1,41 @@
 <div class="container-fluid">
   <div class="row contenido">
     <div class="col-5">
+      
       <div class="row marginRows rowCards">
-        <div class="col-6">
-          <div class="card tramosCard">
-            <label class="mb-4 titulo"><b>Precio del Kw/h por tramo</b></label>
-            <div class="row" >
-              <div class="col-6">
-                <p class="p1">P1: {{ p1 }} €</p>
-                <p class="p2">P2: {{ p2 }} €</p>
-                <p class="p3">P3: {{ p3 }} €</p>
-              </div>
-              <div class="col-6">
-                <p class="p4">P4: {{ p4 }} €</p>
-                <p class="p5">P5: {{ p5 }} €</p>
-                <p class="p6">P6: {{ p6 }} €</p>
-              </div>
+        <label class="titulo">Precio del Kw/h</label>
+        <div class="row text-center" style="margin-bottom: 2em;">
+
+          <div class="col-4">
+            <div class="p1 p">P1: {{ p1 }} €</div>
+            <div class="p2">P2: {{ p2 }} €</div>
+          </div>
+          <div class="col-4">
+            <div class="p3 p">P3: {{ p3 }} €</div>
+            <div class="p4">P4: {{ p4 }} €</div>
+          </div>   
+          <div class="col-4">  
+            <div class="p5 p">P5: {{ p5 }} €</div>
+            <div class="p6">P6: {{ p6 }} €</div>
+          </div>
+         
+        </div>
+      </div>  
+
+      <div class="row marginRows rowCards">
+        <label class="titulo">{{ obtenerMesActualNombre() }}</label>
+        <div class="row text-center" style="margin-bottom: 2em;">
+          <div class="col-4" *ngFor="let tramo of tramosMeses[obtenerMesActualNumero()]">
+            <div [class]="obtenerClasePorTramo(tramo)">
+              {{ obtenerClasePorTramo(tramo) }}: {{ tramo }}
             </div>
           </div>
         </div>
-
-        <div class="col-6">
-            <label></label>
-        </div>
-        
       </div>
+      
 
       <div class="row marginRows">
-        <label class="labelSeleccion">Seleccionar el numero de bombas</label>
+        <label class="titulo">Seleccionar el numero de bombas</label>
         <div>
           <label for="numBombasPequenas"><b>Pequeñas 2.5kW</b></label>
           <input class="inputBombas" type="number" id="numBombasPequenas" name="numBombasPequenas" [(ngModel)]="numBombasPequenas">
@@ -41,12 +49,12 @@
       <div class="row"> 
         <form #myForm="ngForm" (ngSubmit)="recalcularConsumosCostos()">
           <div class="divHoras">
-            <label class="labelSeleccion">Seleccionar las horas a mostrar</label><br>
-            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('todas'); recalcularConsumosCostos(); plegar()"><b>Todas</b></button>
-            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('valle'); recalcularConsumosCostos(); plegar()"><b>Valle</b></button>
-            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('llano'); recalcularConsumosCostos(); plegar()"><b>Llano</b></button>
-            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('punta'); recalcularConsumosCostos(); plegar()"><b>Punta</b></button>
-            <button type="button" class="buttonPrin" (click)="desplegar()"><b>Seleccionar</b></button>
+            <label class="titulo">Seleccionar las horas a mostrar</label><br>
+            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('todas'); recalcularConsumosCostos(); plegar(); seleccion('Todas')" [ngClass]="{ 'selected': tramoSeleccion}"><b>Todas</b></button>
+            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('valle'); recalcularConsumosCostos(); plegar(); seleccion('Valle')" [ngClass]="{ 'selected': tramoSeleccion}"><b>Valle</b></button>
+            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('llano'); recalcularConsumosCostos(); plegar(); seleccion('Llano')" [ngClass]="{ 'selected': tramoSeleccion}"><b>Llano</b></button>
+            <button type="button" class="buttonPrin" (click)="filtrarHorasTramos('punta'); recalcularConsumosCostos(); plegar(); seleccion('Punta')" [ngClass]="{ 'selected': tramoSeleccion}"><b>Punta</b></button>
+            <button type="button" class="buttonPrin" (click)="desplegar()" style="border-right: none;" [ngClass]="{ 'selected': desplegado }"><b>Horas</b></button>
           </div>      
           <div *ngIf="desplegado === true">
             <div class="buttons-container">
@@ -83,7 +91,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let consumo of consumosCostos" [ngClass]="getClasePorTramo(obtenerTramoPorHora(consumo.hora))">
+              <tr *ngFor="let consumo of consumosCostos" [ngClass]="obtenerClasePorTramo(obtenerTramoPorHora(consumo.hora))">
                 <td>{{ consumo.hora }}</td> 
                 <td>{{ consumo.consumoEstimadoPequenas | number: '1.2-2' }} kW</td>
                 <td>{{ consumo.consumoEstimadoGrandes | number: '1.2-2' }} kW</td>
@@ -124,8 +132,7 @@
           </div>
            
               <p class="text-center mt-5">La tabla estará disponible una vez que hayas seleccionado los datos a mostrar.</p>
-            
-            
+                     
         </ng-template>
       </div>
     </div> <!-- cierre col-7 -->

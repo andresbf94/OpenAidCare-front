@@ -1,27 +1,34 @@
 
-/*margenes para el contenido, sin contar titulo*/
+/*Contenedor principal*/
 .contenido{               
     margin-top: 1em;
     margin-left: 6em;
     margin-right: 6em;
 }
-.rowCards{
-    margin-top: 2em;
-}
-.divHoras{
-    margin-bottom: 1em;
-    width: 100%;
-}
+
+/*Tabla */
 .tabla{
     margin: 1em;
 }
+
 .tabla tr{
     height: 3em;
     border-bottom: 1px solid #829484;
 }
-.divHoras{
+
+/*Contenido*/
+
+.titulo{
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 0.8em;
+    margin-top: 0.8em;
+}
+
+.divHoras{    
     width: 90%;
 }
+
 .marginRows{   
     width: 90%;
     border-bottom: 1px solid #829484; 
@@ -30,6 +37,7 @@
 .buttons-container {
     display: flex;
     flex-wrap: wrap; /* Permitir que los botones se envuelvan en varias líneas */
+    width: 90%;
 }
 
 .buttons-container button {
@@ -42,35 +50,19 @@
     border: 2px solid  rgb(65, 129, 23);
 }
 
-.selected {
-    background-color:#002004;
-    color: white;
-}
-
 .inputBombas{
     width: 2em;
     margin-left: 1em;
 }
 
-.buttonPrin{
-    margin-right: 3em;
-    width: 7em;
+.buttonPrin{  
+    border: none;
+    background-color: white;
     height: 2.5em;
-    border: 2px solid #002004;
-    border-radius: 0.5em; 
+    width: 6em;
+    border-bottom: 2px solid #002004;
+    border-right: 2px solid #002004 ;  
     margin-bottom: 1em;   
-}
-.titulo{
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-.labelSeleccion{
-   font-size: 1.5em;
-   font-weight: bold;
-   margin-bottom: 1em;
-   margin-top: 1em;
-   color:black;
 }
 
 .tramosCard{
@@ -80,8 +72,14 @@
     border: 2px solid black;
     margin-bottom: 2em;
 }
+
 .totalesRow{
     font-weight: bold;
+}
+
+.selected {
+    background-color:#002004;
+    color: white;
 }
 
 .p6{
@@ -89,29 +87,38 @@
     border-radius: 0.5em;
     background-color: #79e07e;
 }
+
 .p5{
     color: black;
     border-radius: 0.5em;
     background-color: #6ec573;
 }
+
 .p4{
     color: black;
     border-radius: 0.5em;
     background-color: #64ad50;
 }
+
 .p3{
     color: white;
     border-radius: 0.5em;
     background-color: #2e8135;
 }
+
 .p2{
     color: white;
     border-radius: 0.5em;
-    background-color: #013b0b;
-   
+    background-color: #013b0b;  
 }
+
 .p1{
     color: white;
     border-radius: 0.5em;
     background-color: #002004;
+    
+}
+
+.p {
+    margin-bottom: 1em;
 }

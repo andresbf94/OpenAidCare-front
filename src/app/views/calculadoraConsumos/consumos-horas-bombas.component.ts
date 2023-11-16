@@ -15,7 +15,6 @@ export class ConsumosHorasBombasComponent implements OnInit {
   // Consumos y costos
   consumosCostos:any = [];
   consumosCostosTotales:any = [];
-  horasMostrar: any = [];         // Contiene la opcion seleccionada en el input de la vista
   horasSeleccionadas: any = [];
   horasCostos:any= [];
 
@@ -47,7 +46,7 @@ export class ConsumosHorasBombasComponent implements OnInit {
   festivoSyD = this.p6;
   
   ngOnInit(): void{
-    
+   
   }
 
   //Obtiene los tramos por hora en funcion del mes actual
@@ -279,7 +278,7 @@ export class ConsumosHorasBombasComponent implements OnInit {
     this.horasSeleccionadas=[];
   }
 
-  getClasePorTramo(tramo: number): string {
+  obtenerClasePorTramo(tramo: any): string {
     // Implementa la lógica para asignar la clase según el tramo
     if (tramo === this.p1) {
       return 'p1';
@@ -303,5 +302,28 @@ export class ConsumosHorasBombasComponent implements OnInit {
     return this.horasSeleccionadas.some((h: { hora: string; }) => h.hora === hora);
   }
   
- 
+  obtenerMesActualNumero(){
+    const fecha = new Date;
+    const mes = fecha.getMonth();
+    return mes;
+  }
+
+  obtenerMesActualNombre(): string {
+    const meses = [
+        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+
+    const fechaActual = new Date();
+    const nombreMes = meses[fechaActual.getMonth()];
+
+    return nombreMes;
+  }
+
+  tramoSeleccion = '';
+
+  seleccion(tramo: string){
+    this.tramoSeleccion=tramo;
+  }
+
 }

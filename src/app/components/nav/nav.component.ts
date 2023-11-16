@@ -22,6 +22,4 @@ export class NavComponent {
     this.navService.toggleDesplegado(this.isDesplegado);
     
   }
-
-
 }
