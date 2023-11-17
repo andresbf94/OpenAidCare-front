@@ -135,6 +135,7 @@ export class WeatherComponent implements OnInit {
     '': '../../../assets/iconosTiempo/cielo_despejado.png',
     'Cubierto': '../../../assets/iconosTiempo/cubierto.png',
     'Intervalos nubosos': '../../../assets/iconosTiempo/intervalos_nubosos.png',
+    'Poco nuboso': '../../../assets/iconosTiempo/intervalos_nubosos.png',
     'Muy nuboso con lluvia': '../../../assets/iconosTiempo/lluvia.png',
     'Nuboso con lluvia': '../../../assets/iconosTiempo/lluvia.png',
     'Cubierto con lluvia': '../../../assets/iconosTiempo/muy_nuboso_con_lluvia_escasa.png',
