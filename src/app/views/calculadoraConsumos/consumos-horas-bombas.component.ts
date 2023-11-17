@@ -280,17 +280,17 @@ export class ConsumosHorasBombasComponent {
   obtenerClasePorTramo(tramo: any): string {
     // Implementa la lógica para asignar la clase según el tramo
     if (tramo === this.p1) {
-      return 'p1';
+      return 'P1';
     } else if (tramo === this.p2) {
-      return 'p2';
+      return 'P2';
     } else if (tramo === this.p3) {
-      return 'p3';
+      return 'P3';
     } else if (tramo === this.p4) {
-      return 'p4';
+      return 'P4';
     } else if (tramo === this.p5) {
-      return 'p5';
+      return 'P5';
     } else if (tramo === this.p6) {
-      return 'p6';
+      return 'P6';
     } else {
       // Si no coincide con ningún tramo conocido, puedes manejarlo de otra manera o devolver una clase predeterminada
       return 'clase-predeterminada';

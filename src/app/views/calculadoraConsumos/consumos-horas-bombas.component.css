@@ -13,7 +13,7 @@
 
 .tabla tr{
     height: 3em;
-    border-bottom: 1px solid #829484;
+    border-bottom: 1px solid rgb(43, 41, 41);
 }
 
 /*Contenido*/
@@ -21,8 +21,8 @@
 .titulo{
     font-size: 1.5em;
     font-weight: bold;
-    margin-bottom: 0.8em;
-    margin-top: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 1em;
 }
 
 .divHoras{    
@@ -38,6 +38,7 @@
     display: flex;
     flex-wrap: wrap; 
     width: 90%;
+    
 }
 
 /*Botones de la horas*/
@@ -48,7 +49,7 @@
     margin-right: 0.5em; 
     margin-top: 0.3em;
     border-radius: 2.5em;  
-    border: 2px solid  rgb(65, 129, 23);
+    border: 2px solid rgb(43, 41, 41);
 }
 
 .inputBombas{
@@ -57,14 +58,14 @@
 }
 
 .buttonPrin{  
-    border: none;
+    border: 2px solid rgb(43, 41, 41);
     background-color: white;
     height: 2.5em;
     width: 6em;
-    border-bottom: 2px solid #002004;
-    border-right: 2px solid #002004 ;  
-    margin-bottom: 2em;
-    margin-top: 1em;   
+    margin-right: 1em;
+    margin-bottom: 1.5em;
+    
+    border-radius: 0.5em;  
 }
 
 .tramosCard{
@@ -80,44 +81,44 @@
 }
 
 .selected{
-    background-color:#002004;
+    background-color: rgb(26, 25, 25);
     color: white;
 }
 
-.p6{
+.P6{
     color: black;
     border-radius: 0.5em;
     background-color: #79e07e;
 }
 
-.p5{
+.P5{
     color: black;
     border-radius: 0.5em;
     background-color: #6ec573;
 }
 
-.p4{
+.P4{
     color: black;
     border-radius: 0.5em;
-    background-color: #64ad50;
+    background-color: #65bb4d;
 }
 
-.p3{
+.P3{
     color: white;
     border-radius: 0.5em;
     background-color: #2e8135;
 }
 
-.p2{
+.P2{
     color: white;
     border-radius: 0.5em;
-    background-color: #013b0b;  
+    background-color: #295831;  
 }
 
-.p1{
+.P1{
     color: white;
     border-radius: 0.5em;
-    background-color: #002004;    
+    background-color: #153019;    
 }
 
 .p{

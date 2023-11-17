@@ -1,22 +1,22 @@
 <div class="container-fluid">
   <div class="row contenido">
-    <div class="col-5">
+    <div class="col-xl-5">
       
       <div class="row marginRows rowCards">
         <label class="titulo">Precio del Kw/h</label>
         <div class="row text-center" style="margin-bottom: 2em;">
 
           <div class="col-4">
-            <div class="p1 p">P1: {{ p1 }} €</div>
-            <div class="p2">P2: {{ p2 }} €</div>
+            <div class="P1 p">P1: {{ p1 }} €</div>
+            <div class="P2">P2: {{ p2 }} €</div>
           </div>
           <div class="col-4">
-            <div class="p3 p">P3: {{ p3 }} €</div>
-            <div class="p4">P4: {{ p4 }} €</div>
+            <div class="P3 p">P3: {{ p3 }} €</div>
+            <div class="P4">P4: {{ p4 }} €</div>
           </div>   
           <div class="col-4">  
-            <div class="p5 p">P5: {{ p5 }} €</div>
-            <div class="p6">P6: {{ p6 }} €</div>
+            <div class="P5 p">P5: {{ p5 }} €</div>
+            <div class="P6">P6: {{ p6 }} €</div>
           </div>
          
         </div>
@@ -54,7 +54,7 @@
             <button type="button" class="buttonPrin" (click)="seleccionarBoton('valle'); plegar()" [ngClass]="{ 'selected': estadosBotones.valle}"><b>Valle</b></button>
             <button type="button" class="buttonPrin" (click)="seleccionarBoton('llano'); plegar()" [ngClass]="{ 'selected': estadosBotones.llano}"><b>Llano</b></button>
             <button type="button" class="buttonPrin" (click)="seleccionarBoton('punta'); plegar()" [ngClass]="{ 'selected': estadosBotones.punta}"><b>Punta</b></button>
-            <button type="button" class="buttonPrin" (click)="seleccionarBoton('seleccionadas'); desplegar();" style="border-right: none;" [ngClass]="{ 'selected': estadosBotones.seleccionadas }"><b>Horas</b></button>
+            <button type="button" class="buttonPrin" (click)="seleccionarBoton('seleccionadas'); desplegar();" [ngClass]="{ 'selected': estadosBotones.seleccionadas }"><b>Horas</b></button>
           </div>      
           <div *ngIf="desplegado === true">
             <div class="buttons-container">
@@ -75,7 +75,7 @@
      
     </div> <!-- cierre col-5 -->
     
-    <div class="col-7">
+    <div class="col-xl-7">
       <div class="row">
         <ng-container *ngIf="consumosCostos.length > 0; else noData">
           <table class="tabla text-center">

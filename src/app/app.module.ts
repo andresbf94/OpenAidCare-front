@@ -17,6 +17,7 @@ import { WeatherComponent } from './components/weather/weather.component';
 import { CustomButtonComponent } from '../app/views/sensors/sensors.component';
 import { ConsumosHorasBombasComponent } from './views/calculadoraConsumos/consumos-horas-bombas.component';
 import { FormsModule } from '@angular/forms';
+import { LoaderComponent } from './components/loader/loader.component';
 
 const routes: Routes = [
   
@@ -35,6 +36,7 @@ const routes: Routes = [
     WeatherComponent,
     CustomButtonComponent,
     ConsumosHorasBombasComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

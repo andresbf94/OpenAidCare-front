@@ -17,11 +17,12 @@ export class SensorsComponent implements OnInit {
   prueba: string = '';
   data: any = [];
   graphUrl: SafeResourceUrl = '';
+  loading: boolean = false;
   @ViewChild('content', { static: false }) content!: TemplateRef<any>;
-  
-  // En el constructorr cargo los datos de los sensores
 
-  constructor(private medidasService: SensorDataService, private graphService: GraphsService, private sanitizer: DomSanitizer, private modalService: NgbModal, private customButtonComponent:CustomButtonComponent ) {
+  // En el constructor cargo los datos de los sensores
+
+  constructor(private medidasService: SensorDataService, private graphService: GraphsService, private sanitizer: DomSanitizer, private modalService: NgbModal, private customButtonComponent: CustomButtonComponent) {
     this.medidasService.getSensors().subscribe((sensors: any) => {
       this.sensors = sensors;
 
@@ -30,7 +31,7 @@ export class SensorsComponent implements OnInit {
       console.log('listado', this.sensors);
 
       this.sensors.forEach((sensor) => {
-        
+
         switch (sensor.mac.trim()) {
           // Sensores temperatura y humedad
           case '0x00158d0008984738':
@@ -43,16 +44,16 @@ export class SensorsComponent implements OnInit {
           case '0x00124b00246c6b74':
           case '0x00124b002502e233':
           // Sensores presencia
-          case '0x00124b00251c554a': 
+          case '0x00124b00251c554a':
           case '0x00124b00288fd901':
           case '0x00124b002450f476':
 
             this.data.push({
               estado: this.getStatus(
-              sensor.battery,
-              sensor.batteryLow,
-              sensor.updatedAt,
-              sensor.model
+                sensor.battery,
+                sensor.batteryLow,
+                sensor.updatedAt,
+                sensor.model
               ),
               friendlyName: sensor.friendlyName,
               battery: this.getBattery(sensor.battery, sensor.batteryLow),
@@ -68,7 +69,7 @@ export class SensorsComponent implements OnInit {
   }
   // 'Configuracion' de la smart-table
   settings: Settings = {
-   
+
     columns: {
       estado: {
         title: 'Estado',
@@ -100,14 +101,14 @@ export class SensorsComponent implements OnInit {
         isEditable: false,
         renderComponent: CustomButtonComponent,
         componentInitFunction: CustomButtonComponent.componentInit,
-        
+
       },
     },
 
     mode: 'inline',
 
     edit: {
-      confirmSave:true,
+      confirmSave: true,
       editButtonContent: 'Editar',
       saveButtonContent: 'Guardar',
       cancelButtonContent: 'Cancelar'
@@ -128,19 +129,24 @@ export class SensorsComponent implements OnInit {
   };
   // Funcion para abrir y centrar el modal
   openVerticallyCentered(content: any) {
+    this.loading = true; // Comienza la carga
     this.modalService.open(content, { centered: true, size: 'xl' });
+    var myIframe = document.getElementById('iframeGraph');
+    myIframe?.addEventListener("load",  () => {
+      this.loading = false;
+    });
   }
   ngOnInit(): void {
-  this.graphService.graphUrl$.subscribe(url => {
-    const safeUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    this.graphUrl = safeUrl;
-  });
-  this.graphService.graphButtonClicked.subscribe((sensorData: any) => {
-    // Abre el modal cuando se hace clic en el botón de la gráfica
-    this.openVerticallyCentered(this.content);
-    // Aquí puedes usar sensorData para cargar la gráfica correspondiente
-    // sensorData contiene los datos del sensor que se hizo clic
-  });
+    this.graphService.graphUrl$.subscribe(url => {
+      const safeUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+      this.graphUrl = safeUrl;
+    });
+    this.graphService.graphButtonClicked.subscribe((sensorData: any) => {
+      // Abre el modal cuando se hace clic en el botón de la gráfica
+      this.openVerticallyCentered(this.content);
+      // Aquí puedes usar sensorData para cargar la gráfica correspondiente
+      // sensorData contiene los datos del sensor que se hizo clic
+    });
   }
   // Obtiene el estado de los sensores ON/OFF
   getStatus(
@@ -197,18 +203,17 @@ export class SensorsComponent implements OnInit {
     }
   }
   // Modifica el friendly name en la BD
-  updateFriendlyName(event:EditConfirmEvent){
+  updateFriendlyName(event: EditConfirmEvent) {
     this.graphService.putFriendlyName(event.newData.friendlyName, event.data.mac).subscribe({
-      next:response=> {console.log(response)},
-      error:error=>{console.log(error)}
+      next: response => { console.log(response) },
+      error: error => { console.log(error) }
     });
 
     return event.confirm.resolve(event.newData);
   }
   // Envia al servicio los datos necesarios para la url que muestra las graficas
   allSensorsGraphs() {
-    const macAddresses = new Array();
-    macAddresses.push(
+    const macAddresses = [
       '0x00158d0008984738',
       '0x00124b002503776b',
       '0x00124b0024cd1b52',
@@ -218,16 +223,23 @@ export class SensorsComponent implements OnInit {
       '0x00124b00246ccb6e',
       '0x00124b00246c6b74',
       '0x00124b002502e233'
-    );
+    ];
     const showTemperature = 't';
     const showMinMax = 's';
     const startDate = '2023-09-01';
-  
+
     // Get the graph data
-    this.graphService.getGraph(macAddresses, showTemperature, showMinMax, startDate);
-    this.graphService.graphButtonClicked.emit(this);
+    this.graphService.getGraph(macAddresses, showTemperature, showMinMax, startDate)
+      .subscribe({
+        next: (response: any) => {
+          this.graphService.graphButtonClicked.emit(this);
+        },
+        error: (response: any) => {
+
+        }
+      })
   }
-  
+
 }
 
 // COMPONENTE BOTON GRAFICA
@@ -244,9 +256,9 @@ export class SensorsComponent implements OnInit {
 })
 
 export class CustomButtonComponent extends DefaultEditor {
-  
+
   public row: any;
- 
+
   constructor(private graphService: GraphsService) {
     super();
   }
