@@ -18,6 +18,8 @@ import { CustomButtonComponent } from '../app/views/sensors/sensors.component';
 import { ConsumosHorasBombasComponent } from './views/calculadoraConsumos/consumos-horas-bombas.component';
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './components/loader/loader.component';
+import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 const routes: Routes = [
   
@@ -37,7 +39,9 @@ const routes: Routes = [
     CustomButtonComponent,
     ConsumosHorasBombasComponent,
     LoaderComponent,
+    FileUploaderComponent,
   ],
+
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -46,8 +50,9 @@ const routes: Routes = [
     Angular2SmartTableModule,
     RouterModule.forRoot(routes),
     FormsModule,
-
+    NgxExtendedPdfViewerModule,
   ],
+  
   exports: [RouterModule],
   providers: [CustomButtonComponent],
   bootstrap: [AppComponent]

@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './views/home/home.component';
 import { SensorsComponent } from './views/sensors/sensors.component';
 import { ConsumosHorasBombasComponent } from './views/calculadoraConsumos/consumos-horas-bombas.component';
+import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
   {path:'sensors', component: SensorsComponent},
-  {path: 'consumos', component: ConsumosHorasBombasComponent}
+  {path: 'consumos', component: ConsumosHorasBombasComponent},
+  {path: 'facturas', component: FileUploaderComponent}
 ];
 
 @NgModule({

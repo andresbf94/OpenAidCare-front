@@ -1,0 +1,14 @@
+<div>
+    <input type="file" (change)="onFileSelected($event)">
+    <select [(ngModel)]="selectedFileType">
+      <option value="gas">Gas</option>
+      <option value="luz">Luz</option>
+    </select>
+    <button (click)="onUpload()">Subir PDF</button>
+    <button (click)="onDownloadByType()">Mostrar PDF</button>
+    <div *ngIf="uploadResponse">
+      <p>{{ uploadResponse.mensaje }}</p>
+      <p>{{ uploadResponse.archivo | json }}</p>
+    </div>
+    <ngx-extended-pdf-viewer [src]="pdfUrl" *ngIf="pdfUrl"></ngx-extended-pdf-viewer>
+  </div>
