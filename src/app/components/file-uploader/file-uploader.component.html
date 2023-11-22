@@ -10,5 +10,8 @@
       <p>{{ uploadResponse.mensaje }}</p>
       <p>{{ uploadResponse.archivo | json }}</p>
     </div>
-    <ngx-extended-pdf-viewer [src]="pdfUrl" *ngIf="pdfUrl"></ngx-extended-pdf-viewer>
+    <ngx-extended-pdf-viewer [src]="ruta"
+    [height]="'auto'"
+    [useBrowserLocale]="true"
+    [textLayer]="true"></ngx-extended-pdf-viewer>
   </div>

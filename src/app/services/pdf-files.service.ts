@@ -22,10 +22,7 @@ export class PdfFilesService {
     return this.http.post(`${this.urlServer}/uploadFile/${type}`, formData, { headers });
   }
 
-  downloadPdfByType(type: string): Observable<any> {
-    return this.http.get(`${this.urlServer}/getPdfByType/${type}`, {
-      responseType: 'arraybuffer',
-      observe: 'response'
-    });
+  downloadPdfByType(type: string): Observable<ArrayBuffer> {
+    return this.http.get(`${this.urlServer}/getPdfByType/${type}`, { responseType: 'arraybuffer' });
   }
 }

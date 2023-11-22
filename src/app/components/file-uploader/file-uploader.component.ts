@@ -1,5 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { PdfFilesService } from 'src/app/services/pdf-files.service';
+import { pdfDefaultOptions } from 'ngx-extended-pdf-viewer';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 @Component({
   selector: 'app-file-upload',
@@ -10,10 +12,12 @@ export class FileUploaderComponent {
   selectedFile: any;
   selectedFileType: any ='';  // Valor predeterminado
   uploadResponse: any;
-  pdfContent: any;
-  pdfUrl: any;
+  pdfSrc: any;
+  datos:any;
+  
+  ruta="../../../assets/Temperatura y humedad (1).pdf";
 
-  constructor(private pdfFilesService: PdfFilesService, private zone: NgZone) {}
+  constructor(private pdfFilesService: PdfFilesService, private zone: NgZone) {pdfDefaultOptions.assetsFolder = 'bleeding-edge';}
 
   onFileSelected(event:any): void {
     this.selectedFile = event.target.files[0];
@@ -32,30 +36,23 @@ export class FileUploaderComponent {
   }
 
   onDownloadByType(): void {
-  this.pdfFilesService.downloadPdfByType(this.selectedFileType)
-    .subscribe(response => {
-      if (response && response.body instanceof ArrayBuffer) {
-        this.pdfContent = new Uint8Array(response.body);
-
-        // Utiliza NgZone para asegurarte de que el cambio se realiza dentro de la zona de Angular
-        this.zone.run(() => {
-          this.updatePdfUrl();
-        });
-      } else {
-        console.error('Respuesta inválida o cuerpo no es un ArrayBuffer.');
-      }
-    }, error => {
-      console.error('Error al descargar el PDF:', error);
-    });
-}
-
-  private updatePdfUrl(): void {
-    if (this.pdfContent) {
-      const blob = new Blob([this.pdfContent], { type: 'application/pdf' });
-      this.pdfUrl = URL.createObjectURL(blob);
+    if (this.selectedFileType) {
+      this.pdfFilesService.downloadPdfByType(this.selectedFileType).subscribe(
+        (data: ArrayBuffer) => {
+          console.log('data', data);
+          this.datos = data;
+          // Convierte el ArrayBuffer a una cadena de datos URL
+          const blob = new Blob([data], { type: 'application/pdf' });
+          this.pdfSrc = URL.createObjectURL(blob);
+        },
+        (error: any) => {
+          console.error('Error al cargar el PDF:', error);
+        }
+      );
     } else {
-      this.pdfUrl = null;
+      console.error('No se ha seleccionado un tipo de archivo.');
     }
   }
+
 
 }
