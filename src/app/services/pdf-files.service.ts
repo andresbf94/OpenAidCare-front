@@ -7,22 +7,24 @@ import { Observable } from 'rxjs';
 })
 export class PdfFilesService {
 
-  urlServer = 'http://localhost:3000';
+  baseUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
   uploadFile(file: File, type: string): Observable<any> {
     const formData = new FormData();
     formData.append('archivo', file);
-
+    formData.append('nombre', file.name); // Agrega el nombre del archivo al FormData
+  
     const headers = new HttpHeaders({
       'Accept': 'application/json'
     });
-
-    return this.http.post(`${this.urlServer}/uploadFile/${type}`, formData, { headers });
+  
+    return this.http.post(`${this.baseUrl}/uploadFile/${type}`, formData, { headers });
   }
 
-  downloadPdfByType(type: string): Observable<ArrayBuffer> {
-    return this.http.get(`${this.urlServer}/getPdfByType/${type}`, { responseType: 'arraybuffer' });
+  getPdfByType(type: string): Observable<any> {
+    const url = `${this.baseUrl}/getPdfByType/${type}`;
+    return this.http.get(url, { responseType: 'json' });
   }
 }

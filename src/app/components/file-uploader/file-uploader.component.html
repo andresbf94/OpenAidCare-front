@@ -1,17 +1,31 @@
 <div>
-    <input type="file" (change)="onFileSelected($event)">
-    <select [(ngModel)]="selectedFileType">
+  <input type="file" (change)="onFileSelected($event)">
+  <select [(ngModel)]="selectedFileType">
       <option value="gas">Gas</option>
       <option value="luz">Luz</option>
-    </select>
-    <button (click)="onUpload()">Subir PDF</button>
-    <button (click)="onDownloadByType()">Mostrar PDF</button>
-    <div *ngIf="uploadResponse">
+  </select>
+  <button (click)="onUpload()">Subir PDF</button>
+  <button (click)="loadPdfFiles(selectedFileType)">Mostrar PDF</button>
+  <div *ngIf="uploadResponse">
       <p>{{ uploadResponse.mensaje }}</p>
       <p>{{ uploadResponse.archivo | json }}</p>
-    </div>
-    <ngx-extended-pdf-viewer [src]="ruta"
-    [height]="'auto'"
-    [useBrowserLocale]="true"
-    [textLayer]="true"></ngx-extended-pdf-viewer>
   </div>
+
+  <div class="gasContainer">
+      <div *ngFor="let file of pdfFiles ">
+          <div *ngIf="file.type === 'gas'" (click)="openPdfViewer(file.content)">
+              {{ file.name }}
+          </div>
+      </div>
+  </div>
+
+  <div class="luzContainer">
+      <div *ngFor="let file of pdfFiles ">
+          <div *ngIf="file.type === 'luz'" (click)="openPdfViewer(file.content)">
+              {{ file.name }}
+          </div>
+      </div>
+  </div>
+
+  <ngx-extended-pdf-viewer [base64Src]="pdfViewerSrc" [textLayer]="true" [height]="'auto'"></ngx-extended-pdf-viewer>
+</div>
