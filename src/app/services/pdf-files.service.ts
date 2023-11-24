@@ -11,20 +11,25 @@ export class PdfFilesService {
 
   constructor(private http: HttpClient) {}
 
-  uploadFile(file: File, type: string): Observable<any> {
-    const formData = new FormData();
+  uploadFile(file: File, type: string, month: string, year: number): Observable<any> {
+    const formData: FormData = new FormData();
+
     formData.append('archivo', file);
-    formData.append('nombre', file.name); // Agrega el nombre del archivo al FormData
-  
-    const headers = new HttpHeaders({
-      'Accept': 'application/json'
-    });
-  
-    return this.http.post(`${this.baseUrl}/uploadFile/${type}`, formData, { headers });
+    formData.append('type', type);
+    formData.append('name', file.name);
+    formData.append('month', month);
+    formData.append('year', year.toString());
+
+    return this.http.post<any>(`${this.baseUrl}/uploadFile/${type}`, formData);
   }
 
   getPdfByType(type: string): Observable<any> {
     const url = `${this.baseUrl}/getPdfByType/${type}`;
     return this.http.get(url, { responseType: 'json' });
+  }
+
+  deleteFile(fileId: string): Observable<any>{
+    const url = `${this.baseUrl}/deleteFile/${fileId}`;
+    return this.http.delete(url);
   }
 }
