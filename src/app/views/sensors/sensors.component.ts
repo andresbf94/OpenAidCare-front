@@ -5,6 +5,7 @@ import { SensorDataService } from '../../services/sensors.service';
 import { GraphsService } from 'src/app/services/graphs.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { format, subMonths } from 'date-fns';
 
 @Component({
   selector: 'app-sensors',
@@ -224,9 +225,11 @@ export class SensorsComponent implements OnInit {
       '0x00124b00246c6b74',
       '0x00124b002502e233'
     ];
+    
+    const startDate = format(subMonths(new Date(), 1), 'yyyy-MM-dd');
     const showTemperature = 't';
     const showMinMax = 's';
-    const startDate = '2023-09-01';
+    
 
     // Get the graph data
     this.graphService.getGraph(macAddresses, showTemperature, showMinMax, startDate)
@@ -264,18 +267,14 @@ export class CustomButtonComponent extends DefaultEditor {
   }
 
   sensorGraph() {
-    const macAddresses = new Array();
-    macAddresses.push(this.row.mac);
+    const macAddresses = [this.row.mac];
     const showTemperature = 't';
     const showMinMax = 's';
-    const startDate = '2023-10-01';
-
-    this.graphService.getGraph(
-      macAddresses,
-      showTemperature,
-      showMinMax,
-      startDate
-    );
+  
+    // Calcula la fecha de un mes atrás
+    const startDate = format(subMonths(new Date(), 1), 'yyyy-MM-dd');
+  
+    this.graphService.getGraph(macAddresses, showTemperature, showMinMax, startDate);
   }
   onButtonClick() {
     this.graphService.graphButtonClicked.emit(this.row); // Emitir el evento con los datos del sensor

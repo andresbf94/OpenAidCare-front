@@ -11,20 +11,20 @@ export class MeasuresService {
  
   constructor(private http: HttpClient) {}
   
-  getMeasuresLastWeek(friendlyName: string): Observable<any> {
+  getMeasuresLastMonth(friendlyName: string): Observable<any> {
     // Obtener la fecha actual
     const currentDate = new Date();
     
-    // Restar 7 días a la fecha actual
-    const sevenDaysAgo = new Date(currentDate);
-    sevenDaysAgo.setDate(currentDate.getDate() - 6);
+    // Restar 30 días a la fecha actual para obtener el último mes
+    const lastMonth = new Date(currentDate);
+    lastMonth.setMonth(currentDate.getMonth() - 1);
   
     // Formatear la fecha en el formato esperado (YYYY-MM-DD)
-    const formattedDate = `${sevenDaysAgo.getFullYear()}-${String(sevenDaysAgo.getMonth() + 1).padStart(2, '0')}-${String(sevenDaysAgo.getDate()).padStart(2, '0')}`;
+    const formattedDate = `${lastMonth.getFullYear()}-${String(lastMonth.getMonth() + 1).padStart(2, '0')}-${String(lastMonth.getDate()).padStart(2, '0')}`;
   
     // Hacer la solicitud HTTP con la fecha formateada
     return this.http.get(this.urlMeasures + friendlyName + '/' + formattedDate);
-  }
+}
 
   getMeasuresCurrentDay(friendlyName: string): Observable<any> {
     // Obtener la fecha actual

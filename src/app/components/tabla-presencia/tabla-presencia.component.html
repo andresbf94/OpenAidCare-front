@@ -6,31 +6,31 @@
     </div>
   
     <div class="row card-body">
+
       <div class="col-sm-12 col-md-6 col-xxl-4 mt-3">
         <div class="card mb-4">
-          <h5 class="card-header text-center  plantaBaja ">Planta Baja</h5>
-            <div class="card-body">
-              <div *ngIf="datosM0.length > 0">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Día</th>
-                      <th>Fecha</th>
-                      <th>Entrada</th>
-                      <th>Salida</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let dato of datosM0">
-                      <td>{{ dato.fecha }}</td>
+          <h5 class="card-header text-center plantaBaja">Planta Baja</h5>
+          <div class="card-body">
+            <div *ngIf="datosM0.length > 0">
+              <table class="table table-striped">
+                <thead>
+                  <tr>                    
+                    <th>Fecha</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let dato of datosM0 | paginate: { itemsPerPage: 7, currentPage: currentPageM0, id: 'm0Pagination' }">
                       <td>{{ dato.fecha}}</td>
                       <td>{{ dato.primeraHora }}</td>
                       <td>{{ dato.ultimaHora }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="currentPageM0 = $event" id="m0Pagination" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
             </div>
+          </div>
         </div>
       </div>
 
@@ -43,22 +43,21 @@
           <div *ngIf="datosM1.length > 0">
             <table class="table table-striped">
               <thead>
-                <tr>
-                  <th>Día</th>
+                <tr>           
                   <th>Fecha</th>
                   <th>Entrada</th>
                   <th>Salida</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let dato of datosM1">
-                  <td>{{ dato.fecha }}</td>
+                <tr *ngFor="let dato of datosM1 | paginate: { itemsPerPage: 7, currentPage: currentPageM1, id: 'm1Pagination' }">               
                   <td>{{ dato.fecha }}</td>
                   <td>{{ dato.primeraHora }}</td>
                   <td>{{ dato.ultimaHora }}</td>
                 </tr>
               </tbody>
             </table>
+            <pagination-controls (pageChange)="currentPageM1 = $event" id="m1Pagination" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
           </div>
         </div>
       </div>
@@ -73,21 +72,21 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Día</th>
+               
                   <th>Fecha</th>
                   <th>Entrada</th>
                   <th>Salida</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let dato of datosM2">
-                  <td>{{ dato.fecha }}</td>
+                <tr *ngFor="let dato of datosM2 | paginate: { itemsPerPage: 7, currentPage: currentPageM2, id: 'm2Pagination'}">                
                   <td>{{ dato.fecha }}</td>
                   <td>{{ dato.primeraHora }}</td>
                   <td>{{ dato.ultimaHora }}</td>
                 </tr>
               </tbody>
             </table>
+            <pagination-controls (pageChange)="currentPageM2 = $event" id="m2Pagination" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
           </div>
         </div>
       </div>
@@ -96,14 +95,3 @@
   </div> <!-- row -->
 </div>
 </div><!-- container -->
-
-
-
-
-
-
-
-
-
-
-

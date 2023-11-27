@@ -21,8 +21,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { ExamplePdfViewerComponent } from './example-pdf-viewer/example-pdf-viewer.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   
@@ -56,6 +55,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     FormsModule,
     NgxExtendedPdfViewerModule,
+    NgxPaginationModule
 
   ],
   

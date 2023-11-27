@@ -57,7 +57,7 @@
             
             <div class="row rowUploadPdf">
                 <label for="customFile" class="falseButton">Seleccionar archivo</label>
-                <input class="form-file" type="file" id="customFile" (change)="onFileSelected($event)">
+                <input class="form-file" type="file" id="customFile" (change)="onFileSelected($event)" accept=".pdf">
                 
                 <div>
                     <select class="form-select mt-3 w-auto" [(ngModel)]="selectedFileType">

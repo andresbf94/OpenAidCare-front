@@ -33,11 +33,20 @@ export class TablaPresenciaComponent implements OnInit {
   datosM1:any=[];
   datosM2:any= [];
 
+  currentPageM0: number = 1;
+  currentPageM1: number = 1;
+  currentPageM2: number = 1;
+  
+  customLabels = {
+    previousLabel: 'Anterior',
+    nextLabel: 'Siguiente',
+  };
+
   constructor(private measuresService: MeasuresService) {}
 
   ngOnInit(): void {
 
-    this.measuresService.getMeasuresLastWeek('M0').subscribe(data => {
+    this.measuresService.getMeasuresLastMonth('M0').subscribe(data => {
       if (Array.isArray(data.measures)) {
         this.measures = data.measures;
         this.datosM0 = this.procesarDatos(this.measures).reverse();
@@ -47,7 +56,7 @@ export class TablaPresenciaComponent implements OnInit {
       }
     });
   
-    this.measuresService.getMeasuresLastWeek('M1').subscribe(data => {
+    this.measuresService.getMeasuresLastMonth('M1').subscribe(data => {
       if (Array.isArray(data.measures)) {
         this.measures = data.measures;
         this.datosM1 = this.procesarDatos(this.measures).reverse();
@@ -56,7 +65,7 @@ export class TablaPresenciaComponent implements OnInit {
       }
     });
   
-    this.measuresService.getMeasuresLastWeek('M2').subscribe(data => {
+    this.measuresService.getMeasuresLastMonth('M2').subscribe(data => {
       if (Array.isArray(data.measures)) {
         this.measures = data.measures;
         this.datosM2 = this.procesarDatos(this.measures).reverse();
@@ -65,7 +74,7 @@ export class TablaPresenciaComponent implements OnInit {
       }
     });
 
-    this.measuresService.getMeasuresLastWeek('T0B').subscribe(data => {
+    this.measuresService.getMeasuresLastMonth('T0B').subscribe(data => {
       this.temperaturas=data;
       console.log('temperaturas array' , this.temperaturas);
     })
@@ -89,8 +98,6 @@ export class TablaPresenciaComponent implements OnInit {
         const currentDate = dateTime.toLocaleDateString();
         const currentHour = dateTime.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'});
        
-
-    
         if (data.includes('true')) {
           if (!(currentDate in dateMap)) {
             dateMap[currentDate] = { primeraHora: currentHour, ultimaHora: null };
@@ -112,6 +119,6 @@ export class TablaPresenciaComponent implements OnInit {
     
       return processedData;
     }
-  
+    
  
 }
