@@ -13,16 +13,20 @@ export class FileUploaderComponent implements OnInit {
     selectedYear: any = '';
     uploadResponse: any;
     pdfFiles: any[] = [];
+    pdfFilesLuz: any[] = [];
+    pdfFilesGas: any[] = [];
     pdfViewerSrc: any;
     years: any;
     showError: boolean = false;
+    errorMessage:any = '';
 
     constructor(private pdfFilesService: PdfFilesService) {}
 
     ngOnInit(): void {
         this.load5Years();
         this.loadPdfFiles('luz');
-        console.log('files', this.pdfFiles);
+       
+        console.log('files', this.pdfFilesLuz);
     }
 
     onFileSelected(event: any): void {
@@ -35,9 +39,9 @@ export class FileUploaderComponent implements OnInit {
             this.showError = true;
             return;
         }
-
-        // Reiniciar el estado de showError si no hay errores
+        // Reiniciar el estado de showError y errorMessage si no hay errores
         this.showError = false;
+        
 
         // Resto de la lógica de carga del archivo
         this.pdfFilesService.uploadFile(
@@ -45,25 +49,38 @@ export class FileUploaderComponent implements OnInit {
             this.selectedFileType,
             this.selectedMonth, 
             this.selectedYear)
-            .subscribe(response => {
+            .subscribe(
+            (response:any) => {
                 this.uploadResponse = response;
                 console.log(response);
+                this.errorMessage = '';
                 this.loadPdfFiles('gas');
                 this.loadPdfFiles('luz');
-            });
+            },
+            (error:any)=>{
+                this.errorMessage = error.error?.mensaje || 'Error desconocido.';
+            }
+            );
     }
 
     loadPdfFiles(type: string): void {
         this.pdfFilesService.getPdfByType(type).subscribe(
-            (response: any) => {
-                this.pdfFiles = response.files;
-                console.log('Archivos PDF cargados:', this.pdfFiles);
-            },
-            (error) => {
-                console.error('Error al cargar archivos PDF:', error);
+          (response: any) => {
+            if (type === 'luz') {
+              this.pdfFilesLuz = response.files;
+            } else if (type === 'gas') {
+              this.pdfFilesGas = response.files;
             }
+      
+            console.log(`Archivos PDF cargados para ${type}:`, response.files);
+          },
+          (error: any) => {
+            this.pdfFilesLuz=[];
+            this.pdfFilesGas=[];
+            console.error(`Error al cargar archivos PDF para ${type}:`, error);
+          }
         );
-    }
+      }
 
     openPdfViewer(base64Src: string): void {
         this.pdfViewerSrc = base64Src;
@@ -77,14 +94,14 @@ export class FileUploaderComponent implements OnInit {
 
     deleteFile(fileId: string): void {
         this.pdfFilesService.deleteFile(fileId).subscribe(
-          response => {
+          (response: any) => {
             this.loadPdfFiles('gas');
             this.loadPdfFiles('luz');
             console.log('Respuesta del servidor:', response);
           },
-          error => {
+          (error: any) => {
             console.error('Error al eliminar el archivo:', error);
           }
         );
-    }
+      }
 }

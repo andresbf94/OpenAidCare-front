@@ -2,7 +2,7 @@
     <div class="row">
         <div class="colUpDownPdf">
 
-            <div class="row">
+            <div class="row rowDownloadPdf">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="luz-tab" data-bs-toggle="tab" data-bs-target="#luz-tab-pane" type="button" role="tab" aria-controls="luz-tab-pane" aria-selected="false" (click)="loadPdfFiles('luz') ">Luz</button>
@@ -13,70 +13,90 @@
                 </ul>
 
                 <div class="tab-content" id="myTabContent">
+
                     <div class="tab-pane fade show active" id="luz-tab-pane" role="tabpanel" aria-labelledby="luz-tab" tabindex="0">
                         <div class="luzContainer">
-                            
-                            <div *ngFor="let file of pdfFiles " class="mb-2 p-2 bg-light border">
-                                <div *ngIf="file.type === 'luz'" class="cursor-pointer" >
-                                    {{ file.month }} {{file.year}}
-                                    <img style="height: 17px; width: auto;" src="../../../assets/images/download.png" alt="download icon" (click)="openPdfViewer(file.content)">
-                                    <img style="height: 17px; width: auto;" src="../../../assets/images/delete.png" alt="delete icon" (click)="deleteFile(file.id)" > 
+                            <div *ngIf="pdfFilesLuz.length>0">
+                                <div *ngFor="let file of pdfFilesLuz " class="mb-2 p-2 bg-light border">
+                                    <div *ngIf="file.type === 'luz'" class="cursor-pointer" >
+                                        <div class="mesAnoPdf">
+                                            {{ file.month | titlecase }} {{file.year}}
+                                        </div>
+                                        <div class="iconosDiv">
+                                            <img class="icono" src="../../../assets/images/download.png" alt="download icon" (click)="openPdfViewer(file.content)">
+                                            <img class="icono" src="../../../assets/images/delete.png" alt="delete icon" (click)="deleteFile(file.id)">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 
+                          
                     <div class="tab-pane fade" id="gas-tab-pane" role="tabpanel" aria-labelledby="gas-tab" tabindex="1">
                         <div class="gasContainer">
-                            <div *ngFor="let file of pdfFiles " class="mb-2 p-2 bg-light border">
-                                <div *ngIf="file.type === 'gas'" class="cursor-pointer" (click)="openPdfViewer(file.content)">
-                                    {{ file.month }} {{file.year}}
-                                    <img style="height: 17px; width: auto;" src="../../../assets/images/download.png" alt="download icon" (click)="openPdfViewer(file.content)">
-                                    <img style="height: 17px; width: auto;" src="../../../assets/images/delete.png" alt="delete icon" (click)="deleteFile(file.id)" > 
+                            <div *ngIf="pdfFilesGas.length>0">
+                                <div *ngFor="let file of pdfFilesGas" class="mb-2 p-2 bg-light border">
+                                    <div *ngIf="file.type === 'gas'" class="cursor-pointer" (click)="openPdfViewer(file.content)">
+                                        <div class="mesAnoPdf">
+                                            {{ file.month | titlecase }} {{file.year}}
+                                        </div>
+                                        <div class="iconosDiv">
+                                            <img class="icono" src="../../../assets/images/download.png" alt="download icon" (click)="openPdfViewer(file.content)">
+                                            <img class="icono" src="../../../assets/images/delete.png" alt="delete icon" (click)="deleteFile(file.id)" > 
+                                        </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div> <!--row de la tabla-->
             
-            <div class="row mt-5 mx-2">
-              
-                <input class="form-file w-auto" type="file" id="customFile" (change)="onFileSelected($event)">
+            <div class="row rowUploadPdf">
+                <label for="customFile" class="falseButton">Seleccionar archivo</label>
+                <input class="form-file" type="file" id="customFile" (change)="onFileSelected($event)">
                 
-                <select class="form-select mt-3 w-auto" [(ngModel)]="selectedFileType">
-                    <option value="" disabled selected>Selecciona el tipo</option>
-                    <option value="gas">Gas</option>
-                    <option value="luz">Luz</option>
-                </select>
-            
-                <select class="form-select mt-3 w-auto" [(ngModel)]="selectedMonth">
-                    <option value="" disabled selected>Selecciona el mes</option>
-                    <option value="enero">Enero</option>
-                    <option value="febrero">Febrero</option>
-                    <option value="marzo">Marzo</option>
-                    <option value="abril">Abril</option>
-                    <option value="mayo">Mayo</option>
-                    <option value="junio">Junio</option>
-                    <option value="julio">Julio</option>
-                    <option value="agosto">Agosto</option>
-                    <option value="septiembre">Septiembre</option>
-                    <option value="octubre">Octubre</option>
-                    <option value="noviembre">Noviembre</option>
-                    <option value="diciembre">Diciembre</option>
-                </select>
-                            
-                <select class="form-select mt-3 w-auto"  [(ngModel)]="selectedYear">
-                    <option value="" disabled selected>Selecciona el año</option>
-                    <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-                </select>
-            
-                <button class="btn btn-primary mt-3 w-auto" (click)="onUpload(); loadPdfFiles('gas'); loadPdfFiles('luz')">Subir PDF</button>
-
-                <div *ngIf="showError" class="alert alert-danger mt-3">
-                    Por favor, completa todos los campos antes de subir el archivo.
+                <div>
+                    <select class="form-select mt-3 w-auto" [(ngModel)]="selectedFileType">
+                        <option value="" disabled selected>Selecciona el tipo</option>
+                        <option value="gas">Gas</option>
+                        <option value="luz">Luz</option>
+                    </select>
+                
+                    <select class="form-select mt-3 w-auto" [(ngModel)]="selectedMonth">
+                        <option value="" disabled selected>Selecciona el mes</option>
+                        <option value="enero">Enero</option>
+                        <option value="febrero">Febrero</option>
+                        <option value="marzo">Marzo</option>
+                        <option value="abril">Abril</option>
+                        <option value="mayo">Mayo</option>
+                        <option value="junio">Junio</option>
+                        <option value="julio">Julio</option>
+                        <option value="agosto">Agosto</option>
+                        <option value="septiembre">Septiembre</option>
+                        <option value="octubre">Octubre</option>
+                        <option value="noviembre">Noviembre</option>
+                        <option value="diciembre">Diciembre</option>
+                    </select>
+                                
+                    <select class="form-select mt-3 w-auto"  [(ngModel)]="selectedYear">
+                        <option value="" disabled selected>Selecciona el año</option>
+                        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                    </select>
+                
+                    <button class="btn btn-primary mt-3 w-auto" (click)="onUpload()">Subir PDF</button>
+    
+                    <div *ngIf="showError" class="alert alert-danger mt-3">
+                        Por favor, completa todos los campos antes de subir el archivo.
+                    </div>
+                    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                        {{errorMessage}}
+                    </div>
                 </div>
+               
             </div>   
         </div> <!--row de la subida de archivos-->
 

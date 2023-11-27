@@ -2,5 +2,62 @@
     width: 85%;
 }
 .colUpDownPdf{
-    width: 15%;
+    width: 15%;  
+}
+.luzContainer {
+    margin-top: 1.5em;
+}
+.gasContainer{
+    margin-top: 1.5em;
+}
+.icono{
+    height: 17px;
+    width: auto;
+    justify-content:right;
+    margin-left: 7px;
+    
+}
+.rowDownloadPdf{
+    margin-top: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+.rowUploadPdf{
+    margin-top: 1.6em;
+    margin-left: 1em;
+    margin-right: 1em;
+    border-top: 1px solid lightgray;
+}
+.pdfFilesBox{
+    width: 80%;
+    margin-top: 0.4em;
+}
+
+.cursor-pointer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-file{
+    margin-top: 2em;
+}
+
+
+#customFile{
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.falseButton{
+    cursor: pointer;
+    margin-top: 2em;
+    border: 1px solid lightgrey;
+    padding: 0.5em;
+    width: auto;
+    background-color: rgb(221, 218, 218);
+    border-radius: 0.3em;
+    margin-left: 0.8em;
+    font-weight: bold;
+   
 }
