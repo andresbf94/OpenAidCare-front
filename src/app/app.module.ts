@@ -18,8 +18,7 @@ import { CustomButtonComponent } from '../app/views/sensors/sensors.component';
 import { ConsumosHorasBombasComponent } from './views/calculadoraConsumos/consumos-horas-bombas.component';
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './components/loader/loader.component';
-import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
-import { ExamplePdfViewerComponent } from './example-pdf-viewer/example-pdf-viewer.component';
+import { FileUploaderComponent } from './components/pdf-viewer/file-uploader.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -42,8 +41,6 @@ const routes: Routes = [
     ConsumosHorasBombasComponent,
     LoaderComponent,
     FileUploaderComponent,
-    ExamplePdfViewerComponent,
-
   ],
 
   imports: [
@@ -56,7 +53,6 @@ const routes: Routes = [
     FormsModule,
     NgxExtendedPdfViewerModule,
     NgxPaginationModule
-
   ],
   
   exports: [RouterModule],

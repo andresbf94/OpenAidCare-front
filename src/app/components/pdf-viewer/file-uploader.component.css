@@ -61,3 +61,25 @@
     font-weight: bold;
    
 }
+.iconPdf{
+    width: 30px;
+    height: 25px;
+ }
+
+ .pdfSelected{
+    display: inline-flex;
+    margin-top: 0.5em;
+    margin-left: -7px;
+ }
+
+ .selectedFileName{
+    width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }
+ .iconFolder{
+    margin-bottom: 2px;
+    margin-right: 10px;
+    margin-left: 10px;
+ }
