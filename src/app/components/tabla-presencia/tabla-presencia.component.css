@@ -6,9 +6,16 @@
 }
 .card-header{
   background-color: rgba(86, 152, 218, 0.3);
+  font-size: 20px;
+  font-weight: 600;
 }
+
 :host ::ng-deep .ngx-pagination {
   padding-left: 0 !important;
   display: flex !important;
   justify-content: center !important;
+}
+.chPrin{
+  font-size: 24px;
+  font-weight: 600;
 }

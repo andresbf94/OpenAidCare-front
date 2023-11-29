@@ -6,4 +6,10 @@ img{
 }
 .card-header{
     background-color: rgba(86, 152, 218, 0.3);
+    font-size: 1.5em;
+    font-weight: 600;
   }
+
+.fW{
+    font-weight: 600;
+}

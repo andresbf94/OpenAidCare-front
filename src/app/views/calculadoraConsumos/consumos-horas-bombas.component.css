@@ -86,43 +86,42 @@
 .botonCalcular{
     width: 100px;
     margin-left: 13px;
-
 }
 
 .P6{
     color: black;
     border-radius: 0.5em;
-    background-color: rgb(180, 255, 255);
+    background-color: rgb(180, 255, 250);
 }
 
 .P5{
     color: black;
     border-radius: 0.5em;
-    background-color: rgb(140, 250, 255);
+    background-color: rgb(140, 250, 240);
 }
 
 .P4{
     color: black;
     border-radius: 0.5em;
-    background-color: rgb(110, 200, 255);
+    background-color: rgb(110, 200, 250);
 }
 
 .P3{
     color: black;
     border-radius: 0.5em;
-    background-color: rgb(60, 150, 255);
+    background-color: rgb(60, 150, 250);
 }
 
 .P2{
-    color: black;
+    color: white;
     border-radius: 0.5em;
-    background-color: rgb(50, 120, 255);  
+    background-color: rgb(50, 120, 200);  
 }
 
 .P1{
     color: white;
     border-radius: 0.5em;
-    background-color:rgb(0, 50, 255);    
+    background-color:rgb(0, 50, 100);    
 }
 
 .p{
