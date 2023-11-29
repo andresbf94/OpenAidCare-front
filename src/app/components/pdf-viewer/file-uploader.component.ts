@@ -13,8 +13,6 @@ export class FileUploaderComponent implements OnInit {
     selectedYear: any = '';
     uploadResponse: any;
     pdfFiles: any[] = [];
-    pdfFilesLuz: any[] = [];
-    pdfFilesGas: any[] = [];
     pdfViewerSrc: any;
     years: any;
     showError: boolean = false;
@@ -22,21 +20,21 @@ export class FileUploaderComponent implements OnInit {
     luzActiva: boolean = true;
     gasActiva: boolean = false;
 
-    uniqueLuzYears:any;
-    uniqueGasYears:any;
-    selectedLuzYear:any;
-    selectedGasYear:any;
-
-    filtredPdfLuz:any[] = [];
-    filtredPdfGas:any[] = [];
+    selectedYearToGet:any;
+    uniqueYears:any;
+    selectedType= 'luz';
+    currentYear = new Date().getFullYear();
     
     constructor(private pdfFilesService: PdfFilesService) {}
 
     ngOnInit(): void {
         this.load5Years();
-        this.loadPdfFiles('luz');
+        this.getUniqueYears();
+        this.loadFiles('luz', this.currentYear);
 
-        console.log('files', this.pdfFilesLuz);
+      
+        console.log('years', this.uniqueYears);
+        console.log('files', this.pdfFiles);
     }
 
     onFileSelected(event: any): void {
@@ -70,8 +68,12 @@ export class FileUploaderComponent implements OnInit {
           this.uploadResponse = response;
           console.log(response);
           this.errorMessage = '';
-          this.loadPdfFiles('gas');
-          this.loadPdfFiles('luz');
+          if(this.luzActiva){
+            this.loadFiles('luz', this.selectedYear);
+          } else {
+            this.loadFiles('gas', this.selectedYear);
+          }
+          this.getUniqueYears()
         },
         (error: any) => {
           this.errorMessage = error.error?.mensaje || 'Error desconocido.';
@@ -79,28 +81,7 @@ export class FileUploaderComponent implements OnInit {
       );
     }
     // Carga todos los archivos de luz o gas en las variables pdfFilesLuz y pdfFilesGas
-    loadPdfFiles(type: string): void {
-      this.pdfFilesService.getPdfByType(type).subscribe(
-        
-        (response: any) => {
-            if (type === 'luz') {
-                this.pdfFilesLuz = response.files;
-            } else if (type === 'gas') {
-                this.pdfFilesGas = response.files;
-            }
-            this.getYearsPdfs();
-            console.log(`Archivos PDF cargados para ${type}:`, response.files);
-            console.log('pdfFilesLuz:', this.pdfFilesLuz); // Agregado para depuración
-            
-        },
-        (error: any) => {
-            this.pdfFilesLuz = [];
-            this.pdfFilesGas = [];
-            console.error(`Error al cargar archivos PDF para ${type}:`, error);
-        }
-      );
-    }
-  
+    
     openPdfViewer(base64Src: string): void {
         this.pdfViewerSrc = base64Src;
     }
@@ -111,17 +92,21 @@ export class FileUploaderComponent implements OnInit {
         // Esto generará un array con el año actual y los últimos 5 años
     }
 
-    deleteFile(fileId: string): void {
-        this.pdfFilesService.deleteFile(fileId).subscribe(
-          (response: any) => {
-            this.loadPdfFiles('gas');
-            this.loadPdfFiles('luz');
-            console.log('Respuesta del servidor:', response);
-          },
-          (error: any) => {
-            console.error('Error al eliminar el archivo:', error);
+    deleteFile(fileId: string, type: string): void {
+      this.pdfFilesService.deleteFile(fileId).subscribe(
+        (response: any) => {
+          if (type === 'luz'){
+            this.loadFiles(type, 2023);
+          } else {
+            this.loadFiles(type, 2023);
           }
-        );
+          this.getUniqueYears();
+          console.log('Respuesta del servidor:', response);
+        },
+        (error: any) => {
+          console.error('Error al eliminar el archivo:', error);
+        }
+      );
     }
 
     luzGasActivation(){
@@ -132,38 +117,37 @@ export class FileUploaderComponent implements OnInit {
         this.luzActiva = true;
         this.gasActiva = false;
       }
+      this.changeType();
     }
-   
-    getYearsPdfs(): void {
-      this.uniqueGasYears = this.getUniqueYears(this.pdfFilesGas);
-      this.uniqueLuzYears = this.getUniqueYears(this.pdfFilesLuz);
-    
-      console.log('Años únicos para Gas:', this.uniqueGasYears);
-      console.log('Años únicos para Luz:', this.uniqueLuzYears);
-    
-      // Puedes almacenar estos arrays en propiedades del componente
-      // y luego usarlos en tu plantilla para construir los desplegables.
-    }
-    
-    // Función para obtener años únicos de un conjunto de archivos
-    getUniqueYears(files: any[]): number[] {
-      const uniqueYears: number[] = [];
-      files.forEach(file => {
-        if (file.year && !uniqueYears.includes(file.year)) {
-          uniqueYears.push(file.year);
+
+    getUniqueYears(): void {
+      this.pdfFilesService.getUniqueYears(this.selectedType).subscribe(
+        (response: number[]) => {
+          this.uniqueYears = response;
+          console.log('Años únicos:', this.uniqueYears);
+        },
+        (error: any) => {
+          console.error(`Error al obtener años únicos para el tipo ${this.selectedFileType}:`, error);
         }
-      });
-      return uniqueYears;
+      );
     }
-    
-    filtrarPdf(): void {
-      const pdfsLuz = this.pdfFilesLuz.filter((element) => element.year === this.selectedLuzYear);
-      const pdfGas = this.pdfFilesGas.filter((element) => element.year === this.selectedGasYear);
-    
-      this.filtredPdfLuz = pdfsLuz;
-      this.filtredPdfGas = pdfGas;
-    
-      console.log('filtredPdfLuz', this.filtredPdfLuz);
-      console.log('filtredPdfGas', this.filtredPdfGas);
+
+    loadFiles(type:string, year:number): void {
+      this.pdfFilesService.getPdfByTypeAndYear(type, year).subscribe(
+        (response: any) => {
+          this.pdfFiles = response.files;
+          console.log('Archivos cargados:', this.pdfFiles);
+        },
+        (error: any) => {
+          console.error('Error al cargar archivos:', error);
+        }
+      );  
+    }
+
+    changeType(){
+      if(this.luzActiva){
+        this.selectedType = 'luz';
+      }
+      else {this.selectedType = 'gas'}
     }
 }

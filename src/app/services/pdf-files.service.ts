@@ -28,8 +28,19 @@ export class PdfFilesService {
     return this.http.get(url, { responseType: 'json' });
   }
 
+  getUniqueYears(type: string): Observable<number[]> {
+    const url = `${this.baseUrl}/uniqueYears/${type}`;
+    return this.http.get<number[]>(url);
+  }
+
   deleteFile(fileId: string): Observable<any>{
     const url = `${this.baseUrl}/deleteFile/${fileId}`;
     return this.http.delete(url);
   }
+
+  getPdfByTypeAndYear(type: string, year: number): Observable<any[]> {
+    const url = `${this.baseUrl}/getPdfByType/${type}/${year}`;
+    return this.http.get<any[]>(url);
+  }
+
 }

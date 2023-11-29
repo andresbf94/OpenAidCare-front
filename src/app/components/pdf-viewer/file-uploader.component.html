@@ -5,10 +5,10 @@
             <div class="row rowDownloadPdf">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="luz-tab" data-bs-toggle="tab" data-bs-target="#luz-tab-pane" type="button" role="tab" aria-controls="luz-tab-pane" aria-selected="false" (click)="loadPdfFiles('luz'); luzGasActivation() ">Luz</button>
+                    <button class="nav-link active" id="luz-tab" data-bs-toggle="tab" data-bs-target="#luz-tab-pane" type="button" role="tab" aria-controls="luz-tab-pane" aria-selected="false" (click)="loadFiles('luz', currentYear); luzGasActivation(); getUniqueYears()">Luz</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="gas-tab" data-bs-toggle="tab" data-bs-target="#gas-tab-pane" type="button" role="tab" aria-controls="gas-tab-pane" aria-selected="true" (click)="loadPdfFiles('gas'); luzGasActivation() ">Gas</button>
+                    <button class="nav-link" id="gas-tab" data-bs-toggle="tab" data-bs-target="#gas-tab-pane" type="button" role="tab" aria-controls="gas-tab-pane" aria-selected="true" (click)="loadFiles('gas', currentYear); luzGasActivation(); getUniqueYears()">Gas</button>
                     </li>
                 </ul>
 
@@ -16,21 +16,22 @@
 
                     <div class="tab-pane fade show active" id="luz-tab-pane" role="tabpanel" aria-labelledby="luz-tab" tabindex="0">
                         <div class="luzContainer">
-                            <div *ngIf="pdfFilesLuz.length>0">
-                                <select class="form-select mb-3 w-auto" [(ngModel)]="selectedLuzYear" (change)="filtrarPdf()">
-                                    <option value="" disabled selected>Selecciona el año</option>
-                                    <option *ngFor="let year of uniqueLuzYears" [value]="year">{{ year }}</option>
-                                  </select>
-                                  
-
-                                <div *ngFor="let file of filtredPdfLuz " class="mb-2 p-2 bg-light border">
+                            <div *ngIf="pdfFiles.length>0">
+                                <div class="d-flex align-items-center">
+                                    <label class="me-2">Año:</label>
+                                    <select class="form-select mt-3 mb-3" [(ngModel)]="selectedYearToGet" (change)="loadFiles('luz', selectedYearToGet)">
+                                      <option value="" disabled selected>Selecciona el año</option>
+                                      <option *ngFor="let year of uniqueYears" [value]="year">{{ year }}</option>
+                                    </select>
+                                </div>
+                                <div *ngFor="let file of pdfFiles " class="mb-2 p-2 bg-light border">
                                     <div *ngIf="file.type === 'luz'" class="cursor-pointer" >
-                                        <div class="mesAnoPdf">
-                                            {{ file.month | titlecase }} {{file.year}}
+                                        <div class="mesAnoPdf mx-2">
+                                            {{ file.month | titlecase }} 
                                         </div>
                                         <div class="iconosDiv">
                                             <img class="icono" src="../../../assets/images/download.png" alt="download icon" (click)="openPdfViewer(file.content)">
-                                            <img class="icono" src="../../../assets/images/delete.png" alt="delete icon" (click)="deleteFile(file.id)">
+                                            <img class="icono" src="../../../assets/images/delete.png" alt="delete icon" (click)="deleteFile(file.id, file.type)">
                                         </div>
                                     </div>
                                 </div>
@@ -42,21 +43,22 @@
          
                     <div class="tab-pane fade" id="gas-tab-pane" role="tabpanel" aria-labelledby="gas-tab" tabindex="1">
                         <div class="gasContainer">
-                            <div *ngIf="pdfFilesGas.length>0">
-
-                                <select class="form-select mt-3 w-auto" [(ngModel)]="selectedGasYear" (change)="filtrarPdf()">
-                                    <option value="" disabled selected>Selecciona el año</option>
-                                    <option *ngFor="let year of uniqueGasYears" [value]="year">{{ year }}</option>
-                                  </select>
-
-                                <div *ngFor="let file of filtredPdfGas" class="mb-2 p-2 bg-light border">
+                            <div *ngIf="pdfFiles.length>0">
+                                <div class="d-flex align-items-center">
+                                    <label class="me-2">Año:</label>
+                                    <select class="form-select mt-3 mb-3 w-auto" [(ngModel)]="selectedYearToGet" (change)="loadFiles('gas', selectedYearToGet)">
+                                        <option value="" disabled selected>Selecciona el año</option>
+                                        <option *ngFor="let year of uniqueYears" [value]="year">{{ year }}</option>
+                                    </select>
+                                </div>
+                                <div *ngFor="let file of pdfFiles" class="mb-2 p-2 bg-light border">
                                     <div *ngIf="file.type === 'gas'" class="cursor-pointer" (click)="openPdfViewer(file.content)">
                                         <div class="mesAnoPdf">
-                                            {{ file.month | titlecase }} {{file.year}}
+                                            {{ file.month | titlecase }}
                                         </div>
                                         <div class="iconosDiv">
                                             <img class="icono" src="../../../assets/images/download.png" alt="download icon" (click)="openPdfViewer(file.content)">
-                                            <img class="icono" src="../../../assets/images/delete.png" alt="delete icon" (click)="deleteFile(file.id)" > 
+                                            <img class="icono" src="../../../assets/images/delete.png" alt="delete icon" (click)="deleteFile(file.id, file.type)" > 
                                         </div> 
                                     </div>
                                 </div>
@@ -101,7 +103,7 @@
                         <option *ngFor="let year of years" [value]="year">{{ year }}</option>
                     </select>
                 
-                    <button class="btn btn-primary mt-3 w-auto" (click)="onUpload()">Subir PDF</button>
+                    <button class="btn btn-primary mt-3 w-auto" (click)="onUpload();">Subir PDF</button>
     
                     <div *ngIf="showError" class="alert alert-danger mt-3">
                         Por favor, completa todos los campos antes de subir el archivo.
