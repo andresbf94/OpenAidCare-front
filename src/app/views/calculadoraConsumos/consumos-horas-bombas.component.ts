@@ -7,16 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConsumosHorasBombasComponent {
   // Constantes
-  numBombasPequenas:number = 2;
-  numBombasGrandes:number = 1;
-  consumoPequenaKWh:number = 2.5;
-  consumoGrandeKWh:number = 5;
+  numBombas:number = 0;
+  consumoKWh:number = 0;
   
   // Variables
   consumosCostos:any = [];
   consumosCostosTotales:any = [];
   horasSeleccionadas: any = [];
   horasCostos:any= [];
+  seleccionActual:any;
 
   // Coste kwh por tramo (Actualizado 9-11-2023)
   p1 = 0.186825;
@@ -166,64 +165,38 @@ export class ConsumosHorasBombasComponent {
   sumarConsumosCostos(consumosCostos: any[]) {
     this.consumosCostosTotales = [];
     // Inicializamos las variables de suma
-    let sumaConsumoEstimadoPequenas = 0;
-    let sumaConsumoEstimadoGrandes = 0;
-    let sumaConsumoEstimadoTotal = 0;
-    let sumaCosteEstimadoPequenas = 0;
-    let sumaCosteEstimadoGrandes = 0;
-    let sumaCosteEstimadoTotal = 0;
-
+    let sumaConsumoEstimadoBombas = 0;
+    let sumaCosteEstimadoBombas = 0;
+  
     // Iteramos sobre los consumos y costos y sumamos los valores
     for (const consumo of consumosCostos) {
-      sumaConsumoEstimadoPequenas += consumo.consumoEstimadoPequenas;
-      sumaConsumoEstimadoGrandes += consumo.consumoEstimadoGrandes;
-      sumaConsumoEstimadoTotal += consumo.consumoEstimadoTotal;
-      sumaCosteEstimadoPequenas += consumo.costeEstimadoPequenas;
-      sumaCosteEstimadoGrandes += consumo.costeEstimadoGrandes;
-      sumaCosteEstimadoTotal += consumo.costeEstimadoTotal;
+      sumaConsumoEstimadoBombas += consumo.consumoEstimadoBombas;
+      sumaCosteEstimadoBombas += consumo.costeEstimadoBombas;
     }
+  
     this.consumosCostosTotales.push({
-      sumaConsumoEstimadoPequenas: sumaConsumoEstimadoPequenas,
-      sumaConsumoEstimadoGrandes: sumaConsumoEstimadoGrandes,
-      sumaConsumoEstimadoTotal: sumaConsumoEstimadoTotal,
-      sumaCosteEstimadoPequenas: sumaCosteEstimadoPequenas,
-      sumaCosteEstimadoGrandes: sumaCosteEstimadoPequenas,
-      sumaCosteEstimadoTotal: sumaCosteEstimadoTotal,
-    })
-    console.log('consumoscostosTotales', this.consumosCostosTotales);
-   
+      sumaConsumoEstimadoBombas: sumaConsumoEstimadoBombas,
+      sumaCosteEstimadoBombas: sumaCosteEstimadoBombas
+    });
   }
-
+  
   recalcularConsumosCostos() {
     this.consumosCostos = [];
-
+  
     for (let i = 0; i < this.horasCostos.length; i++) {
       const hora = this.horasCostos[i].hora;
       const costoHora = this.horasCostos[i].tramo;
-
-      const consumoPequenas = this.consumoPequenaKWh * this.numBombasPequenas;
-      const consumoGrandes = this.consumoGrandeKWh * this.numBombasGrandes;
-      const consumoTotal = consumoPequenas + consumoGrandes;
-
-      const costoPequenas = consumoPequenas * costoHora;
-      const costoGrandes = consumoGrandes * costoHora;
-      const costoTotal = costoPequenas + costoGrandes;
-
+  
+      const consumoBombas = this.consumoKWh * this.numBombas;
+      const costoBombas = consumoBombas * costoHora;
+  
       this.consumosCostos.push({
         hora: hora,
-        numBombasPequenas: this.numBombasPequenas,
-        numBombasGrandes: this.numBombasGrandes,
-        consumoEstimadoPequenas: consumoPequenas,
-        consumoEstimadoGrandes: consumoGrandes,
-        consumoEstimadoTotal: consumoTotal,
-        costeEstimadoPequenas: costoPequenas,
-        costeEstimadoGrandes: costoGrandes,
-        costeEstimadoTotal: costoTotal
+        numBombas: this.numBombas,
+        consumoEstimadoBombas: consumoBombas,
+        costeEstimadoBombas: costoBombas
       });
-    }
-    
-    console.log('consumoscostos', this.consumosCostos);
-
+    } 
     // Llamada a la función para obtener la suma de consumos y costos
     const resultadosSuma = this.sumarConsumosCostos(this.consumosCostos);
   }
@@ -241,21 +214,14 @@ export class ConsumosHorasBombasComponent {
   onButtonChange(hora: string): void {
   const index = this.horasSeleccionadas.findIndex((element: { hora: string; }) => element.hora === hora);
 
-  if (index !== -1) {
-    // Si la hora ya está en el array, quítala
-    this.horasSeleccionadas.splice(index, 1);
-  } else {
-    // Si la hora no está en el array, agrégala con su tramo
-    const tramo = this.obtenerTramoPorHora(hora);
-    this.horasSeleccionadas.push({ hora, tramo });
-  }
-
-  console.log('Horas seleccionadas:', this.horasSeleccionadas);
-
-  // Mueve la llamada a filtrarHorasTramos('seleccionadas') aquí
-  // para asegurarte de que las horas seleccionadas se actualizan
-  this.filtrarHorasTramos('seleccionadas');
-  this.recalcularConsumosCostos();
+    if (index !== -1) {
+      // Si la hora ya está en el array, quítala
+      this.horasSeleccionadas.splice(index, 1);
+    } else {
+      // Si la hora no está en el array, agrégala con su tramo
+      const tramo = this.obtenerTramoPorHora(hora);
+      this.horasSeleccionadas.push({ hora, tramo });
+    }
   }
   
   obtenerTramoPorHora(hora: string): number {
@@ -320,20 +286,34 @@ export class ConsumosHorasBombasComponent {
   }
 
   // Funcion para cambiar que boton esta seleccionado
-  seleccionarBoton(boton:any){
-    
-  // Deselecciona todos los botones
-  Object.keys(this.estadosBotones).forEach(key => {
-    this.estadosBotones[key] = false;
-  });
-
-  // Selecciona el botón clicado
-  this.estadosBotones[boton] = true;
-
-  // Llama a las funciones que necesitas al cambiar de estado
-  this.filtrarHorasTramos(boton);
-  this.recalcularConsumosCostos();
- 
+  seleccionarBoton(boton: any) {
+    // Deselecciona todos los botones
+    Object.keys(this.estadosBotones).forEach(key => {
+      this.estadosBotones[key] = false;
+    });
+  
+    // Selecciona el botón clicado
+    this.estadosBotones[boton] = true;
+  
+    // Registra la selección actual
+    this.seleccionActual = boton;
+  
+    // No llames a las funciones aquí
+  }
+  
+  calcularRegistros() {
+    // Pasa la selección actual como argumento
+    this.filtrarHorasTramos(this.seleccionActual);
+    this.recalcularConsumosCostos();
+  }
+  
+  obtenerDiasEnMesActual() {
+    const fechaActual = new Date();
+    const añoActual = fechaActual.getFullYear();
+    const mesActual = fechaActual.getMonth() + 1; // Los meses comienzan desde 0 (enero) hasta 11 (diciembre)
+    const ultimoDiaMes = new Date(añoActual, mesActual, 0).getDate();
+  
+    return ultimoDiaMes;
   }
   
 }

@@ -3,20 +3,20 @@
     <div class="col-xl-5">
       
       <div class="row marginRows rowCards">
-        <label class="titulo">Precio del Kw/h</label>
+        <label class="titulo">Precios por tramo €/kWh</label>
         <div class="row text-center" style="margin-bottom: 2em;">
 
           <div class="col-4">
-            <div class="P1 p">P1: {{ p1 }} €</div>
-            <div class="P2">P2: {{ p2 }} €</div>
+            <div class="P1 p p-1">P1: {{ p1 }} €</div>
+            <div class="P2 p-1">P2: {{ p2 }} €</div>
           </div>
           <div class="col-4">
-            <div class="P3 p">P3: {{ p3 }} €</div>
-            <div class="P4">P4: {{ p4 }} €</div>
+            <div class="P3 p p-1">P3: {{ p3 }} €</div>
+            <div class="P4 p-1">P4: {{ p4 }} €</div>
           </div>   
           <div class="col-4">  
-            <div class="P5 p">P5: {{ p5 }} €</div>
-            <div class="P6">P6: {{ p6 }} €</div>
+            <div class="P5 p p-1">P5: {{ p5 }} €</div>
+            <div class="P6 p-1">P6: {{ p6 }} €</div>
           </div>
          
         </div>
@@ -25,8 +25,8 @@
       <div class="row marginRows rowCards">
         <label class="titulo">{{ obtenerMesActualNombre() }}</label>
         <div class="row text-center" style="margin-bottom: 2em;">
-          <div class="col-4" *ngFor="let tramo of tramosMeses[obtenerMesActualNumero()]">
-            <div [class]="obtenerClasePorTramo(tramo)">
+          <div class="col-4 " *ngFor="let tramo of tramosMeses[obtenerMesActualNumero()]">
+            <div class="p-1" [class]="obtenerClasePorTramo(tramo)">
               {{ obtenerClasePorTramo(tramo) }}: {{ tramo }}
             </div>
           </div>
@@ -35,15 +35,17 @@
       
 
       <div class="row marginRows">
-        <label class="titulo">Seleccionar el numero de bombas</label>
+        <label class="titulo">Seleccionar el número de bombas</label>
         <div>
-          <label for="numBombasPequenas"><b>Pequeñas 2.5kW</b></label>
-          <input class="inputBombas" type="number" id="numBombasPequenas" name="numBombasPequenas" [(ngModel)]="numBombasPequenas">
+          <label for="numBombas"><b>Número de bombas: </b></label>
+          <input class="inputBombas" type="number" id="numBombas" name="numBombas" [(ngModel)]="numBombas">      
         </div>
         <div style="margin-bottom: 2em;">
-          <label  for="numBombasGrandes"><b>Grandes 5kW</b></label>
-          <input class="inputBombas" type="number" id="numBombasGrandes" name="numBombasGrandes" [(ngModel)]="numBombasGrandes">
+          <label for="potencia"><b>Potencia: </b></label>
+          <input class="inputBombas" type="number" id="numBombas" name="potencia" [(ngModel)]=" consumoKWh">
+        
         </div>
+        
       </div>
 
       <div class="row"> 
@@ -70,6 +72,7 @@
             </div>
           </div>
         </form>
+        <button  class="btn btn-primary text-center botonCalcular" (click)="calcularRegistros()">Calcular</button>
       </div>
  
      
@@ -82,34 +85,30 @@
             <thead>
               <tr>
                 <th>Hora</th>
-                <th>Consumo Pequeñas</th>
-                <th>Consumo Grandes</th>
-                <th>Consumo Total</th>
-                <th>Costo Pequeñas</th>
-                <th>Costo Grandes</th>
-                <th>Costo Total</th>
+                <th>Consumo Diario</th>               
+                <th>Costo Diario</th>
+                <th>Consumo Mensual</th>
+                <th>Costo Mensual</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let consumo of consumosCostos" [ngClass]="obtenerClasePorTramo(obtenerTramoPorHora(consumo.hora))">
                 <td>{{ consumo.hora }}</td> 
-                <td>{{ consumo.consumoEstimadoPequenas | number: '1.2-2' }} kW</td>
-                <td>{{ consumo.consumoEstimadoGrandes | number: '1.2-2' }} kW</td>
-                <td>{{ consumo.consumoEstimadoTotal | number: '1.2-2' }} kW</td>
-                <td>{{ consumo.costeEstimadoPequenas | number: '1.2-2' }} €</td>
-                <td>{{ consumo.costeEstimadoGrandes | number: '1.2-2' }} €</td>
-                <td>{{ consumo.costeEstimadoTotal | number: '1.2-2' }} €</td>
+                <td>{{ consumo.consumoEstimadoBombas | number: '1.2-2' }} kW</td>
+                <td>{{ consumo.costeEstimadoBombas | number: '1.2-2' }} €</td>
+                <td>{{ consumo.consumoEstimadoBombas * obtenerDiasEnMesActual() | number: '1.2-2' }} kW</td>
+                <td>{{ consumo.costeEstimadoBombas * obtenerDiasEnMesActual() | number: '1.2-2' }} €</td>
               </tr>
               <!-- Fila de totales -->
               <tr class="totalesRow">
                 <th>Total</th>
-                <td>{{ consumosCostosTotales[0]?.sumaConsumoEstimadoPequenas | number: '1.2-2'}} kW</td>
-                <td>{{ consumosCostosTotales[0]?.sumaConsumoEstimadoGrandes | number: '1.2-2' }} kW</td>
-                <td>{{ consumosCostosTotales[0]?.sumaConsumoEstimadoTotal  | number: '1.2-2'  }} kW</td>
-                <td>{{ consumosCostosTotales[0]?.sumaCosteEstimadoPequenas  | number: '1.2-2' }} €</td>
-                <td>{{ consumosCostosTotales[0]?.sumaCosteEstimadoGrandes  | number: '1.2-2'  }} €</td>
-                <td>{{ consumosCostosTotales[0]?.sumaCosteEstimadoTotal  | number: '1.2-2'  }} €</td>
+                <td>{{ consumosCostosTotales[0]?.sumaConsumoEstimadoBombas | number: '1.2-2'}} kW</td>
+                <td>{{ consumosCostosTotales[0]?.sumaCosteEstimadoBombas | number: '1.2-2' }} €</td>
+                <td>{{ consumosCostosTotales[0]?.sumaConsumoEstimadoBombas * obtenerDiasEnMesActual() | number: '1.2-2'}} kW</td>
+                <td>{{ consumosCostosTotales[0]?.sumaCosteEstimadoBombas * obtenerDiasEnMesActual() | number: '1.2-2' }} €</td>
+
               </tr>
+              
             </tbody>
           </table>
         </ng-container>
@@ -118,22 +117,19 @@
             <thead>
               <tr>
                 <th>Hora</th>
-                <th>Consumo Pequeñas</th>
-                <th>Consumo Grandes</th>
-                <th>Consumo Total</th>
-                <th>Costo Pequeñas</th>
-                <th>Costo Grandes</th>
-                <th>Costo Total</th>
+                <th>Consumo Diario</th>               
+                <th>Costo Diario</th>
+                <th>Consumo Mensual</th>
+                <th>Costo Mensual</th>
               </tr>
             </thead>
           </table>
           <div class="text-center mt-5" >
-            <img src="../../../assets/images/editar.png" style="width: 300px; height: auto;">
-          </div>
-           
-              <p class="text-center mt-5">La tabla estará disponible una vez que hayas seleccionado los datos a mostrar.</p>
-                     
+            <img src="../../../assets/images/undraw_undraw_selectoption_y9cm_mx7w (1).svg" style="width: 300px; height: auto;">
+          </div>      
+              <p class="text-center mt-5">La tabla estará disponible una vez que hayas seleccionado los datos a mostrar.</p>    
         </ng-template>
+        
       </div>
     </div> <!-- cierre col-7 -->
   </div> <!--cierro row contenido-->
