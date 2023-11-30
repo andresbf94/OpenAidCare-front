@@ -22,10 +22,6 @@ import { FileUploaderComponent } from './components/pdf-viewer/file-uploader.com
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-const routes: Routes = [
-  
-];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +45,6 @@ const routes: Routes = [
     AppRoutingModule,
     NgbModule,
     Angular2SmartTableModule,
-    RouterModule.forRoot(routes),
     FormsModule,
     NgxExtendedPdfViewerModule,
     NgxPaginationModule

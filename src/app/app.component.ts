@@ -5,7 +5,7 @@ import { SensorsComponent } from './views/sensors/sensors.component';
 import { NavService } from './services/nav-service.service';
 import { Subscription } from 'rxjs';
 
-export const serverRoute = 'https://openaidcare-api.herokuapp.com/';
+export const serverRoute = 'https://desarrollo.i4life.es/openaidcare/dev/';
 
 @Component({
   selector: 'app-root',

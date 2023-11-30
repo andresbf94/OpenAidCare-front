@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { serverRoute } from '../app.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PdfFilesService {
 
-  baseUrl = 'http://localhost:3000';
+  baseUrl = serverRoute;
 
   constructor(private http: HttpClient) {}
 
